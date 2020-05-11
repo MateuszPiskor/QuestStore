@@ -1,0 +1,26 @@
+.login-form
+    +resetDefaultMarginPadding()
+    height: 50vh
+    width: 60vh
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    border: 1px solid #999999
+    padding: 20px
+    box-shadow: $shadow
+    +flexVertical()
+    button
+        +btn1()
+        font-family: $main-font
+    input
+        +inp1()
+        margin-bottom: 5vh
+    .form-title
+        margin-bottom: 2.5vh
+    .line-in-form
+        border-top: 1px solid $inner-line-color
+        margin-bottom: 2.5vh
+    #forgot-password
+        margin-bottom: 1vh
+

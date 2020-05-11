@@ -1,0 +1,54 @@
+/*======================
+     Mixins Mateusz
+ @mixin =====================*/
+/*==========================
+     Mixins Mateusz - to use
+ @mixin ========================*/
+.login-form {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 50vh;
+  width: 60vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #999999;
+  padding: 20px;
+  box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form button {
+  width: 100px;
+  height: 40px;
+  background-color: #66bbff;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.login-form input {
+  width: 70%;
+  border: 1px solid rgba(104, 104, 104, 0.8);
+  padding: 5px;
+  margin-bottom: 5vh;
+}
+
+.login-form .form-title {
+  margin-bottom: 2.5vh;
+}
+
+.login-form .line-in-form {
+  border-top: 1px solid #ddeeff;
+  margin-bottom: 2.5vh;
+}
+
+.login-form #forgot-password {
+  margin-bottom: 1vh;
+}
+/*# sourceMappingURL=style.css.map */
