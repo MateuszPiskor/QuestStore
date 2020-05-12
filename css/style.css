@@ -1,8 +1,28 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 2vh;
+}
+
 /*======================
-     Mixins Mateusz
+ Mixins Mateusz
  @mixin =====================*/
+/*=====================
+ Legend
+ 1. Display
+ 2. Buttons and inputs
+ @mixin =================*/
 /*==========================
-     Mixins Mateusz - to use
+ Variables Mateusz - to use
  @mixin ========================*/
 .login-form {
   margin: 0;
@@ -18,7 +38,6 @@
   padding: 20px;
   box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
   display: flex;
-  flex-direction: column;
 }
 
 .login-form button {
@@ -32,10 +51,16 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
+.login-form button:hover {
+  background-color: #4CB1F7;
+}
+
 .login-form input {
   width: 70%;
+  box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
   border: 1px solid rgba(104, 104, 104, 0.8);
   padding: 5px;
+  height: 15px;
   margin-bottom: 5vh;
 }
 
@@ -50,5 +75,176 @@
 
 .login-form #forgot-password {
   margin-bottom: 1vh;
+  opacity: 0.7;
+}
+
+header {
+  height: 15vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "logo user-services";
+  margin-bottom: 2.5;
+}
+
+header .logo img {
+  grid-area: logo;
+  max-width: 50%;
+}
+
+header .user-services {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: ". profile log-out" ". search search";
+}
+
+header .user-services .search-bar {
+  grid-area: search;
+  height: 5vh;
+  display: grid;
+  grid-template-areas: "bar scope";
+}
+
+header .user-services .search-bar .search {
+  grid-area: bar;
+}
+
+header .user-services .search-bar .scope {
+  grid-name: scope;
+}
+
+header .user-services .search-bar .scope:hover {
+  background-color: #66bbff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+header .user-services .profile {
+  grid-area: profile;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+header .user-services .logout {
+  grid-area: log-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav .nav-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: ". mentors students classes .";
+  text-transform: uppercase;
+  margin-bottom: 2.5vh;
+  border: 1px solid black;
+}
+
+nav .nav-list #mentors {
+  grid-area: mentors;
+  text-align: center;
+  height: 5vh;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+nav .nav-list #mentors:hover {
+  background-color: #66bbff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+nav .nav-list #students {
+  grid-area: students;
+  height: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+nav .nav-list #students:hover {
+  background-color: #66bbff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+nav .nav-list #classes {
+  grid-area: classes;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+nav .nav-list #classes:hover {
+  background-color: #66bbff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+main {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 20% 80%;
+  grid-template-areas: "options results";
+}
+
+main .options {
+  grid-area: options;
+  height: 70vh;
+  border-right: 1px solid black;
+}
+
+main .options .options-list {
+  list-style: none;
+  margin: 0;
+}
+
+main .options .options-list li {
+  height: 5vh;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+main .options .options-list li:hover {
+  background-color: #66bbff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+main .results {
+  grid-area: results;
 }
 /*# sourceMappingURL=style.css.map */

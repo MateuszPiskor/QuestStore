@@ -1,10 +1,31 @@
-/*======================
-     Mixins Mateusz
+ /*======================
+ Mixins Mateusz
  ======================*/
+
+ /*=====================
+ Legend
+ 1. Display 
+ 2. Buttons and inputs
+ ==================*/
+
+// 1. Display
 
 =flexVertical()
     display: flex
+    
+=flexVerticalCenter($justify, $align)
+    display: flex
     flex-direction: column
+    justify-content: $justify
+    text-align: $align
+
+=resetDefaultMarginPadding()
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+
+// 2. Buttons and inputs
 
 =btn1()
     width: 100px
@@ -15,12 +36,15 @@
     border-radius: 10px
     text-transform: uppercase
 
-=resetDefaultMarginPadding()
-    margin: 0
-    padding: 0
-    box-sizing: border-box
+=buttonHoverEffect($bgcColor,$radius,$textColor)
+    background-color: $bgcColor
+    border-radius: $radius
+    color: $textColor
+    cursor: pointer
 
-=inp1
-    width: 70%
+=inp1($width)
+    width: $width
+    box-shadow: $shadow
     border: 1px solid $border-color
     padding: 5px
+    height: 15px
