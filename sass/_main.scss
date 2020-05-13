@@ -3,6 +3,7 @@ main {
     grid-gap: $bigGridGap;
     grid-template-columns: 20% 80%;
     grid-template-areas: "options results";
+    margin-bottom: $margin-between-elements;
     .options {
         grid-area: options;
         height: 70vh; //to change

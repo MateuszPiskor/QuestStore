@@ -194,6 +194,7 @@ main {
   grid-gap: 20px;
   grid-template-columns: 20% 80%;
   grid-template-areas: "options results";
+  margin-bottom: 2.5vh;
 }
 
 main .options {
@@ -228,24 +229,46 @@ main .results {
 }
 
 footer {
-  background-color: #181818;
   height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  color: white;
 }
 
 footer .media {
-  margin-bottom: 2.5vh;
+  margin-bottom: 5vh;
+  font-size: 24px;
+  display: grid;
+  grid-template-columns: 30% 1fr 1fr 1fr 1fr 30%;
+  grid-template-areas: ". facebook twitter youtube instagram .";
+}
+
+footer .media a.facebook {
+  grid-area: facebook;
+  color: #3b5999;
+}
+
+footer .media a.twitter {
+  grid-area: twitter;
+  color: #55acee;
+}
+
+footer .media .youtube {
+  grid-area: youtube;
+  color: #cd201f;
+}
+
+footer .media .instagram {
+  grid-area: instagram;
+  color: #e4405f;
 }
 
 footer .additional-stuff {
   display: grid;
   opacity: 0.5;
-  grid-template-columns: 20% repeat(4, 1fr) 20%;
-  grid-template-areas: ". terms contact rodo subscribtion .";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "terms contact rodo subscribtion";
 }
 
 footer .additional-stuff #terms {
