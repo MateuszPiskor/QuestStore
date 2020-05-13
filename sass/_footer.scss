@@ -1,0 +1,27 @@
+footer {
+    background-color: #181818;
+    height: 15vh;
+    @include flexVerticalCenter(center, center);
+    color: white;
+    .media {
+        margin-bottom: 2.5vh;
+    }
+    .additional-stuff {
+        display: grid;
+        opacity: 0.5;
+        grid-template-columns: 20% repeat(4, 1fr) 20%;
+        grid-template-areas: ". terms contact rodo subscribtion .";
+        #terms {
+            grid-area: terms;
+        }
+        #contact {
+            grid-area: contact;
+        }
+        #rodo {
+            grid-area: rodo;
+        }
+        #subscirbe {
+            grid-area: subscribtion;
+        }
+    }
+}

@@ -15,15 +15,15 @@ body {
 
 /*======================
  Mixins Mateusz
- @mixin =====================*/
+ ======================*/
 /*=====================
  Legend
- 1. Display
+ 1. Display 
  2. Buttons and inputs
- @mixin =================*/
+ ==================*/
 /*==========================
  Variables Mateusz - to use
- @mixin ========================*/
+ =========================*/
 .login-form {
   margin: 0;
   padding: 0;
@@ -38,12 +38,13 @@ body {
   padding: 20px;
   box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
   display: flex;
+  flex-direction: column;
 }
 
 .login-form button {
   width: 100px;
   height: 40px;
-  background-color: #66bbff;
+  background-color: #6c92c4;
   color: white;
   font-size: 16px;
   border-radius: 10px;
@@ -52,7 +53,7 @@ body {
 }
 
 .login-form button:hover {
-  background-color: #4CB1F7;
+  background-color: #4cb1f7;
 }
 
 .login-form input {
@@ -79,7 +80,7 @@ body {
 }
 
 header {
-  height: 15vh;
+  height: 20vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "logo user-services";
@@ -87,8 +88,8 @@ header {
 }
 
 header .logo img {
-  grid-area: logo;
-  max-width: 50%;
+  grid-area: "logo";
+  max-height: 50%;
 }
 
 header .user-services {
@@ -98,29 +99,22 @@ header .user-services {
   grid-template-areas: ". profile log-out" ". search search";
 }
 
-header .user-services .search-bar {
+header .search-bar {
   grid-area: search;
   height: 5vh;
   display: grid;
   grid-template-areas: "bar scope";
 }
 
-header .user-services .search-bar .search {
+header .search {
   grid-area: bar;
 }
 
-header .user-services .search-bar .scope {
-  grid-name: scope;
+header .scope {
+  grid-area: scope;
 }
 
-header .user-services .search-bar .scope:hover {
-  background-color: #66bbff;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-}
-
-header .user-services .profile {
+header .profile {
   grid-area: profile;
   display: flex;
   flex-direction: column;
@@ -130,7 +124,7 @@ header .user-services .profile {
   color: black;
 }
 
-header .user-services .logout {
+header .logout {
   grid-area: log-out;
   display: flex;
   flex-direction: column;
@@ -165,7 +159,7 @@ nav .nav-list #mentors {
 }
 
 nav .nav-list #mentors:hover {
-  background-color: #66bbff;
+  background-color: #6c92c4;
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -183,7 +177,7 @@ nav .nav-list #students {
 }
 
 nav .nav-list #students:hover {
-  background-color: #66bbff;
+  background-color: #6c92c4;
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -204,7 +198,7 @@ nav .nav-list #classes {
 }
 
 nav .nav-list #classes:hover {
-  background-color: #66bbff;
+  background-color: #6c92c4;
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -238,7 +232,7 @@ main .options .options-list li {
 }
 
 main .options .options-list li:hover {
-  background-color: #66bbff;
+  background-color: #6c92c4;
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -246,5 +240,42 @@ main .options .options-list li:hover {
 
 main .results {
   grid-area: results;
+}
+
+footer {
+  background-color: #181818;
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+footer .media {
+  margin-bottom: 2.5vh;
+}
+
+footer .additional-stuff {
+  display: grid;
+  opacity: 0.5;
+  grid-template-columns: 20% repeat(4, 1fr) 20%;
+  grid-template-areas: ". terms contact rodo subscribtion .";
+}
+
+footer .additional-stuff #terms {
+  grid-area: terms;
+}
+
+footer .additional-stuff #contact {
+  grid-area: contact;
+}
+
+footer .additional-stuff #rodo {
+  grid-area: rodo;
+}
+
+footer .additional-stuff #subscirbe {
+  grid-area: subscribtion;
 }
 /*# sourceMappingURL=style.css.map */
