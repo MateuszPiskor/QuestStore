@@ -39,7 +39,8 @@
 
 @mixin btn1() {
     width: 100px;
-    height: 40px;
+    line-height: $button-height;
+    text-align: center;;
     background-color: $button-color;
     color: white;
     font-size: 16px;
@@ -58,6 +59,6 @@
     width: $width;
     box-shadow: $shadow;
     border: 1px solid $border-color;
-    padding: 5px;
+    padding: 2vh;
     height: 15px;
 }
