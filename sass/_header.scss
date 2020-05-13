@@ -4,9 +4,13 @@ header {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "logo user-services";
     margin-bottom: 2.5;
-    .logo img {
-        grid-area: "logo";
-        max-height: 50%;
+    .logo {
+        grid-area: logo;
+        position:relative;
+        img {
+            max-height: 50%;
+            @include centerInsideUsingPosition();
+        }
     }
     .user-services {
         display: grid;
