@@ -1,1 +1,12 @@
 node_modules
+# Created by https://www.gitignore.io/api/sass
+# Edit at https://www.gitignore.io/?templates=sass
+### Settings ###
+.vscode/
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# End of https://www.gitignore.io/api/sass
