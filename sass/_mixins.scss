@@ -1,0 +1,64 @@
+/*======================
+ Mixins Mateusz
+ ======================*/
+
+/*=====================
+ Legend
+ 1. Display 
+ 2. Buttons and inputs
+ ==================*/
+
+// 1. Display
+
+@mixin flexVertical() {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flexVerticalCenter($justify, $align) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $justify;
+    text-align: $align;
+}
+
+@mixin centerInsideUsingPosition() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin resetDefaultMarginPadding() {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// 2. Buttons and inputs
+
+@mixin btn1() {
+    width: 100px;
+    line-height: $button-height;
+    text-align: center;;
+    background-color: $button-color;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+@mixin buttonHoverEffect($bgcColor, $radius, $textColor) {
+    background-color: $bgcColor;
+    border-radius: $radius;
+    color: $textColor;
+    cursor: pointer;
+}
+
+@mixin inp1($width) {
+    width: $width;
+    box-shadow: $shadow;
+    border: 1px solid $border-color;
+    padding: 2vh;
+    height: 15px;
+}

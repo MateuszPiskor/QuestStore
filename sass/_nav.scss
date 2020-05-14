@@ -1,0 +1,42 @@
+// a {
+//     text-decoration: none;
+// }
+// nav .nav-list {
+//     display: grid;
+//     grid-template-columns: repeat(5, 1fr);
+//     grid-template-areas: ". mentors students classes .";
+//     text-transform: uppercase;
+//     margin-bottom: $margin-between-elements;
+//     border: $standard-border;
+//     #mentors {
+//         grid-area: mentors;
+//         text-align: center;
+//         height: $input-height;
+//         transition: all 0.5s;
+//         @include flexVerticalCenter(center, center);
+//         &:hover {
+//             @include buttonHoverEffect($button-color, 10px, white);
+//         }
+//     }
+//     #students {
+//         grid-area: students;
+//         height: $input-height;
+//         @include flexVerticalCenter(center, center);
+//         text-decoration: none;
+//         transition: all 0.5s;
+//         &:hover {
+//             @include buttonHoverEffect($button-color, 10px, white);
+//         }
+//     }
+//     #classes {
+//         grid-area: classes;
+//         @include flexVerticalCenter(center, center);
+//         height: $input-height;
+//         @include flexVerticalCenter(center, center);
+//         transition: all 0.5s;
+
+//         &:hover {
+//             @include buttonHoverEffect($button-color, 10px, white);
+//         }
+//     }
+// }
