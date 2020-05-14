@@ -1,0 +1,29 @@
+{
+  "name": "queststore-weekend-codecoolers-queststore",
+  "version": "1.0.0",
+  "description": "\"# queststore-weekend-codecoolers-queststore\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node-sass -o css sass",
+    "serve": "browser-sync start --server --files 'css/*.css, js/*.js, *.html'",
+    "watch:sass": "onchange 'sass/*.scss' -- npm run sass",
+    "start": "npm-run-all --parallel serve watch:sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodecoolGlobal/queststore-weekend-codecoolers-queststore.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodecoolGlobal/queststore-weekend-codecoolers-queststore/issues"
+  },
+  "homepage": "https://github.com/CodecoolGlobal/queststore-weekend-codecoolers-queststore#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "node-sass": "^4.14.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.0.2"
+  }
+}
