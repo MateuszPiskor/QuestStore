@@ -40,7 +40,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     margin-bottom: 2.5vh; }
     .login-form .users-bar .student-bar {
-      line-height: 5vh;
+      line-height: 40px;
       text-align: center;
       transition: 0.5s; }
       .login-form .users-bar .student-bar:hover {
@@ -50,7 +50,7 @@ body {
         padding-left: 10px;
         cursor: pointer; }
     .login-form .users-bar .mentor-bar {
-      line-height: 5vh;
+      line-height: 40px;
       text-align: center;
       transition: 0.5s; }
       .login-form .users-bar .mentor-bar:hover {
@@ -60,7 +60,7 @@ body {
         padding-left: 10px;
         cursor: pointer; }
     .login-form .users-bar .admin-bar {
-      line-height: 5vh;
+      line-height: 40px;
       text-align: center;
       transition: 0.5s; }
       .login-form .users-bar .admin-bar:hover {
@@ -71,7 +71,7 @@ body {
         cursor: pointer; }
   .login-form button {
     width: 100px;
-    line-height: 5vh;
+    line-height: 40px;
     text-align: center;
     background-color: #6c92c4;
     color: white;
@@ -121,7 +121,7 @@ header {
     grid-template-areas: ". profile log-out" ". search search"; }
   header .search-bar {
     grid-area: search;
-    height: 5vh;
+    height: 40px;
     display: grid;
     grid-template-areas: "bar scope"; }
   header .search {
@@ -145,6 +145,9 @@ header {
     text-decoration: none;
     color: black; }
 
+.button {
+  height: 40px; }
+
 main {
   display: grid;
   grid-gap: 20px;
@@ -162,13 +165,13 @@ main {
   text-align: center; }
 
 .menu__title {
-  height: 5vh;
+  height: 40px;
   text-transform: uppercase; }
 
 .menu__item {
   list-style: none;
   transition: 0.5s;
-  height: 5vh;
+  height: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -237,7 +240,7 @@ footer {
     height: 2.5vh; }
   .form button {
     width: 100px;
-    line-height: 5vh;
+    line-height: 40px;
     text-align: center;
     background-color: #6c92c4;
     color: white;
@@ -256,7 +259,7 @@ footer {
 .list__item {
   list-style: none;
   transition: 0.5s;
-  height: 5vh;
+  height: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center; }
@@ -271,11 +274,12 @@ footer {
 
 .list__item--withbutton {
   flex-direction: row;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+  align-items: center; }
 
 .item__button {
   width: 100px;
-  line-height: 5vh;
+  line-height: 40px;
   justify-content: center;
   background-color: #FFBE86;
   color: black;
@@ -283,8 +287,7 @@ footer {
   border-radius: 10px;
   text-transform: uppercase;
   display: none;
-  margin-left: 20px;
-  margin-left: 20px; }
+  margin: 4px; }
 
 .item__name {
   flex-grow: 2;
@@ -292,4 +295,4 @@ footer {
   align-items: center; }
 
 .list__header {
-  height: 5vh; }
+  height: 40px; }
