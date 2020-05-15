@@ -1,3 +1,13 @@
 .button {
+    display: flex;
     height: $button-height;
+    width: 100px;
+    line-height: $button-height;
+    justify-content: center;
+    background-color: $button-list-color;
+    color: black;
+    font-size: 10px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin: 4px;
 }
