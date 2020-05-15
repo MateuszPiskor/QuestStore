@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "node-sass -o css sass",
-    "serve": "browser-sync start --server --files 'css/*.css, js/*.js, *.html'",
+    "serve": "browser-sync start --server --files 'css/*.css, js/*.js, **/*.html'",
     "watch:sass": "onchange 'sass/*.scss' -- npm run sass",
     "start": "npm-run-all --parallel serve watch:sass"
   },
