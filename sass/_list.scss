@@ -1,14 +1,44 @@
-    .results-list {
-        display: flex;
-        flex-direction: column;
-    }
 
-    .list__item {
-        list-style: none;
-        transition: 0.5s;
-        height: $button-height;
-        
-        &:hover {
-            @include buttonHoverEffect($button-color, 10px, white);
+.list__item {
+    list-style: none;
+    transition: 0.5s;
+    height: $button-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &:hover {
+        @include buttonHoverEffect($button-color, 10px, white);
+        .item__button {
+            display: flex;
+        }
     }
-    }
+}
+
+.list__item--withbutton {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.item__button {
+    width: 100px;
+    line-height: $button-height;
+    justify-content: center;
+    background-color: $button-list-color;
+    color: black;
+    font-size: 10px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    display: none;
+    margin-left: 20px;
+    margin-left: 20px;
+}
+
+.item__name {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+}
+
+.list__header {
+    height: $button-height;
+}
