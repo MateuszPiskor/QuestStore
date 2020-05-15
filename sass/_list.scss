@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: center;
     &:hover {
-        @include buttonHoverEffect($button-color, 10px, white);
+        @include buttonHoverEffect($bgcolor-hover, 10px, black);
         .item__button {
             display: flex;
         }

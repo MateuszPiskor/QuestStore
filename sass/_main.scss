@@ -30,7 +30,7 @@ main {
     @include flexVerticalCenter(center, center);
 
     &:hover {
-        @include buttonHoverEffect($button-color, 10px, white);
+        @include buttonHoverEffect($bgcolor-hover, 10px, black);
     }
 }
 
