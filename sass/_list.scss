@@ -1,0 +1,14 @@
+    .results-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .list__item {
+        list-style: none;
+        transition: 0.5s;
+        height: $button-height;
+        
+        &:hover {
+            @include buttonHoverEffect($button-color, 10px, white);
+    }
+    }

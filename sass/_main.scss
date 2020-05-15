@@ -1,28 +1,40 @@
 main {
     display: grid;
     grid-gap: $bigGridGap;
-    grid-template-columns: 20% 80%;
-    grid-template-areas: "options results";
+    grid-template-columns: 25% 75%;
+    grid-template-areas: "sidemenu results";
     margin-bottom: $margin-between-elements;
-    .options {
-        grid-area: options;
-        height: 70vh; //to change
-        border-right: $standard-border;
-        .options-list {
-            list-style: none;
-            margin: 0;
-            // padding: 0
-            li {
-                height: $button-height;
-                transition: 0.5s;
-                @include flexVerticalCenter(center, center);
-                &:hover {
-                    @include buttonHoverEffect($button-color, 10px, white);
-                }
-            }
-        }
+}
+
+.menu {
+    grid-area: sidemenu;
+    height: 70vh; //to change
+    border-right: $standard-border;
+}
+
+.menu__section {
+    margin: 40px;
+    text-align: center;
+}
+
+.menu__title {
+    height: $button-height;
+    text-transform: uppercase;
+}
+
+.menu__item {
+    list-style: none;
+    transition: 0.5s;
+    height: $button-height;
+
+    @include flexVerticalCenter(center, center);
+
+    &:hover {
+        @include buttonHoverEffect($button-color, 10px, white);
     }
-    .results {
-        grid-area: results;
-    }
+}
+
+.results {
+    grid-area: results;
+    margin: 40px;
 }
