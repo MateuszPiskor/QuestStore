@@ -273,16 +273,20 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center; }
-  .list__item:hover {
-    background-color: #E7E7E7;
-    border-radius: 10px;
-    color: black;
-    padding-left: 10px;
-    cursor: pointer; }
-    .list__item:hover .button {
-      display: flex; }
 
-.list__item--withbutton {
+.list__item--hover:hover {
+  background-color: #E7E7E7;
+  border-radius: 10px;
+  color: black;
+  padding-left: 10px;
+  cursor: pointer; }
+  .list__item--hover:hover .button {
+    display: flex; }
+
+.list-headers {
+  font-weight: bold; }
+
+.list__item--row {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center; }
@@ -293,18 +297,34 @@ footer {
 .item__name {
   flex-grow: 2;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  height: 40px;
+  text-align: center; }
 
-.list__header {
-  height: 40px; }
+.item__name--width {
+  width: 450px; }
 
 .profile__item {
   margin: 10px 0;
   list-style: none; }
 
-.classes {
+.separate-section {
   margin-bottom: 40px;
   margin-top: 40px; }
 
 .profile__item--bold {
   font-weight: bold; }
+
+.profile__item-title {
+  margin-bottom: 10px; }
+
+table {
+  width: 100%; }
+
+td, th {
+  padding: 10px 0px;
+  padding-right: 10px; }
+
+th {
+  text-align: left;
+  cursor: pointer; }

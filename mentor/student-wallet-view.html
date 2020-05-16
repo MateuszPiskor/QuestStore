@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+
+    <body>
+        <div w3-include-html="../IncludesHTML/header.html"></div>
+
+        <main>
+            <section class="options">
+                <div w3-include-html="../IncludesHTML/mentor/mentor-menu.html"></div> 
+            </section>
+            <section class="results">
+                <section class="profile-view">
+                    <div class="profile__item">Student: <span class="profile__item--bold">Brad Pitt</span></div>
+                    <div class="profile__item">Coolcoins: <span class="profile__item--bold">550</span></div>
+                    <div class="profile__item">Experience Level: <span class="profile__item--bold">Medium</span></div>
+                    <div class="profile__item separate-section">
+                        <table id="myTable">
+                            <tr>
+                                <th>Date</th>
+                                <th>Artifact</th>
+                                <th>Type</th>
+                                <th>Coolcoins</th>
+                            </tr>
+                            <tr>
+                                <td>01-05-2020</td>
+                                <td>Private mentoring</td>
+                                <td>Basic</td>
+                                <td>50 cc</td>
+                            </tr>
+                            <tr>
+                                <td>06-05-2020</td>
+                                <td>60 min workshop by a mentor(s) of the chosen topic</td>
+                                <td>Magic</td>
+                                <td>1000 cc</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a href="all-students.html" class="item__button button">Back to list</a>
+                    
+                </section>
+            </section>
+        </main>
+        <div w3-include-html="../IncludesHTML/footer.html"></div>
+
+        <script src="../js/includeHTML.js"></script>
+        <script src="../../js/sortTable.js"></script>
+        <!-- <script
+            src="https://kit.fontawesome.com/4719ef79cb.js"
+            crossorigin="anonymous">
+        </script>   -->
+    </body>
+</html>
