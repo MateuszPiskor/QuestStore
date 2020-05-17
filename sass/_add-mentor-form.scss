@@ -1,11 +1,6 @@
 .form {
     @include flexVertical();
-    .form-tittle {
-        margin-bottom: $margin-between-elements;
-    }
-    input{
-        @include inp1(50%);
-    }
+    
     .error {
         height: $margin-between-elements;
     }
@@ -18,3 +13,24 @@
         }
     }
 }
+
+.input{
+    width: 50%;
+    box-shadow: $shadow;
+    border: 1px none $border-color;
+    padding: 2vh;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #E7E7E7;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .input {
+      width: 100%;
+    }
+  }

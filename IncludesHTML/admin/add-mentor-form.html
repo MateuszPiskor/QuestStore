@@ -1,29 +1,32 @@
-<form id="contactForm" class="form">
-    <div class="form-tittle">Add mentor</div>
 
+<h3 class="page-tittle">Add mentor</h3>
+<form id="contactForm" class="form">
     <label for="input-name">First Name</label>
-    <input type="text" id="input-name" placeholder="first name" />
+    <input class="input" type="text" id="input-name"/>
     <div id="nameError" class="error"></div>
 
     <label for="input-surname">Last name</label>
-    <input type="text" id="input-surname"  placeholder="last name" />
+    <input class="input" type="text" id="input-surname"/>
     <div id="nameError" class="error"></div>
 
     <label for="input-mail">Adress</label>
-    <input type="text" id="input-email" title="email@email.com" placeholder="adress" class="email" />
+    <input class="input" type="text" id="input-email"/>
     <div id="emailError" class="error"></div>
 
-    <label for="input-mail">Phone nummber</label>
-    <input type="text" id="input-email" title="email@email.com" placeholder="phone number" class="email" />
+    <label for="input-phone">Phone number</label>
+    <input class="input" type="text" id="input-phone"/>
     <div id="emailError" class="error"></div>
     
     <label for="input-mail">Email</label>
-    <input type="text" id="input-email" title="email@email.com" placeholder="email" class="email" />
+    <input class="input" type="text" id="input-email"/>
     <div id="emailError" class="error"></div>
 
-    <label for="input-mail">Add to class</label>
-    <input type="text" id="input-email" title="email@email.com" placeholder="Select class" class="email" />
+    <label for="input-class">Add to class</label>
+    <select class="input" id="class" name="class">
+        <option value="Weekend-Course-krk-102019">Weekend-Course-krk-102019</option>
+        <option value="Weekend-Course-krk-022020">Weekend-Course-krk-022020</option>
+      </select>
     <div id="emailError" class="error"></div>
 
-    <button class="submit-button" type="submit">Add</button>
+    <button class="button" type="submit">Add</button>
 </form>

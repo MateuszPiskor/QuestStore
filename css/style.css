@@ -10,6 +10,9 @@ a {
 body {
   margin: 2vh; }
 
+.page-tittle {
+  margin-bottom: 40px; }
+
 /*======================
  Mixins Mateusz
  ======================*/
@@ -238,14 +241,6 @@ footer {
 .form {
   display: flex;
   flex-direction: column; }
-  .form .form-tittle {
-    margin-bottom: 2.5vh; }
-  .form input {
-    width: 50%;
-    box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
-    border: 1px solid rgba(104, 104, 104, 0.8);
-    padding: 2vh;
-    height: 15px; }
   .form .error {
     height: 2.5vh; }
   .form button {
@@ -265,6 +260,21 @@ footer {
       color: white;
       padding-left: 10px;
       cursor: pointer; }
+
+.input {
+  width: 50%;
+  box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
+  border: 1px none rgba(104, 104, 104, 0.8);
+  padding: 2vh;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #E7E7E7;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset; }
+
+@media screen and (max-width: 600px) {
+  .input {
+    width: 100%; } }
 
 .list__item {
   list-style: none;
