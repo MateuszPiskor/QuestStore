@@ -161,6 +161,9 @@ header {
   text-transform: uppercase;
   margin: 4px; }
 
+.button--submit {
+  margin-top: 20px; }
+
 main {
   display: grid;
   grid-gap: 20px;
@@ -271,6 +274,18 @@ footer {
   border-radius: 4px;
   background-color: #E7E7E7;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset; }
+
+input[type="file"] {
+  display: none; }
+
+.file-upload {
+  width: 150px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer; }
 
 @media screen and (max-width: 600px) {
   .input {
