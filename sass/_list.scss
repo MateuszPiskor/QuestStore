@@ -1,0 +1,48 @@
+
+.list__item {
+    list-style: none;
+    transition: 0.5s;
+    height: $button-height + 8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.list__item--hover {
+    &:hover {
+            @include buttonHoverEffect($bgcolor-hover, 10px, black);
+            .button {
+                display: flex;
+            }
+        }
+}
+.list-headers {
+    font-weight: bold;
+}
+
+
+.list__item--row {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.item__button--hidden {
+    display: none;
+}
+
+.item__name {
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    height: $button-height;
+    text-align: center;
+}
+
+.item__name--width {
+    width: 450px;
+}
+
+.list__header--extramargin {
+    margin-top: 40px;
+}
