@@ -41,9 +41,16 @@
     }
 }
 
-.button--upload {
+.button--hidden {
     display: none;
-    margin: 30px 0 0;
-    background-color: $orange;
-    color: $black;
+
+    @include responsive($screen-tablet) {
+        display: flex;
+        border: none;
+    }
+
+    @include responsive($screen-mobile) {
+        display: flex;
+        border: none;
+    }
 }

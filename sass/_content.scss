@@ -19,6 +19,14 @@ header {
 
 main {
     padding: 0 50px 50px;
+
+    @include responsive($screen-tablet) {
+        padding: 0 20px 20px;
+    }
+
+    @include responsive($screen-mobile) {
+        padding: 0 10px 10px;
+    }
 }
 
 footer {

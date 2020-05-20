@@ -86,6 +86,12 @@ header {
 
 main {
   padding: 0 50px 50px; }
+  @media screen and (max-width: 768px) {
+    main {
+      padding: 0 20px 20px; } }
+  @media screen and (max-width: 425px) {
+    main {
+      padding: 0 10px 10px; } }
 
 footer {
   background-color: #E7E7E7;
@@ -158,11 +164,16 @@ footer {
     background-color: white;
     color: #485696; }
 
-.button--upload {
-  display: none;
-  margin: 30px 0 0;
-  background-color: #FFBE86;
-  color: #333333; }
+.button--hidden {
+  display: none; }
+  @media screen and (max-width: 768px) {
+    .button--hidden {
+      display: flex;
+      border: none; } }
+  @media screen and (max-width: 425px) {
+    .button--hidden {
+      display: flex;
+      border: none; } }
 
 .form__input {
   display: block;
@@ -182,3 +193,24 @@ footer {
 .form__label {
   display: block;
   padding: 10px 3px 3px; }
+
+.list {
+  padding: 0; }
+
+.list__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  transition-property: display;
+  transition-duration: 0.3s; }
+
+.list__item--hover:hover .button {
+  display: flex; }
+
+.item__name {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  text-align: center; }
