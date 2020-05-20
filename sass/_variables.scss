@@ -1,28 +1,78 @@
-/*==========================
- Variables Mateusz - to use
- =========================*/
+// colors
+$purple: #485696;
+$blue: #6C92C4;
+$orange: #FFBE86;
+$grey: #E7E7E7;
+$white: white;
+$black: #333333;
 
-// font
-$main-font: Helvetica, Arial, sans-serif;
+// backgrounds
+$bg-color-menu: $purple;
+$bg-color-footer: $grey;
+$bg-color-hover: $grey;
+
+// text colors
+$text-color: $black;
+$text-color-inverse: $white;
+$text-color-link: $purple;
+$text-color-link-alt: $orange;
+
+//icon colors
+$icon-color: $purple;
+$icon-logo: $orange;
+
+// typography
+$font-family: 'Roboto', sans-serif;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+$font-size-mini: 12px;
+$font-size-small: 14px;
+$font-size: 16px;
+$font-size-large: 22px;
+$line-height: 1.4;
+$line-height-large: 1.6;
+
+
+// buttons
+$button-color: $orange;
+
+// menu
+$menu-width: 200px;
+
+// header
+$header-height: 160px;
+
+// footer
+$footer-height-mobile: 170px;
+
+// breakpoints
+$screen-mobile: 425px;
+$screen-tablet: 768px;
 
 
 //used colors
-$shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
-$inner-line-color: #ddeeff;
-$border-color: rgba(104, 104, 104, 0.8);
-$button-color: #6c92c4;
-$button-submit-color:#333333;
-$button-list-color:#FFBE86;
-$bgcolor-hover: #E7E7E7;
+// $shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
+// $inner-line-color: #ddeeff;
+// $border-color: rgba(104, 104, 104, 0.8);
+// $button-color: #6c92c4;
+// $button-submit-color:#333333;
+// $button-list-color:#FFBE86;
+// $bgcolor-hover: #E7E7E7;
+// $sidemenu-color: #485696;
+// $sidemenu-hover-color: #818181;
+
 
 // button and input
-$button-height: 40px;
-$input-height: $button-height;
+// $button-height: 40px;
+// $input-height: $button-height;
 
-//display text
-$text-height: $button-height;
+// //display text
+// $text-height: $button-height;
 
-$padding-inside-element: 2.5vh;
-$margin-between-elements: 2.5vh;
-$standard-border: 1px solid black;
-$bigGridGap: 20px;
+// $padding-inside-element: 2.5vh;
+// $margin-between-elements: 2.5vh;
+// $standard-border: 1px solid black;
+// $bigGridGap: 20px;
+
+// //footer
+// $footer-height: 160px;

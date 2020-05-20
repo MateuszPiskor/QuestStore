@@ -1,0 +1,53 @@
+.sidemenu {
+    height: 100vh;
+    width: $menu-width;
+    background-color: $bg-color-menu;
+    padding-top: 20px;
+    line-height: $line-height-large;
+    float: left;
+    //overflow-x: hidden;
+    //z-index: 1;
+
+    @include responsive($screen-tablet) {
+        width: $menu-width - 60px;
+        line-height: $line-height;
+    }
+
+    @include responsive($screen-mobile) {
+        display: none;
+    }
+    
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid $icon-logo;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    color: $icon-logo;
+    margin: 0 auto;
+    font-weight: $font-weight-bold;
+    margin-bottom: 40px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.menu__item {
+    color: $text-color-inverse;
+    font-size: $font-size-large;
+    @include transition(background-color);
+
+    span {
+        @include transition(transform, color);
+        display: block;
+    }
+
+    @include hoverEffect($bg-color-hover, $text-color)
+}
