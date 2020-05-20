@@ -6,20 +6,14 @@
         <title></title>
         <link rel="stylesheet" href="../css/style.css" />
     </head>
-
     <body>
-        <div w3-include-html="../IncludesHTML/header.html"></div>
-
-        <main>
-            <section class="options">
-                <div w3-include-html="../IncludesHTML/mentor/mentor-menu.html"></div> 
-            </section>
-            <section class="results">
-                <div w3-include-html="../IncludesHTML/mentor/quests-list.html"></div>
-            </section>
-        </main>
-        <div w3-include-html="../IncludesHTML/footer.html"></div>
-
+        <section class="sidemenu" w3-include-html="../IncludesHTML/mentor/mentor-menu.html"></section>
+        <section class="content">
+            <header w3-include-html="../IncludesHTML/header.html"></header>  
+            <main class="results" w3-include-html="../IncludesHTML/mentor/quests-list.html"></main>
+            <footer w3-include-html="../IncludesHTML/footer.html"></footer>
+        </section>
+        
         <script src="../js/includeHTML.js"></script>
         <script src="../js/scripts.js"></script>
     </body>
