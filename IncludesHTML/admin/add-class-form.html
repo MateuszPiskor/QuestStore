@@ -1,25 +1,23 @@
 
-<h3 class="page-tittle">Add class</h3>
-<form id="contactForm" class="form">
-    <label for="input-name">Class name</label>
-    <input class="input" type="text" id="input-name"/>
+<h1 class="page-title">Add class</h1>
+<form id="form" class="form">
+    <label for="input-name" class="form__label">Class name</label>
+    <input class="form__input" type="text" id="input-name"/>
     <div id="nameError" class="error"></div>
 
-    <label for="mentor">Choose mentor</label>
-    <select class="input" id="mentor" name="mentor">
-        <option selected value> - to select - </option>
+    <label for="input-mentor" class="form__label">Select mentor</label>
+    <select class="form__input" id="input-mentor" name="mentor">
         <option value="John Doe">John Doe</option>
         <option value="John Doe">John Doe</option>
       </select>
-    <div id="emailError" class="error"></div>
+    <div id="mentor-error" class="error"></div>
 
-    <label for="mentor">Choose city</label>
-    <select class="input" id="city" name="city">
-        <option selected value> - to select - </option>
+    <label for="input-city" class="form__label">Select city</label>
+    <select class="form__input" id="input-city" name="city">
+        <option value="Warsaw">Warsaw</option>
         <option value="Cracow">Cracow</option>
-        <option value="Warszawa">Warsaw</option>
       </select>
-    <div id="emailError" class="error"></div>
+    <div id="mentor-error" class="error"></div>
 
     <button class="button button--submit" type="submit">Add</button>
 </form>

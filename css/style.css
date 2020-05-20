@@ -13,7 +13,8 @@ body {
   font-size: 16px; }
 
 h1 {
-  font-size: 22px; }
+  font-size: 22px;
+  color: #485696; }
 
 a {
   color: #485696;
@@ -79,40 +80,34 @@ header {
   justify-content: space-between; }
 
 .header__user {
-  width: 200px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   padding: 10px; }
 
-.header__user a {
-  color: #333333; }
-
 main {
-  padding: 20px; }
+  padding: 0 50px 50px; }
 
 footer {
   background-color: #E7E7E7;
   margin-top: auto;
   padding: 10px 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 90px; }
+  flex-direction: column; }
   @media screen and (max-width: 425px) {
     footer {
-      height: 170px;
       line-height: 1.6; } }
 
 .footer__media {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  padding: 10px 0; }
 
 .footer__business {
   display: flex;
   flex-direction: row;
-  justify-content: center; }
+  justify-content: center;
+  padding-top: 15px; }
   @media screen and (max-width: 425px) {
     .footer__business {
       flex-direction: column;
@@ -127,5 +122,63 @@ footer {
   font-size: 14px; }
   @media screen and (max-width: 768px) {
     .footer__business-item {
-      margin: 5px 5px;
       font-size: 12px; } }
+
+.button {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #485696;
+  text-transform: uppercase;
+  margin: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 3px solid #485696;
+  padding: 5px 20px;
+  transition-property: background-color, color;
+  transition-duration: 0.3s; }
+  .button:hover {
+    background-color: #485696;
+    color: white; }
+
+.button--alt {
+  border-color: #FFBE86;
+  color: #FFBE86; }
+  .button--alt:hover {
+    background-color: #FFBE86;
+    color: white; }
+
+.button--submit {
+  margin: 40px 0 0;
+  background-color: #485696;
+  color: white; }
+  .button--submit:hover {
+    background-color: white;
+    color: #485696; }
+
+.button--upload {
+  display: none;
+  margin: 30px 0 0;
+  background-color: #FFBE86;
+  color: #333333; }
+
+.form__input {
+  display: block;
+  background-color: white;
+  border: 3px solid #E7E7E7;
+  min-width: 400px;
+  padding-bottom: 5px;
+  height: 40px;
+  outline: 0;
+  transition-property: background-color, color;
+  transition-duration: 0.3s; }
+  .form__input:hover {
+    border-color: #485696; }
+  .form__input:focus {
+    border-color: #FFBE86; }
+
+.form__label {
+  display: block;
+  padding: 10px 3px 3px; }

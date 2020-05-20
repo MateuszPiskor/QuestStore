@@ -35,6 +35,7 @@ $line-height-large: 1.6;
 
 // buttons
 $button-color: $orange;
+$button-height: 40px;
 
 // menu
 $menu-width: 200px;
@@ -44,6 +45,9 @@ $header-height: 160px;
 
 // footer
 $footer-height-mobile: 170px;
+
+// form
+$input-height: $button-height;
 
 // breakpoints
 $screen-mobile: 425px;
@@ -62,9 +66,7 @@ $screen-tablet: 768px;
 // $sidemenu-hover-color: #818181;
 
 
-// button and input
-// $button-height: 40px;
-// $input-height: $button-height;
+
 
 // //display text
 // $text-height: $button-height;

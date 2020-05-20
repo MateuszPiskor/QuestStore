@@ -49,5 +49,12 @@
         display: block;
     }
 
-    @include hoverEffect($bg-color-hover, $text-color)
+    &:hover {
+        background-color: $bg-color-hover;
+
+        span {
+            color: $text-color;
+            transform: translateX(10px);
+        }
+    }
 }
