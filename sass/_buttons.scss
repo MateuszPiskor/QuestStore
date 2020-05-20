@@ -1,12 +1,11 @@
 .button {
-    display: flex;
+    display: inline-flex;
     height: $button-height;
     align-items: center;
     justify-content: center;
     background-color: $white;
     color: $purple;
     text-transform: uppercase;
-    margin: 4px;
     font-weight: $font-weight-bold;
     font-size: $font-size-small;
     border: 3px solid $purple;
@@ -17,6 +16,10 @@
     &:hover {
         background-color: $purple;
         color: $white;
+    }
+
+    & ~ & {
+        margin-left: 8px;
     }
 }
 
