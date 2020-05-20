@@ -95,7 +95,7 @@ main {
       padding: 0 20px 20px; } }
   @media screen and (max-width: 425px) {
     main {
-      padding: 0 10px 10px; } }
+      padding: 0 20px 20px; } }
 
 footer {
   background-color: #E7E7E7;
@@ -194,6 +194,9 @@ footer {
     border-color: #485696; }
   .form__input:focus {
     border-color: #FFBE86; }
+  @media screen and (max-width: 425px) {
+    .form__input {
+      min-width: 300px; } }
 
 .form__label {
   display: block;

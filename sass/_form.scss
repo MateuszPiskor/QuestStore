@@ -1,3 +1,5 @@
+
+
 .form__input {
     display: block;
     background-color: $white;
@@ -16,6 +18,11 @@
     &:focus {
         border-color: $orange;
     }
+
+    @include responsive($screen-mobile) {
+        min-width: 300px;
+    }
+
 }
 
 .form__label {
