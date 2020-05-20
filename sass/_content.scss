@@ -3,6 +3,15 @@
     flex-direction: column;
     min-height: 100vh;
     color: $text-color;
+    margin-left: $menu-width;
+
+    @include responsive($screen-tablet) {
+        margin-left: $menu-width-tablet;
+    }
+
+    @include responsive($screen-mobile) {
+        margin-left: 0;
+    }
 }
 
 header {

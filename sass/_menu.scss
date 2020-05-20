@@ -5,18 +5,49 @@
     padding-top: 20px;
     line-height: $line-height-large;
     float: left;
+    position: fixed;
     //overflow-x: hidden;
     //z-index: 1;
 
+    @include transition(transform);
+
     @include responsive($screen-tablet) {
-        width: $menu-width - 60px;
+        width: $menu-width-tablet;
         line-height: $line-height;
     }
 
     @include responsive($screen-mobile) {
-        display: none;
+        width: $menu-width;
+        transform: translateX(-$menu-width);
     }
-    
+}
+
+.sidemenu--visible {
+    transform: translateX(0);
+}
+
+.sidemenu__button {
+    $sidemenu-button-width: 50px; 
+    position: absolute;
+    right: -$sidemenu-button-width;
+    top: 10px;
+    display: none;
+    width: $sidemenu-button-width;
+    padding: 0;
+
+    @include responsive($screen-mobile) {
+        display: initial;
+    }
+
+    &:hover {
+        background-color: $purple;
+        color: $white;
+    }
+
+}
+
+.sidemenu-icon {
+    font-size: 1.5em;
 }
 
 .logo {

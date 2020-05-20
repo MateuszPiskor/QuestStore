@@ -24,20 +24,89 @@ a {
   color: #485696;
   text-decoration: none; }
 
+.button {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #485696;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  border: 3px solid #485696;
+  padding: 5px 20px;
+  transition-property: background-color, color;
+  transition-duration: 0.3s; }
+  .button:hover {
+    background-color: #485696;
+    color: white; }
+  .button ~ .button {
+    margin-left: 8px; }
+
+.button--alt {
+  border-color: #FFBE86;
+  color: #FFBE86; }
+  .button--alt:hover {
+    background-color: #FFBE86;
+    color: white; }
+
+.button--inverse {
+  background-color: #485696;
+  color: white; }
+  .button--inverse:hover {
+    background-color: white;
+    color: #485696; }
+
+.button--hidden {
+  display: none; }
+  @media screen and (max-width: 768px) {
+    .button--hidden {
+      display: flex;
+      border: none; } }
+  @media screen and (max-width: 425px) {
+    .button--hidden {
+      display: flex;
+      border: none; } }
+
 .sidemenu {
   height: 100vh;
   width: 200px;
   background-color: #485696;
   padding-top: 20px;
   line-height: 1.6;
-  float: left; }
+  float: left;
+  position: fixed;
+  transition-property: transform;
+  transition-duration: 0.3s; }
   @media screen and (max-width: 768px) {
     .sidemenu {
       width: 140px;
       line-height: 1.4; } }
   @media screen and (max-width: 425px) {
     .sidemenu {
-      display: none; } }
+      width: 200px;
+      transform: translateX(-200px); } }
+
+.sidemenu--visible {
+  transform: translateX(0); }
+
+.sidemenu__button {
+  position: absolute;
+  right: -50px;
+  top: 10px;
+  display: none;
+  width: 50px;
+  padding: 0; }
+  @media screen and (max-width: 425px) {
+    .sidemenu__button {
+      display: initial; } }
+  .sidemenu__button:hover {
+    background-color: #485696;
+    color: white; }
+
+.sidemenu-icon {
+  font-size: 1.5em; }
 
 .logo {
   display: flex;
@@ -76,7 +145,14 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  color: #333333; }
+  color: #333333;
+  margin-left: 200px; }
+  @media screen and (max-width: 768px) {
+    .content {
+      margin-left: 140px; } }
+  @media screen and (max-width: 425px) {
+    .content {
+      margin-left: 0; } }
 
 header {
   display: flex;
@@ -134,52 +210,6 @@ footer {
     .footer__business-item {
       font-size: 12px; } }
 
-.button {
-  display: inline-flex;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  color: #485696;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 14px;
-  border: 3px solid #485696;
-  padding: 5px 20px;
-  transition-property: background-color, color;
-  transition-duration: 0.3s; }
-  .button:hover {
-    background-color: #485696;
-    color: white; }
-  .button ~ .button {
-    margin-left: 8px; }
-
-.button--alt {
-  border-color: #FFBE86;
-  color: #FFBE86; }
-  .button--alt:hover {
-    background-color: #FFBE86;
-    color: white; }
-
-.button--submit {
-  margin: 40px 0 0;
-  background-color: #485696;
-  color: white; }
-  .button--submit:hover {
-    background-color: white;
-    color: #485696; }
-
-.button--hidden {
-  display: none; }
-  @media screen and (max-width: 768px) {
-    .button--hidden {
-      display: flex;
-      border: none; } }
-  @media screen and (max-width: 425px) {
-    .button--hidden {
-      display: flex;
-      border: none; } }
-
 .form__input {
   display: block;
   background-color: white;
@@ -201,6 +231,9 @@ footer {
 .form__label {
   display: block;
   padding: 10px 3px 3px; }
+
+.form__button {
+  margin: 40px 0 0; }
 
 .list {
   padding: 0; }
