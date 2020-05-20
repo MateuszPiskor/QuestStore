@@ -21,6 +21,12 @@ textarea.input {
   height: initial;
 }
 
+input[type="radio"] {
+  /* IE 9 */
+  /* Chrome, Safari, Opera */
+  transform: scale(2);
+}
+
 /*======================
  Mixins Mateusz
  ======================*/
@@ -37,10 +43,6 @@ textarea.input {
   padding: 0;
   box-sizing: border-box;
   width: 60vh;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border: 1px solid #999999;
   padding: 20px;
   box-shadow: 0px 1px 5px rgba(104, 104, 104, 0.8);
@@ -135,6 +137,17 @@ textarea.input {
 .login-form #forgot-password {
   margin-bottom: 1vh;
   opacity: 0.7;
+}
+
+.form__radio-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form__radio-wrapper input {
+  margin-top: 10px;
+  box-shadow: none;
+  font-size: 10px;
 }
 
 header {
