@@ -1,0 +1,91 @@
+.sidemenu {
+    height: 100vh;
+    width: $menu-width;
+    background-color: $bg-color-menu;
+    padding-top: 20px;
+    line-height: $line-height-large;
+    float: left;
+    position: fixed;
+    //overflow-x: hidden;
+    //z-index: 1;
+
+    @include transition(transform);
+
+    @include responsive($screen-tablet) {
+        width: $menu-width-tablet;
+        line-height: $line-height;
+    }
+
+    @include responsive($screen-mobile) {
+        width: $menu-width;
+        transform: translateX(-$menu-width);
+    }
+}
+
+.sidemenu--visible {
+    transform: translateX(0);
+}
+
+.sidemenu__button {
+    $sidemenu-button-width: 50px; 
+    position: absolute;
+    right: -$sidemenu-button-width;
+    top: 10px;
+    display: none;
+    width: $sidemenu-button-width;
+    padding: 0;
+
+    @include responsive($screen-mobile) {
+        display: initial;
+    }
+
+    &:hover {
+        background-color: $purple;
+        color: $white;
+    }
+
+}
+
+.sidemenu-icon {
+    font-size: 1.5em;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid $icon-logo;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    color: $icon-logo;
+    margin: 0 auto;
+    font-weight: $font-weight-bold;
+    margin-bottom: 40px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.menu__item {
+    color: $text-color-inverse;
+    font-size: $font-size-large;
+    @include transition(background-color);
+
+    span {
+        @include transition(transform, color);
+        display: block;
+    }
+
+    &:hover {
+        background-color: $bg-color-hover;
+
+        span {
+            color: $text-color;
+            transform: translateX(10px);
+        }
+    }
+}

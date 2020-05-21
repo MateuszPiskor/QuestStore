@@ -1,19 +1,30 @@
-a {
-    text-decoration: none;
-    color: black;
-}
-* {
-    margin: 0;
-    padding: 0;
+html {
     box-sizing: border-box;
 }
 
-body {
-    margin: 2vh;
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
-.page-tittle {
-    margin-bottom: 40px;
+body {
+    font-family: $font-family;
+    line-height: $line-height;
+    font-size: $font-size;
+}
+
+h1 {
+    font-size: $font-size-large;
+    color: $purple;
+}
+
+h3 {
+    font-size: $font-size-bigger;
+    color: $purple;
+}
+
+a {
+    color: $text-color-link;
+    text-decoration: none;
 }
 textarea.input{
     height: initial;

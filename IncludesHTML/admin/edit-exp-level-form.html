@@ -1,16 +1,17 @@
-<h3 class="page-tittle">Add expierience level</h3>
-<form id="edit-exp-level-form.html" class="form">
-    <label for="level-name">Level name</label>
-    <input class="input" type="text" id="level-name" name="level-name" value="Begginer" />
-    <div class="error"></div>
 
-    <label for="min-points">Required points</label>
-    <input class="input" type="text" id="min-points" name="min-points" value="1000" />
-    <div class="error"></div>
+<h1 class="page-title">Edit experience level</h1>
+<form id="form" class="form">
+    <label for="level-name" class="form__label">Level name</label>
+    <input class="form__input" type="text" id="level-name" value="Begginer"/>
+    <div id="name-error" class="error"></div>
 
-    <label for="avatar" class="file-upload">Upload avatar</label>
-    <input class="input" type="file" id="avatar" name="avatar" value="Dragon.jpg" />
-    <div class="error"></div>
+    <label for="min-points" class="form__label">Required points</label>
+    <input class="form__input" type="text" id="min-points" value="1000"/>
+    <div id="mentor-error" class="error"></div>
 
-    <button class="button button--submit" type="submit">Change</button>
+    <label for="avatar" class="form__label">Upload avatar</label>
+    <input class="file-upload" type="file" id="avatar" value="Dragon.jpg"/>
+    <div id="avatar-error" class="error"></div>
+
+    <button class="button button--inverse form__button" type="submit">Edit</button>
 </form>
