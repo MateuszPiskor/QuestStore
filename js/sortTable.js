@@ -1,10 +1,17 @@
+let results = document.getElementsByClassName("results")[0];
 
-let headers = document.getElementsByTagName("TH");
-for (let i = 0; i < headers.length; i++)
-{
-    headers[i].addEventListener("click", function(){ sortTable(i);});
-    console.log("clicked!");
-}
+results.addEventListener("click", function (e) {
+  if(e.target.tagName == "TH") {
+    sortTable(e.target.dataset.sort);
+  }
+})
+
+// let headers = document.getElementsByTagName("TH");
+// for (let i = 0; i < headers.length; i++)
+// {
+//     headers[i].addEventListener("click", function(){ sortTable(i);});
+//     console.log("clicked!");
+// }
 
 function sortTable(n) {
     var table,
