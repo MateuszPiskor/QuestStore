@@ -15,3 +15,11 @@ body {
 .page-tittle {
     margin-bottom: 40px;
 }
+textarea.input{
+    height: initial;
+}
+input[type="radio"] {
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+}

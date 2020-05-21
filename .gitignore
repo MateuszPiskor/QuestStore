@@ -8,5 +8,8 @@ node_modules
 *.css.map
 *.sass.map
 *.scss.map
+.DS_Store/
+IncludesHTML/.DS_Store/
+
 
 # End of https://www.gitignore.io/api/sass

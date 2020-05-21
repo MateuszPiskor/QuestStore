@@ -2,15 +2,12 @@
     @include resetDefaultMarginPadding();
     
     width: 60vh;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border: 1px solid #999999;
     padding: 20px;
     box-shadow: $shadow;
     @include flexVertical();
 
+    
     .users-bar {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -65,3 +62,15 @@
         opacity: 0.7;
     }
 }
+.form__radio-wrapper{
+        display:flex; 
+        justify-content: space-around;
+        // justify-content: center;
+        // text-align: center;
+}
+.form__radio-wrapper input{
+    margin-top:10px;
+    box-shadow: none;
+    font-size: 10px;
+}
+
