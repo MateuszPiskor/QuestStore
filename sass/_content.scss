@@ -44,8 +44,6 @@ footer {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
-    //align-items: space-between;
-    //height: 90px;
 
     @include responsive($screen-mobile) {
         line-height: $line-height-large;
