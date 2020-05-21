@@ -1,47 +1,85 @@
-.form {
-    @include flexVertical();
+
+
+.form__input {
+    display: block;
+    background-color: $white;
+    border: 3px solid $grey;
+    min-width: 400px;
+    padding-bottom: 5px;
+    height: $button-height;
+    outline: 0; //not good for accessibility, but used for visual purposes
+
+    @include transition(background-color, color);
+
+    &:hover {
+        border-color: $purple;
+    }
+
+    &:focus {
+        border-color: $orange;
+    }
+
+    @include responsive($screen-mobile) {
+        min-width: 300px;
+    }
+
+}
+
+.form__label {
+    display: block;
+    padding: 10px 3px 3px;
+}
+
+.form__button {
+    margin: 40px 0 0;
+}
+
+
+
+// .form {
+//     @include flexVertical();
     
-    .error {
-        height: $margin-between-elements;
-    }
-    button{
-        @include btn1();
-        background-color: $button-submit-color;
-        transition: 0.5s;
-        &:hover{
-            @include buttonHoverEffect($button-color,10px,white);
-        }
-    }
-}
+//     .error {
+//         height: $margin-between-elements;
+//     }
+//     button{
+//         @include btn1();
+//         background-color: $button-submit-color;
+//         transition: 0.5s;
+//         &:hover{
+//             @include buttonHoverEffect($button-color,10px,white);
+//         }
+//     }
+// }
 
-.input{
-    width: 50%;
-    box-shadow: $shadow;
-    border: 1px none $border-color;
-    padding: 2vh;
-    height: 30px;
-    font-size: 14px;
-    border-radius: 4px;
-    background-color: #E7E7E7;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-}
+// .input{
+//     width: 50%;
+//     box-shadow: $shadow;
+//     border: 1px none $border-color;
+//     padding: 2vh;
+//     height: 30px;
+//     font-size: 14px;
+//     border-radius: 4px;
+//     background-color: #E7E7E7;
+//     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+// }
 
-input[type="file"] {
-    display: none;
-}
-.file-upload {
-    width: 150px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    text-align: center;
-    margin-top: 10px;
-    cursor: pointer;
-}
+// input[type="file"] {
+//     display: none;
+// }
+// .file-upload {
+//     width: 150px;
+//     border: 1px solid #ccc;
+//     display: inline-block;
+//     padding: 6px 12px;
+//     text-align: center;
+//     margin-top: 10px;
+//     cursor: pointer;
+// }
 
 
-@media screen and (max-width: 600px) {
-    .input {
-      width: 100%;
-    }
-  }
+// @media screen and (max-width: 600px) {
+//     .input {
+//       width: 100%;
+//     }
+//   }

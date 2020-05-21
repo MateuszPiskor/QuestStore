@@ -1,17 +1,58 @@
 .button {
-    display: flex;
+    display: inline-flex;
     height: $button-height;
-    width: 100px;
-    line-height: $button-height;
+    align-items: center;
     justify-content: center;
-    background-color: $button-list-color;
-    color: black;
-    font-size: 10px;
-    border-radius: 10px;
+    background-color: $white;
+    color: $purple;
     text-transform: uppercase;
-    margin: 4px;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-small;
+    border: 3px solid $purple;
+    padding: 5px 20px;
+
+    @include transition(background-color, color);
+
+    &:hover {
+        background-color: $purple;
+        color: $white;
+    }
+
+    & ~ & {
+        margin-left: 8px;
+    }
 }
 
-.button--submit {
-    margin-top: 20px;
+.button--alt {
+    border-color: $orange;
+    color: $orange;
+
+    &:hover {
+        background-color: $orange;
+        color: $white;
+    }
+}
+
+.button--inverse {
+    background-color: $purple;
+    color: $white;
+
+    &:hover {
+        background-color: $white;
+        color: $purple;
+    }
+}
+
+.button--hidden {
+    display: none;
+
+    @include responsive($screen-tablet) {
+        display: flex;
+        border: none;
+    }
+
+    @include responsive($screen-mobile) {
+        display: flex;
+        border: none;
+    }
 }
