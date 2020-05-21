@@ -43,6 +43,17 @@
     }
 }
 
+.button--orange {
+    background-color: $orange;
+    color: $white;
+    border-color: $orange;;
+
+    &:hover {
+        background-color: $white;
+        color: $orange;
+    }
+}
+
 .button--hidden {
     display: none;
 

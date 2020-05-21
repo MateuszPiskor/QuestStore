@@ -68,6 +68,14 @@ input[type="radio"] {
     background-color: white;
     color: #485696; }
 
+.button--orange {
+  background-color: #FFBE86;
+  color: white;
+  border-color: #FFBE86; }
+  .button--orange:hover {
+    background-color: white;
+    color: #FFBE86; }
+
 .button--hidden {
   display: none; }
   @media screen and (max-width: 768px) {
@@ -282,3 +290,55 @@ td, th {
 th {
   text-align: left;
   cursor: pointer; }
+
+.login-page {
+  background-color: #485696;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh; }
+
+.login-page__logo {
+  margin-top: 120px; }
+
+.login-page__form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+
+.login-page__form__input {
+  padding: 5px;
+  border-color: white;
+  transition-property: border-color;
+  transition-duration: 0.3s; }
+  .login-page__form__input:hover {
+    border-color: #FFBE86; }
+
+.login-page__type {
+  display: flex;
+  flex-direction: row;
+  background-color: #485696;
+  color: white;
+  border: none; }
+
+.login-page__type input[type=radio] {
+  display: none;
+  visibility: hidden; }
+  .login-page__type input[type=radio]:checked + label {
+    background-color: white;
+    color: #485696; }
+
+.login-page__type label {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  transition-property: background-color, color, border-color;
+  transition-duration: 0.3s; }
+  .login-page__type label:hover {
+    background-color: white;
+    color: #485696; }
+
+.login-page .error {
+  padding: 5px;
+  height: 15px; }
