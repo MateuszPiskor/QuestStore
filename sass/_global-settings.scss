@@ -26,3 +26,11 @@ a {
     color: $text-color-link;
     text-decoration: none;
 }
+textarea.input{
+    height: initial;
+}
+input[type="radio"] {
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+}
