@@ -33,16 +33,6 @@
     }
 }
 
-.button--alt--inverse {
-    background-color: $orange;
-    color: $white;
-
-    &:hover {
-        background-color: $white;
-        color: $orange;
-    }
-}
-
 .button--inverse {
     background-color: $purple;
     color: $white;
@@ -50,6 +40,17 @@
     &:hover {
         background-color: $white;
         color: $purple;
+    }
+}
+
+.button--orange {
+    background-color: $orange;
+    color: $white;
+    border-color: $orange;;
+
+    &:hover {
+        background-color: $white;
+        color: $orange;
     }
 }
 

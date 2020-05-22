@@ -1,59 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+    <body >
+        <nav class="login-page">
+            <a class="logo login-page__logo" href="">CodeCoolers</a>
+            <form class="login-page__form" action="admin/index.html">
+                <section class="login-page__type">
+                    <input type="radio" id="admin" name="role" value="admin" checked>
+                    <label for="admin">Admin</label>
+                    <input type="radio" id="mentor" name="role" value="mentor">
+                    <label for="mentor">Mentor</label>
+                    <input type="radio" id="student" name="role" value="student">
+                    <label for="student">Student</label>
+                </section>
+                <label for="login" class="form__label"></label>
+                <input class="form__input login-page__form__input" type="text" id="login" placeholder="Login"/>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <link rel="stylesheet" href="css/style.css" />
+                <label for="password" class="form__label"></label>
+                <input class="form__input login-page__form__input" type="text" id="password" placeholder="Password"/>
 
-<body>
-    <div w3-include-html="IncludesHTML/header.html"></div>
-    <main>
-        <section class="sidemenu">
-            <div><a href="form.html">Login</a></div>
-            <div><a href="admin/index.html">Admin</a></div>
-            <div><a href="mentor/index.html">Mentor</a></div>
-        </section>
-        <section class=".results">
-
-            <form action="" class="login-form">
-
-                <div class="form-title">Sign As</div>
-
-                <div class="form__radio-wrapper">
-                    <div>
-                        <label for="contactChoice1">Student</label>
-                        <input type="radio" id="contactChoice1" name="contact" value="email">
-                    </div>
-
-                    <div>
-                        <label for="contactChoice2">Mentor</label>
-                        <input type="radio" id="contactChoice2" name="contact" value="phone">
-
-                    </div>
-
-                    <div>
-                        <label for="contactChoice3">Admin</label>
-                        <input type="radio" id="contactChoice3" name="contact" value="mail">
-                    </div>
-                </div>
-
-                <div class="line-in-form"></div>
-                <label for="user-name">User Name: </label>
-                <input type="text" class="inp1" id="user-name" placeholder="login or email">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="inp1" placeholder="password">
-                <div id="forgot-password"><a href="#">Forgot password</a></div>
-                <button type="submit">Sing in</button>
+                <div id="login-error" class="error"></div>
+            
+                <input class="button form__button button--orange" type="submit"/>
             </form>
-            </div>
-
-        </section>
-    </main>
-    <div w3-include-html="IncludesHTML/footer.html"></div>
-    <script src="js/includeHTML.js"></script>
-    <script src="https://kit.fontawesome.com/4719ef79cb.js" crossorigin="anonymous"></script>
-</body>
-
+          </nav>
+        
+        <script src="../js/Input.js"></script>
+        <script src="../js/includeHTML.js"></script>
+        <script src="../js/scripts.js"></script>
+    </body>
 </html>
