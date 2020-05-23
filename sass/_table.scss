@@ -1,13 +1,28 @@
 table {
     width: 100%;
+
+    @include responsive($screen-mobile) {
+        border: 1px solid $grey;
+        font-size: $font-size-mini;
+    }
 }
 
 td, th {
     padding: 10px 0px;
-    padding-right: 10px;
+    padding-left: 10px;
+
+    @include responsive($screen-mobile) {
+        padding-left: 4px;
+    }
 }
 
 th {
     text-align: left;
     cursor: pointer;
+}
+
+th:first-child {
+    @include responsive($screen-mobile) {
+        min-width: 60px;
+    }
 }

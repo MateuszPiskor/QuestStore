@@ -24,4 +24,33 @@
     align-items: center;
     height: $button-height;
     text-align: center;
+
+    @include responsive($screen-tablet) {
+        text-align: left;
+        height: auto;
+        margin: 5px 0;
+    }
 }
+
+.list__item--long {
+
+    @include responsive($screen-mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.list__item--long .button {
+    @include responsive($screen-tablet) {
+        height: $button-height + 20px;
+        margin: 0;
+        padding: 0px 8px;
+    }
+
+    @include responsive($screen-mobile) {
+        margin-left: 0;
+        padding: 5px 0;
+        height: $button-height - 12px;
+    }
+}
+

@@ -372,26 +372,56 @@ footer {
   display: flex;
   align-items: center;
   height: 40px;
-  text-align: center;
-}
+  text-align: center; }
+  @media screen and (max-width: 768px) {
+    .item__name {
+      text-align: left;
+      height: auto;
+      margin: 5px 0; } }
+
+@media screen and (max-width: 425px) {
+  .list__item--long {
+    flex-direction: column;
+    align-items: flex-start; } }
+
+@media screen and (max-width: 768px) {
+  .list__item--long .button {
+    height: 60px;
+    margin: 0;
+    padding: 0px 8px; } }
+
+@media screen and (max-width: 425px) {
+  .list__item--long .button {
+    margin-left: 0;
+    padding: 5px 0;
+    height: 28px; } }
 
 .info-page__item--bold {
   font-weight: 700;
 }
 
 table {
-  width: 100%;
-}
+  width: 100%; }
+  @media screen and (max-width: 425px) {
+    table {
+      border: 1px solid #E7E7E7;
+      font-size: 12px; } }
 
 td, th {
   padding: 10px 0px;
-  padding-right: 10px;
-}
+  padding-left: 10px; }
+  @media screen and (max-width: 425px) {
+    td, th {
+      padding-left: 4px; } }
 
 th {
   text-align: left;
   cursor: pointer;
 }
+
+@media screen and (max-width: 425px) {
+  th:first-child {
+    min-width: 60px; } }
 
 .login-page {
   background-color: #485696;
