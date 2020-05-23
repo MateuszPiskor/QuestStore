@@ -22,6 +22,12 @@ th {
     cursor: pointer;
 }
 
+th .fa-sort {
+    @include responsive($screen-mobile) {
+        display: none;
+    }
+}
+
 th:first-child {
     @include responsive($screen-mobile) {
         min-width: 60px;
