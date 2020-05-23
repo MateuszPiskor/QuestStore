@@ -13,13 +13,13 @@ class Input {
     }
     displayErrorForEmptyInputs(inputs) {
         for (let i = 0; i < inputs.length; i++) {
-            inputs[i].nextSibling.textContent = "can`t be empty";
+            inputs[i].nextElementSibling.textContent = "Field can't be empty";
             event.preventDefault();
         }
     }
     clearErrorForInputs(inputs) {
         for (let i = 0; i < inputs.length; i++) {
-            inputs[i].nextSibling.textContent = "";
+            inputs[i].nextElementSibling.textContent = "";
         }
     }
 }
