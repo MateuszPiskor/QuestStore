@@ -36,3 +36,10 @@
 .form__button {
     margin: 40px 0 0;
 }
+
+.error {
+    color: $text-color-error;
+    font-size: $font-size-mini;
+    padding: 4px;
+    height: 4px + $font-size-mini;
+}
