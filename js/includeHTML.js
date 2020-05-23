@@ -16,9 +16,12 @@ function includeHTML() {
             /* Remove the attribute, and call this function once more: */
             elmnt.removeAttribute("w3-include-html");
             includeHTML();
+            console.log("File " + file + " loaded.");
           }
         }
-        xhttp.open("GET", file, true);
+        /* TODO: Make call async (currently synchronous) */
+        // xhttp.open("GET", file, true);
+        xhttp.open("GET", file, false);
         xhttp.send();
         /* Exit the function: */
         return;
