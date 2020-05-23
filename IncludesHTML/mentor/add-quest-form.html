@@ -2,15 +2,15 @@
 <h1 class="page-title">Add quest</h1>
 <form id="form" class="form">
     <label for="name" class="form__label">Name</label>
-    <input class="form__input" type="text" id="name"/>
+    <input class="form__input" type="text" id="name" required/>
     <div id="name-error" class="error"></div>
 
     <label for="value" class="form__label">Value</label>
-    <input class="form__input" type="text" id="value"/>
+    <input class="form__input" type="number" id="value" required/>
     <div id="value-error" class="error"></div>
 
     <label for="description" class="form__label">Description</label>
-    <textarea class="form__input" type="text" id="description" placeholder="Type a description" name="description"></textarea>
+    <textarea class="form__input" type="text" id="description" placeholder="Type a description" name="description" required></textarea>
     <div id="description-error" class="error"></div>
     
     <label for="type" class="form__label">Type</label>
