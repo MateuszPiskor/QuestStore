@@ -7,6 +7,7 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    padding: 4px 10px;
     @include transition(display);
 }
 
@@ -15,6 +16,7 @@
         .button {
             display: flex;
         }
+        background-color: $grey;
     }
 }
 

@@ -18,7 +18,14 @@ td, th {
 
 th {
     text-align: left;
+    background-color: $grey;
     cursor: pointer;
+}
+
+th .fa-sort {
+    @include responsive($screen-mobile) {
+        display: none;
+    }
 }
 
 th:first-child {

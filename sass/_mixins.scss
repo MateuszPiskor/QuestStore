@@ -9,13 +9,3 @@
     transition-duration: 0.3s;
 }
 
-@mixin hoverEffect($bgColor, $textColor) {
-    &:hover {
-        background-color: $bgColor;
-
-        span {
-            color: $textColor;
-            transform: translateX(10px);
-        }
-    }
-}
