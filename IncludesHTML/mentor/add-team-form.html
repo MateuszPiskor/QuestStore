@@ -1,0 +1,37 @@
+<h1 class="page-title">Add team</h1>
+<form id="form" class="form">
+    <label for="name" class="form__label">Name</label>
+    <input class="form__input" type="text" id="name"/>
+    <div id="name-error" class="error"></div>
+
+    <label for="type" class="form__label">Class</label>
+    <select class="form__input" id="type" name="type">
+        <option value="Class 1" selected>Class 1</option>
+        <option value="Class 2">Class 2</option>
+      </select>
+    
+    <ul class="list">
+        <li class="list__item list__item--hover">
+            <span class="item__name" name="finishing-assigment">1. John Doe</span>
+            <input type="checkbox" />
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">2. John Doe</span>
+            <input type="checkbox" name="passing-checkgopin" />
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">3. John Doe</span>
+            <input type="checkbox" name="passing-checkgopin" />
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">4. John Doe</span>
+            <input type="checkbox" name="passing-checkgopin" />
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">5. John Doe</span>
+            <input type="checkbox" name="passing-checkgopin" />
+        </li>
+    </ul>
+    
+    <button class="button button--inverse form__button" type="submit">Add</button>
+</form>
