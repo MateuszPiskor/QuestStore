@@ -34,6 +34,11 @@
     }
 }
 
+.item__name-second {
+    display: inline-block;
+    margin: 0px 40px;
+}
+
 .list__item--long {
 
     @include responsive($screen-mobile) {

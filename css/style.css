@@ -257,6 +257,10 @@ footer {
       height: auto;
       margin: 5px 0; } }
 
+.item__name-second {
+  display: inline-block;
+  margin: 0px 40px; }
+
 @media screen and (max-width: 425px) {
   .list__item--long {
     flex-direction: column;
