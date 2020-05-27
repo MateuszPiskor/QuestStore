@@ -393,3 +393,12 @@ th {
 
 .file-upload {
   color: transparent; }
+
+.input-comment {
+  font-size: 12px;
+  padding: 4px;
+  height: 16px;
+  color: white; }
+
+.input-comment--underline {
+  text-decoration: underline; }
