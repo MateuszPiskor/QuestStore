@@ -34,9 +34,13 @@
     }
 }
 
-.item__name-second {
+.item__name-next {
     display: inline-block;
     margin: 0px 40px;
+
+    @include responsive($screen-tablet) {
+        margin: 0px 20px;
+    }
 }
 
 .list__item--long {
@@ -61,3 +65,8 @@
     }
 }
 
+.teammate {
+    text-transform: uppercase;
+    color: $orange;
+    font-weight: $font-weight-bold;
+}

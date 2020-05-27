@@ -257,9 +257,12 @@ footer {
       height: auto;
       margin: 5px 0; } }
 
-.item__name-second {
+.item__name-next {
   display: inline-block;
   margin: 0px 40px; }
+  @media screen and (max-width: 768px) {
+    .item__name-next {
+      margin: 0px 20px; } }
 
 @media screen and (max-width: 425px) {
   .list__item--long {
@@ -277,6 +280,11 @@ footer {
     margin-left: 0;
     padding: 5px 0;
     height: 28px; } }
+
+.teammate {
+  text-transform: uppercase;
+  color: #FFBE86;
+  font-weight: 700; }
 
 .info-page__item--bold {
   font-weight: 700; }
