@@ -47,3 +47,14 @@
 .file-upload {
     color: transparent;
 }
+
+.input-comment {
+    font-size: $font-size-mini;
+    padding: 4px;
+    height: 4px + $font-size-mini;
+    color: $text-color-inverse;
+}
+
+.input-comment--underline {
+    text-decoration: underline;
+}

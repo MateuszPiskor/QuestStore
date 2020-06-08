@@ -257,6 +257,13 @@ footer {
       height: auto;
       margin: 5px 0; } }
 
+.item__name-next {
+  display: inline-block;
+  margin: 0px 40px; }
+  @media screen and (max-width: 768px) {
+    .item__name-next {
+      margin: 0px 20px; } }
+
 @media screen and (max-width: 425px) {
   .list__item--long {
     flex-direction: column;
@@ -273,6 +280,11 @@ footer {
     margin-left: 0;
     padding: 5px 0;
     height: 28px; } }
+
+.teammate {
+  text-transform: uppercase;
+  color: #FFBE86;
+  font-weight: 700; }
 
 .info-page__item--bold {
   font-weight: 700; }
@@ -393,3 +405,31 @@ th {
 
 .file-upload {
   color: transparent; }
+
+.input-comment {
+  font-size: 12px;
+  padding: 4px;
+  height: 16px;
+  color: white; }
+
+.input-comment--underline {
+  text-decoration: underline; }
+
+.news-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border: 3px solid #485696;
+  padding: 8px;
+  min-height: 40px;
+  margin: 15px 0; }
+
+.news-box__date {
+  margin: 0 10px;
+  flex-grow: 1; }
+
+.news-box__text {
+  flex-grow: 2; }
+
+.news-box__points {
+  margin: 0 10px; }
