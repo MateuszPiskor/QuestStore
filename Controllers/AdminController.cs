@@ -13,17 +13,17 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult AddMentor()
+        public IActionResult AddMentorForm()
         {
             return View();
         }
 
-        public IActionResult AddClass()
+        public IActionResult AddClassForm()
         {
             return View();
         }
 
-        public IActionResult AddLevel()
+        public IActionResult AddLevelForm()
         {
             return View();
         }
@@ -33,7 +33,7 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult ListOfClasses()
+        public IActionResult ClassesList()
         {
             return View();
         }
@@ -43,16 +43,21 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult MentorProfile()
+        public IActionResult MentorProfileView()
         {
             return View();
         }
-        public IActionResult EditMentor()
+        public IActionResult EditMentorForm()
         {
             return View();
         }
         
-        public IActionResult EditClass()
+        public IActionResult EditClassForm()
+        {
+            return View();
+        }
+
+        public IActionResult ClassProfileView()
         {
             return View();
         }
