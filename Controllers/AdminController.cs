@@ -47,7 +47,12 @@ namespace Queststore.Controllers
         {
             return View();
         }
-        public IActionResult EditMentorForm()
+        public IActionResult EditMentor()
+        {
+            return View();
+        }
+        
+        public IActionResult EditClass()
         {
             return View();
         }
