@@ -43,5 +43,14 @@ namespace Queststore.Controllers
             return View();
         }
 
+        public IActionResult MentorProfile()
+        {
+            return View();
+        }
+        public IActionResult EditMentorForm()
+        {
+            return View();
+        }
+
     }
 }
