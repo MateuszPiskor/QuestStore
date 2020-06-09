@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "EditExpierenceLevelForm";
+}
+
+<h1 class="page-title">Edit experience level</h1>
+<form id="form" class="form">
+    <label for="level-name" class="form__label">Level name</label>
+    <input class="form__input" type="text" id="level-name" value="Begginer" required />
+    <div id="name-error" class="error"></div>
+
+    <label for="min-points" class="form__label">Required points</label>
+    <input class="form__input" type="number" id="min-points" value="1000" required />
+    <div id="mentor-error" class="error"></div>
+
+    <label for="avatar" class="form__label">Upload avatar</label>
+    <input class="file-upload" type="file" id="avatar" value="Dragon.jpg" required />
+    <div id="avatar-error" class="error"></div>
+
+    <button class="button button--inverse form__button" type="submit">Edit</button>
+</form>
+

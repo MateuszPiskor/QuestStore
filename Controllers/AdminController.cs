@@ -57,7 +57,7 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult ClassProfileView()
+        public IActionResult EditExpierenceLevelForm()
         {
             return View();
         }
