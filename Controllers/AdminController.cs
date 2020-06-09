@@ -17,13 +17,21 @@ namespace Queststore.Controllers
         {
             return View();
         }
+
         public IActionResult AddClass()
         {
             return View();
         }
+
         public IActionResult AddLevel()
         {
             return View();
         }
+
+        public IActionResult MentorsList()
+        {
+            return View();
+        }
+
     }
 }
