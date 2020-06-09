@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Queststore</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <section class="sidemenu">
+        <nav class="menu">
+            <a class="logo" href="">CodeCoolers</a>
+            <a class="menu__item" href="../../admin/all-mentors.html"><span>Mentors</span></a>
+            <a class="menu__item" href="../../admin/add-mentor.html"><span>Add mentor</span></a>
+            <a class="menu__item" href="../../admin/all-classes.html"><span>Classes</span></a>
+            <a class="menu__item" href="../../admin/add-class.html"><span>Add class</span></a>
+            <a class="menu__item" href="../../admin/all-experience-levels.html"><span>Levels</span></a>
+            <a class="menu__item" href="../../admin/add-levels.html"><span>Add levels</span></a>
+        </nav>
+        <button class="button button--inverse sidemenu__button" onclick="toggleMenu();"><i class="sidemenu-icon fas fa-hamburger"></i></button>
+    </section>
+    
+    <section class="content">
+        <header>
+            <div class="header__user">
+                <a href="#" class="header__user-profile button">View profile</a>
+                <a href="#" class="header__user-logout button button--alt">Log out</a>
+            </div>
+        </header>
+        <main class="results">
+            <div>@RenderBody()</div>
+        </main>
+        <footer>
+            <div class="footer__media">
+                <a class="facebook footer__media-item" href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                <a class="twitter footer__media-item " href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+                <a class="youtube footer__media-item" href="#"><i class="fab fa-youtube fa-2x"></i></a>
+                <a class="instagram footer__media-item" href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+            <div class="footer__business">
+                <div class="footer__business-item" id="terms">Terms and conditions</div>
+                <div class="footer__business-item" id="contact">Contact</div>
+                <div class="footer__business-item" id="press">Press</div>
+                <div class="footer__business-item" id="subscription">Subscribe</div>
+
+            </div>
+        </footer>
+    </section>
+
+    <script src="../js/includeHTML.js"></script>
+    <script src="../js/scripts.js"></script>
+    @*<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Queststore</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>*@
+    @*<div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Queststore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
