@@ -12,5 +12,10 @@ namespace Queststore.Controllers
         {
             return View();
         }
+
+        public IActionResult AddMentor()
+        {
+            return View();
+        }
     }
 }
