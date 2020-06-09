@@ -33,5 +33,15 @@ namespace Queststore.Controllers
             return View();
         }
 
+        public IActionResult ListOfClasses()
+        {
+            return View();
+        }
+
+        public IActionResult ExpLevelsList()
+        {
+            return View();
+        }
+
     }
 }
