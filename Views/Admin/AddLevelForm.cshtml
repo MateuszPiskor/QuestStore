@@ -1,20 +1,20 @@
-﻿
+﻿@model Queststore.Models.ExpLevel;
 @{
     ViewData["Title"] = "AddLevelForm";
 }
 
 <h1 class="page-title">Add experience level</h1>
-<form id="form" class="form">
-    <label for="input-level-name" class="form__label">Level name</label>
-    <input class="form__input" type="text" id="input-level-name" />
+<form id="form" class="form" method="post" asp-action="AddLevelForm">
+    <label asp-for="Name" for="input-level-name" class="form__label">Level name</label>
+    <input asp-for="Name" class="form__input" type="text" id="input-level-name"/>
     <div id="nameError" class="error"></div>
 
-    <label for="input-points" class="form__label">Required points</label>
-    <input class="form__input" type="text" id="input-points" />
+    <label asp-for="Min_Points" for="input-points" class="form__label">Required points</label>
+    <input asp-for="Min_Points" class="form__input" type="text" id="input-points" />
     <div id="mentor-error" class="error"></div>
 
-    <label for="input-avatar" class="form__label">Upload avatar</label>
-    <input class="file-upload" type="file" id="input-avatar" />
+    @*<label asp-for="Avatar" for="input-avatar" class="form__label">Upload avatar</label>
+    <input asp-for="Avatar" class="file-upload" type="file" id="input-avatar" />*@
     <div id="avatar-error" class="error"></div>
 
     <button class="button button--inverse form__button" type="submit">Add</button>
