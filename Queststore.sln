@@ -1,7 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queststore", "Queststore.csproj", "{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queststore", "Queststore.csproj", "{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline", "..\..\..\..\OOP\Sprint3\Project\ShopOnline\src\ShopOnline\ShopOnline.csproj", "{C6E98986-E2B9-4942-BAEB-27D5ABAF60C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +16,15 @@ Global
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E98986-E2B9-4942-BAEB-27D5ABAF60C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E98986-E2B9-4942-BAEB-27D5ABAF60C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E98986-E2B9-4942-BAEB-27D5ABAF60C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E98986-E2B9-4942-BAEB-27D5ABAF60C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A4FA50F-8B5B-4949-AF46-9D0B7F6604FB}
 	EndGlobalSection
 EndGlobal

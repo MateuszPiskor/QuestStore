@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Queststore.Models
 {
-    public class Exp_Level
+    public class ExpLevel
     {
         public int Id { get; set; }
         public string Name { get; set; }
