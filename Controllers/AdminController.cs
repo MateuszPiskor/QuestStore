@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Queststore.DAO;
+using Queststore.Models;
+using Queststore.Services;
 
 namespace Queststore.Controllers
 {
     public class AdminController : Controller
     {
+        IAdmin AdminOperations;
+        public AdminController()
+        {
+            AdminOperations=new AdminOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db"));
+        }
         public IActionResult Index()
         {
             return View();
@@ -25,6 +33,12 @@ namespace Queststore.Controllers
 
         public IActionResult AddLevelForm()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddLevelForm(ExpLevel expLevel)
+        {
+            AdminOperations.AddLevelForm(expLevel);
             return View();
         }
 

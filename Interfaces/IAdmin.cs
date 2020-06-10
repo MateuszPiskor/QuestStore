@@ -1,9 +1,10 @@
-﻿using AspNetCore;
+﻿using System.Runtime.InteropServices.ComTypes;
+using Queststore.Models;
 
 namespace Queststore.DAO
 {
     public interface IAdmin
     {
-        void AddLevelForm();
+        void AddLevelForm(ExpLevel expLevel);
     }
 }
