@@ -18,8 +18,8 @@ namespace Queststore.DAO
         }
         public void AddLevelForm(ExpLevel expLevel)
         {
-            string command = $@"INSERT INTO exp_levels(id,name,min_points)
-                       VALUES((Select max(id) from exp_levels)+1, '{expLevel.Name}','{expLevel.Min_Points}')";
+            string command = $@"INSERT INTO exp_levels(name,min_points)
+                       VALUES('{expLevel.Name}','{expLevel.Min_Points}')";
             ExecuteNonQueryCommand(command);
         }
         private void ExecuteNonQueryCommand(string command)
