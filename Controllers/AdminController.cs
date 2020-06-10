@@ -41,6 +41,12 @@ namespace Queststore.Controllers
             AdminOperations.AddLevelForm(expLevel);
             return View();
         }
+        [HttpPost]
+        public IActionResult EditExpierenceLevelForm(ExpLevel expLevel)
+        {
+            AdminOperations.EditExpierenceLevelForm(expLevel);
+            return View();
+        }
 
         public IActionResult MentorsList()
         {
@@ -54,7 +60,8 @@ namespace Queststore.Controllers
 
         public IActionResult ExpLevelsList()
         {
-            return View();
+            List<ExpLevel> levels=AdminOperations.ExpLevelsList();     
+            return View(levels);
         }
 
         public IActionResult MentorProfileView()

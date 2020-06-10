@@ -4,10 +4,6 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queststore", "Queststore.csproj", "{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline", "..\..\..\..\OOP\Sprint3\Project\ShopOnline\src\ShopOnline\ShopOnline.csproj", "{5BA1B8E5-3E61-452C-8FE1-9829CAC1B26D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "..\..\..\..\OOP\PA\Libraray4.0\Library.csproj", "{AE904CEE-C9BF-467A-8336-4E7166202210}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,14 +14,6 @@ Global
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BA1B8E5-3E61-452C-8FE1-9829CAC1B26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BA1B8E5-3E61-452C-8FE1-9829CAC1B26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BA1B8E5-3E61-452C-8FE1-9829CAC1B26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BA1B8E5-3E61-452C-8FE1-9829CAC1B26D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE904CEE-C9BF-467A-8336-4E7166202210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE904CEE-C9BF-467A-8336-4E7166202210}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE904CEE-C9BF-467A-8336-4E7166202210}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE904CEE-C9BF-467A-8336-4E7166202210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

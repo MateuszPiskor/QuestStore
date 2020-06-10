@@ -1,25 +1,29 @@
-﻿
+﻿@model IEnumerable<Queststore.Models.ExpLevel>;
 @{
     ViewData["Title"] = "ExpLevelsList";
 }
 
 <h1 class="page-title">Experience levels</h1>
 <ul class="list">
+    @foreach (var expLevel in Model)
+    {
     <li class="list__item list__item--hover">
-        <span class="item__name">1. Beginner - 1000 points</span>
+        <span class="item__name">@expLevel.Id. @expLevel.Name - @expLevel.MinPoints points</span>
         <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
     </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">2. Medium - 2500 points</span>
-        <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
-    </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">3. Advanced - 5000 points</span>
-        <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
-    </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">4. Expert - 7000 points</span>
-        <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
-    </li>
+    }
+
+    @*<li class="list__item list__item--hover">
+            <span class="item__name">2. Medium - 2500 points</span>
+            <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">3. Advanced - 5000 points</span>
+            <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
+        </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">4. Expert - 7000 points</span>
+            <a class="button button--hidden" asp-controller="Admin" asp-action="EditExpierenceLevelForm">Edit</a>
+        </li>*@
 </ul>
 
