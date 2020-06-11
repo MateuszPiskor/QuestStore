@@ -31,11 +31,17 @@ namespace Queststore.DAO
             ExecuteNonQueryCommand(command);
         }
 
-        public List<ExpLevel> ExpLevelsList()
+        public IEnumerable<ExpLevel> ExpLevelsList()
         {
 
             string command= $@"Select * from exp_levels";
-            return ExecuteCommand(command);
+            var expLevelsList=ExecuteCommand(command);
+            return sortLevelsByMinPoints(expLevelsList);
+        }
+
+        private IEnumerable<ExpLevel> sortLevelsByMinPoints(List<ExpLevel> expLevelsList)
+        {
+            return expLevelsList.OrderBy(level => level.MinPoints);
         }
 
         private void ExecuteNonQueryCommand(string command)

@@ -61,7 +61,7 @@ namespace Queststore.Controllers
 
         public IActionResult ExpLevelsList()
         {
-            List<ExpLevel> levels=AdminOperations.ExpLevelsList();     
+            IEnumerable<ExpLevel> levels=AdminOperations.ExpLevelsList();     
             return View(levels);
         }
 
