@@ -12,12 +12,14 @@
     <section class="sidemenu">
         <nav class="menu">
             <a class="logo" href="">CodeCoolers</a>
-            <a class="menu__item" asp-controller="Admin" asp-action="MentorsList"><span>Mentors</span></a>
-            <a class="menu__item" asp-controller="Admin" asp-action="AddMentorForm"><span>Add mentor</span></a>
-            <a class="menu__item" asp-controller="Admin" asp-action="ClassesList"><span>Classes</span></a>
-            <a class="menu__item" asp-controller="Admin" asp-action="AddClassForm"><span>Add class</span></a>
-            <a class="menu__item" asp-controller="Admin" asp-action="ExpLevelsList"><span>Levels</span></a>
-            <a class="menu__item" asp-controller="Admin" asp-action="AddLevelForm"><span>Add levels</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="StudentsList"><span>Students</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddStudent"><span>Add student</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="TeamsList"><span>Teams</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddTeam"><span>Add team</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="QuestsList"><span>Quests</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddQuest"><span>Add quest</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="ArtifactsList"><span>Artifacts</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddArtifact"><span>Add artifact</span></a>
         </nav>
         <button class="button button--inverse sidemenu__button" onclick="toggleMenu();"><i class="sidemenu-icon fas fa-hamburger"></i></button>
     </section>
