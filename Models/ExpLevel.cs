@@ -9,7 +9,19 @@ namespace Queststore.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Min_Points { get; set; }
+        public int MinPoints { get; set; }
+
+        public ExpLevel()
+        {
+
+        }
+
+        public ExpLevel(int id, string name, int minPoints)
+        {
+            Id = id;
+            Name = name;
+            MinPoints = minPoints;
+        }
 
     }
 }

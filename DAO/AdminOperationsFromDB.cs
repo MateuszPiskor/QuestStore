@@ -19,9 +19,21 @@ namespace Queststore.DAO
         public void AddLevelForm(ExpLevel expLevel)
         {
             string command = $@"INSERT INTO exp_levels(name,min_points)
-                       VALUES('{expLevel.Name}','{expLevel.Min_Points}')";
+                       VALUES('{expLevel.Name}','{expLevel.MinPoints}')";
             ExecuteNonQueryCommand(command);
         }
+        public void EditExpierenceLevelForm(ExpLevel expLevel)
+        {
+
+        }
+
+        public List<ExpLevel> ExpLevelsList()
+        {
+
+            string command= $@"Select * from exp_levels";
+            return ExecuteCommand(command);
+        }
+
         private void ExecuteNonQueryCommand(string command)
         {
 
@@ -42,6 +54,32 @@ namespace Queststore.DAO
                 Console.WriteLine($"Problem with sth else: {e.Message}");
                 throw;
             }
+        }
+
+        private List<ExpLevel> ExecuteCommand(string command)
+        {
+            List<ExpLevel> levels = new List<ExpLevel>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                    levels = ExpLevMaker.ParseDbTo(levels,rdr);
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                throw;
+            }
+            return levels;
         }
     }
 }
