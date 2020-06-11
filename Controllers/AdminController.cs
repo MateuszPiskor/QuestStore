@@ -39,7 +39,7 @@ namespace Queststore.Controllers
         public IActionResult AddLevelForm(ExpLevel expLevel)
         {
             AdminOperations.AddLevelForm(expLevel);
-            return View();
+            return RedirectToAction("AddLevelForm", "Admin");
         }
         [HttpPost]
         public IActionResult EditExpierenceLevelForm(ExpLevel expLevel)
