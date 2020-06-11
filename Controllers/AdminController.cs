@@ -45,7 +45,8 @@ namespace Queststore.Controllers
         public IActionResult EditExpierenceLevelForm(ExpLevel expLevel)
         {
             AdminOperations.EditExpierenceLevelForm(expLevel);
-            return View();
+            return RedirectToAction("ExpLevelsList", "Admin");
+            
         }
 
         public IActionResult MentorsList()
@@ -78,9 +79,10 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult EditExpierenceLevelForm()
+        public IActionResult EditExpierenceLevelForm(int id)
         {
-            return View();
+            ExpLevel expLevel=AdminOperations.GetLevelById(id);
+            return View(expLevel);
         }
 
     }

@@ -24,7 +24,11 @@ namespace Queststore.DAO
         }
         public void EditExpierenceLevelForm(ExpLevel expLevel)
         {
-
+            string command = @$"update exp_levels 
+                                set name = '{expLevel.Name}',
+                                min_points = {expLevel.MinPoints}
+                                where id = {expLevel.Id} ";
+            ExecuteNonQueryCommand(command);
         }
 
         public List<ExpLevel> ExpLevelsList()
@@ -80,6 +84,13 @@ namespace Queststore.DAO
                 throw;
             }
             return levels;
+        }
+
+        public ExpLevel GetLevelById(int id)
+        {
+            string command = $"select * from exp_levels where id = { id } ";
+            var expLevels=ExecuteCommand(command);
+            return expLevels[0];
         }
     }
 }

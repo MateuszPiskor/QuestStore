@@ -9,5 +9,6 @@ namespace Queststore.DAO
         void AddLevelForm(ExpLevel expLevel);
         void EditExpierenceLevelForm(ExpLevel expLevel);
         List<ExpLevel> ExpLevelsList();
+        ExpLevel GetLevelById(int id);
     }
 }
