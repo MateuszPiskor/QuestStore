@@ -4,10 +4,6 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queststore", "Queststore.csproj", "{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentCrud", "..\..\CoolLab\CRUD\StudentCrud\StudentCrud.csproj", "{19AA4459-3B97-4F00-87CE-390AB043877E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD-dojo", "..\..\Crud\CRUD-dojo\CRUD-dojo.csproj", "{FED76EA9-D366-481F-A5D6-3ABC5C258237}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,14 +14,6 @@ Global
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19AA4459-3B97-4F00-87CE-390AB043877E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19AA4459-3B97-4F00-87CE-390AB043877E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19AA4459-3B97-4F00-87CE-390AB043877E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19AA4459-3B97-4F00-87CE-390AB043877E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FED76EA9-D366-481F-A5D6-3ABC5C258237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FED76EA9-D366-481F-A5D6-3ABC5C258237}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FED76EA9-D366-481F-A5D6-3ABC5C258237}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FED76EA9-D366-481F-A5D6-3ABC5C258237}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

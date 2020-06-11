@@ -17,6 +17,6 @@ namespace Queststore.Models
         public int MyProperty { get; set; }
         public bool Is_Admin { get; set; }
         public bool Is_Mentor { get; set; }
-        public int Student_id { get; set; }
+        public Student Student { get; set; }
     }
 }

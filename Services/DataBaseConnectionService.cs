@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace ShopOnline.DataAccess
+namespace Questsore.DataAccess
 {
     public class DataBaseConnectionService
     {

@@ -13,7 +13,6 @@ namespace Queststore.Models
 
         public ExpLevel()
         {
-
         }
 
         public ExpLevel(int id, string name, int minPoints)
