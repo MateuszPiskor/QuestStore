@@ -35,7 +35,7 @@ namespace Queststore.DAO
         {
 
             string command= $@"Select * from exp_levels";
-            var expLevelsList=ExecuteCommand(command);
+            var expLevelsList=GetExpLevels(command);
             return sortLevelsByMinPoints(expLevelsList);
         }
 
@@ -66,7 +66,7 @@ namespace Queststore.DAO
             }
         }
 
-        private List<ExpLevel> ExecuteCommand(string command)
+        private List<ExpLevel> GetExpLevels(string command)
         {
             List<ExpLevel> levels = new List<ExpLevel>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -95,8 +95,71 @@ namespace Queststore.DAO
         public ExpLevel GetLevelById(int id)
         {
             string command = $"select * from exp_levels where id = { id } ";
-            var expLevels=ExecuteCommand(command);
+            var expLevels=GetExpLevels(command);
             return expLevels[0];
+        }
+
+        public void AddClass(Users group)
+        {
+            string command=$@"INSERT INTO classes(name,city)
+                       VALUES('{group.Name}','{group.City}')";
+            ExecuteNonQueryCommand(command);
+        }
+
+       
+
+        private List<Users> GetClasses()
+        {
+            string command = $@"SELECT * FROM Classes";
+            List<Users> classes = new List<Users>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                    classes = ClassMaker.ParseDbTo(classes, rdr);
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                throw;
+            }
+            return classes;
+        }
+
+        private List<Users> GetMentors()
+        {
+            string command = $@"SELECT * FROM Classes";
+            List<Users> mentors = new List<Users>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                    mentors = MentorsMaker.ParseDbTo(mentors, rdr);
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                throw;
+            }
+            return mentors;
         }
     }
 }

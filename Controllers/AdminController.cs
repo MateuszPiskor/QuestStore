@@ -25,9 +25,16 @@ namespace Queststore.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult AddClassForm()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddClassForm(Users group)
+        {
+            AdminOperations.AddClass(group);
             return View();
         }
 

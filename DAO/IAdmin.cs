@@ -10,5 +10,6 @@ namespace Queststore.DAO
         void EditExpierenceLevelForm(ExpLevel expLevel);
         IEnumerable<ExpLevel> ExpLevelsList();
         ExpLevel GetLevelById(int id);
+        void AddClass(Users group);
     }
 }

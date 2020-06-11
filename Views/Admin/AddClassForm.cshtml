@@ -1,12 +1,13 @@
-﻿
+﻿@model Queststore.Models.Users;
 @{
+
     ViewData["Title"] = "AddClassForm";
 }
 
 <h1 class="page-title">Add class</h1>
-<form id="form" class="form">
-    <label for="name" class="form__label">Class name</label>
-    <input class="form__input" type="text" id="name" required />
+<form method="post" id="form" class="form">
+    <label asp-for="Name" for="name" class="form__label">Class name</label>
+    <input asp-for="Name" class="form__input" type="text" id="name" required />
     <div id="nameError" class="error"></div>
 
     <label for="mentor" class="form__label">Select mentor</label>
@@ -16,7 +17,7 @@
     </select>
     <div id="mentor-error" class="error"></div>
 
-    <label for="city" class="form__label">Select city</label>
+    <label asp-for="City" for="city" class="form__label">Select city</label>
     <select class="form__input" id="city" name="city">
         <option value="Warsaw">Warsaw</option>
         <option value="Cracow">Cracow</option>
