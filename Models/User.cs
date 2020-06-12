@@ -9,14 +9,47 @@ namespace Queststore.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Surname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public int MyProperty { get; set; }
-        public bool Is_Admin { get; set; }
-        public bool Is_Mentor { get; set; }
-        public int Student_id { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsMentor { get; set; }
+        public Student Student { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(int id, string name, string surname, string email, string phone, string address, string login, string password, bool isAdmin, bool isMentor)
+        {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            Login = login;
+            Password = password;
+            IsAdmin = isAdmin;
+            IsMentor = isMentor;
+        }
+
+        public User(int id, string name, string surname, string email, string phone, string address, string login, string password, bool isAdmin, bool isMentor, Student student)
+        {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            Login = login;
+            Password = password;
+            IsAdmin = isAdmin;
+            IsMentor = isMentor;
+            Student = student;
+        }
     }
 }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Npgsql;
 using Queststore.Models;
 using Queststore.Services;
-using ShopOnline.DataAccess;
 
 namespace Queststore.DAO
 {
