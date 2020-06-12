@@ -135,10 +135,11 @@ namespace Queststore.DAO
             return classes;
         }
 
-        private List<Users> GetMentors()
+        private List<User> GetMentors()
         {
-            string command = $@"SELECT * FROM Classes";
-            List<Users> mentors = new List<Users>();
+            string command = $@"SELECT * FROM User
+                               Where isMentor=true";
+            List<User> mentors = new List<User>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {
@@ -156,7 +157,7 @@ namespace Queststore.DAO
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                Console.WriteLine($"Sth else: {e.Message}");
                 throw;
             }
             return mentors;
