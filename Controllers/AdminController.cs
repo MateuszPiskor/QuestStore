@@ -25,9 +25,16 @@ namespace Queststore.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult AddClassForm()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddClassForm(Users group)
+        {
+            AdminOperations.AddClass(group);
             return View();
         }
 
@@ -39,13 +46,15 @@ namespace Queststore.Controllers
         public IActionResult AddLevelForm(ExpLevel expLevel)
         {
             AdminOperations.AddLevelForm(expLevel);
-            return View();
+            TempData["Message"] = "You have addedd the level!";
+            return RedirectToAction("ExpLevelsList", "Admin");
         }
         [HttpPost]
         public IActionResult EditExpierenceLevelForm(ExpLevel expLevel)
         {
+            TempData["Message"] = "You have changed level details!";
             AdminOperations.EditExpierenceLevelForm(expLevel);
-            return View();
+            return RedirectToAction("ExpLevelsList", "Admin");
         }
 
         public IActionResult MentorsList()
@@ -60,7 +69,7 @@ namespace Queststore.Controllers
 
         public IActionResult ExpLevelsList()
         {
-            List<ExpLevel> levels=AdminOperations.ExpLevelsList();     
+            IEnumerable<ExpLevel> levels=AdminOperations.ExpLevelsList();     
             return View(levels);
         }
 
@@ -78,9 +87,10 @@ namespace Queststore.Controllers
             return View();
         }
 
-        public IActionResult EditExpierenceLevelForm()
+        public IActionResult EditExpierenceLevelForm(int id)
         {
-            return View();
+            ExpLevel expLevel=AdminOperations.GetLevelById(id);
+            return View(expLevel);
         }
 
     }

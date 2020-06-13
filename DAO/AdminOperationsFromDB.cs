@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
+using Questsore.DataAccess;
 using Queststore.Models;
 using Queststore.Services;
 
@@ -23,14 +24,24 @@ namespace Queststore.DAO
         }
         public void EditExpierenceLevelForm(ExpLevel expLevel)
         {
-
+            string command = @$"update exp_levels 
+                                set name = '{expLevel.Name}',
+                                min_points = {expLevel.MinPoints}
+                                where id = {expLevel.Id} ";
+            ExecuteNonQueryCommand(command);
         }
 
-        public List<ExpLevel> ExpLevelsList()
+        public IEnumerable<ExpLevel> ExpLevelsList()
         {
 
             string command= $@"Select * from exp_levels";
-            return ExecuteCommand(command);
+            var expLevelsList=GetExpLevels(command);
+            return sortLevelsByMinPoints(expLevelsList);
+        }
+
+        private IEnumerable<ExpLevel> sortLevelsByMinPoints(List<ExpLevel> expLevelsList)
+        {
+            return expLevelsList.OrderBy(level => level.MinPoints);
         }
 
         private void ExecuteNonQueryCommand(string command)
@@ -55,7 +66,7 @@ namespace Queststore.DAO
             }
         }
 
-        private List<ExpLevel> ExecuteCommand(string command)
+        private List<ExpLevel> GetExpLevels(string command)
         {
             List<ExpLevel> levels = new List<ExpLevel>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -79,6 +90,77 @@ namespace Queststore.DAO
                 throw;
             }
             return levels;
+        }
+
+        public ExpLevel GetLevelById(int id)
+        {
+            string command = $"select * from exp_levels where id = { id } ";
+            var expLevels=GetExpLevels(command);
+            return expLevels[0];
+        }
+
+        public void AddClass(Users group)
+        {
+            string command=$@"INSERT INTO classes(name,city)
+                       VALUES('{group.Name}','{group.City}')";
+            ExecuteNonQueryCommand(command);
+        }
+
+       
+
+        private List<Users> GetClasses()
+        {
+            string command = $@"SELECT * FROM Classes";
+            List<Users> classes = new List<Users>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                    classes = ClassMaker.ParseDbTo(classes, rdr);
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                throw;
+            }
+            return classes;
+        }
+
+        private List<User> GetMentors()
+        {
+            string command = $@"SELECT * FROM User
+                               Where isMentor=true";
+            List<User> mentors = new List<User>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                    mentors = MentorsMaker.ParseDbTo(mentors, rdr);
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Sth else: {e.Message}");
+                throw;
+            }
+            return mentors;
         }
     }
 }
