@@ -99,7 +99,7 @@ namespace Queststore.DAO
             return expLevels[0];
         }
 
-        public void AddClass(Users group)
+        public void AddClass(Class group)
         {
             string command=$@"INSERT INTO classes(name,city)
                        VALUES('{group.Name}','{group.City}')";
@@ -108,10 +108,10 @@ namespace Queststore.DAO
 
        
 
-        private List<Users> GetClasses()
+        public List<Class> GetClasses()
         {
             string command = $@"SELECT * FROM Classes";
-            List<Users> classes = new List<Users>();
+            List<Class> classes = new List<Class>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {
@@ -135,7 +135,7 @@ namespace Queststore.DAO
             return classes;
         }
 
-        private List<User> GetMentors()
+        public List<User> GetMentors()
         {
             string command = $@"SELECT * FROM User
                                Where isMentor=true";
