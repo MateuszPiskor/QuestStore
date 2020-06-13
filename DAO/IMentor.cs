@@ -12,5 +12,8 @@ namespace Queststore.DAO
         ViewModelStudentsClasses GetStudentsByMentorAndClassId(int mentorId, int classId);
         void AddQuest(Quest quest);
         void AddArtifact(Artifact artifact);
+        void AddStudent(Student student, int classId);
+        void AddUser(Student newStudent);
+        int GetMaxStudentId();
     }
 }

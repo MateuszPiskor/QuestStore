@@ -87,6 +87,64 @@ namespace Queststore.DAO
             return viewModelStudentsClasses;
         }
 
+        public void AddStudent(Student newStudent, int classId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql_student = @"INSERT INTO students(class_id, coolcoins, language)
+                        VALUES (@classId, @coolcoins, @language);";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql_student, con);
+
+            cmd.Parameters.AddWithValue("classId", classId);
+            cmd.Parameters.AddWithValue("coolcoins", 0);
+            //cmd_student.Parameters.AddWithValue("exp_level_id", student.ExpLevel.Id);
+            cmd.Parameters.AddWithValue("language", newStudent.Language);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+        }
+
+        public void AddUser(Student newStudent)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql_user = @"INSERT INTO users(name, surname, address, phone, email, is_admin, is_mentor, student_id)
+                    VALUES (@name, @surname, @address, @phone, @email, @isAdmin, @isMentor, @studentId);";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql_user, con);
+
+            cmd.Parameters.AddWithValue("name", newStudent.Name);
+            cmd.Parameters.AddWithValue("surname", newStudent.Surname);
+            cmd.Parameters.AddWithValue("address", newStudent.Address);
+            cmd.Parameters.AddWithValue("phone", newStudent.Phone);
+            cmd.Parameters.AddWithValue("email", newStudent.Email);
+            cmd.Parameters.AddWithValue("isAdmin", false);
+            cmd.Parameters.AddWithValue("isMentor", false);
+            cmd.Parameters.AddWithValue("studentId", newStudent.Id);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
+
+        public int GetMaxStudentId()
+        {
+            int maxId = 0;
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @"SELECT MAX(id) FROM students;";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                maxId = reader.GetInt32(0);
+            }
+            return maxId;
+        }
+
         public void AddQuest(Quest quest)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();

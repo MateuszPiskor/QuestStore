@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Queststore.DAO;
 using Queststore.Models;
 using Queststore.Services;
-
+using Queststore.ViewModels.ViewModelsMentor;
 
 namespace Queststore.Controllers
 {
@@ -47,6 +47,22 @@ namespace Queststore.Controllers
             return View(studentsAndClasses);
         }
 
+        [HttpGet]
+        public IActionResult AddStudent()
+        {
+            ViewModelStudentClasses studentAndClasses = new ViewModelStudentClasses();
+            studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            return View(studentAndClasses);
+        }
+
+        [HttpPost]
+        public IActionResult AddStudent(ViewModelStudentClasses studentAndClasses)
+        {
+            _mentorOperationsFromDB.AddStudent(studentAndClasses.Student, studentAndClasses.ClassId);
+            studentAndClasses.Student.Id = _mentorOperationsFromDB.GetMaxStudentId();
+            _mentorOperationsFromDB.AddUser(studentAndClasses.Student);
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
         public IActionResult AddQuest()

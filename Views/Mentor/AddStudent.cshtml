@@ -1,37 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Queststore.ViewModels.ViewModelsMentor.ViewModelStudentClasses
 @{
+    ViewData["Title"] = "Add student";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
 }
 
 <h1 class="page-title">Add student</h1>
-<form id="add-student_form" class="form">
-    <label for="name" class="form__label"> First name</label>
-    <input class="form__input" type="text" id="name" name="first-name" required />
+<form method="post" asp-action="AddStudent" id="add-student_form" class="form">
+    <label asp-for="Student.Name" class="form__label">First name</label>
+    <input asp-for="Student.Name" class="form__input" type="text" required />
     <div id="name-error" class="error"></div>
 
-    <label for="surname" class="form__label">Last name</label>
-    <input class="form__input" type="text" id="surname" required />
+    <label asp-for="Student.Surname" class="form__label">Surname</label>
+    <input asp-for="Student.Surname" class="form__input" type="text" required />
     <div id="surname-error" class="error"></div>
 
-    <label for="address" class="form__label">Adress</label>
-    <input class="form__input" type="text" id="address" required />
+    <label asp-for="Student.Address" class="form__label">Adress</label>
+    <input asp-for="Student.Address" class="form__input" type="text" required />
     <div id="address-error" class="error"></div>
 
-    <label for="phone" class="form__label">Phone number</label>
-    <input class="form__input" type="number" id="phone" required />
+    <label asp-for="Student.Phone" class="form__label">Phone number</label>
+    <input asp-for="Student.Phone" class="form__input" type="number" required />
     <div id="phone-error" class="error"></div>
 
-    <label for="email" class="form__label">Email</label>
-    <input class="form__input" type="email" id="email" required />
+    <label asp-for="Student.Email" class="form__label">Email</label>
+    <input asp-for="Student.Email" class="form__input" type="email" required />
     <div id="email-error" class="error"></div>
 
-    <label for="class" class="form__label">Select class</label>
-    <select class="form__input" id="class" name="class">
-        <option value="Weekend-Course-krk-102019">Weekend-Course-krk-102019</option>
-        <option value="Weekend-Course-krk-022020">Weekend-Course-krk-022020</option>
+    <label asp-for="ClassId" class="form__label">Select class</label>
+    <select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))" required>
+        <option>...</option>
     </select>
     <div id="class-error" class="error"></div>
+
+    <label asp-for="Student.Language" class="form__label">Coding Language (insert 'None' if doesn't apply)</label>
+        <input asp-for="Student.Language" class="form__input" type="text" />
+        <div id="language-error" class="error"></div>
 
     <button class="button button--inverse form__button" type="submit">Add</button>
 </form>

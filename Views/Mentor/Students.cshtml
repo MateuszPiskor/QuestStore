@@ -6,8 +6,9 @@
 
 <h1 class="page-title">List of students</h1>
 <form asp-action="Students" method="post">
-    <select asp-for="ClassId" class="form__input" id="classId" name="classId" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))">
-    <option>Select class</option>
+    <label asp-for="ClassId" class="form__label">Select class</label>
+    <select asp- asp-for="ClassId" class="form__input" id="classId" name="classId" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))">
+        <option>...</option>
     </select>
     <button class="button button--inverse form__button" type="submit">Select</button>
 </form>
