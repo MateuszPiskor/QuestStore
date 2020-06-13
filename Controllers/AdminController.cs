@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Queststore.DAO;
 using Queststore.Models;
 using Queststore.Services;
@@ -23,8 +24,16 @@ namespace Queststore.Controllers
 
         public IActionResult AddMentorForm()
         {
+            ViewBag.Classes = new SelectList(AdminOperations.GetClasses(), "Id", "Name");
             return View();
         }
+        [HttpPost]
+        public IActionResult AddMentorForm(User mentor)
+        {
+            ViewBag.Classes = new SelectList(AdminOperations.GetClasses(), "Id", "Name");
+            return View();
+        }
+
         [HttpGet]
         public IActionResult AddClassForm()
         {
@@ -32,7 +41,7 @@ namespace Queststore.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddClassForm(Users group)
+        public IActionResult AddClassForm(Class group)
         {
             AdminOperations.AddClass(group);
             return View();
