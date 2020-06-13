@@ -17,6 +17,38 @@ namespace Queststore.DAO
             _dataBaseConnectionService = new DataBaseConnectionService(dataBaseConnection.HostAddress, dataBaseConnection.HostName, dataBaseConnection.HostPassword, dataBaseConnection.DatabaseName);
         }
 
+        public Student GetStudentById(int studentId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"SELECT users.id, users.name, users.surname, students.language, classes.id, classes.name, users.email, users.phone
+                            FROM users
+                            INNER JOIN students
+                            ON users.student_id = students.id
+                            LEFT JOIN classes
+                            ON students.class_id = classes.id
+                            WHERE classes.id = {studentId};";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+            Student student = new Student();
+            while (reader.Read())
+            {
+                Class @class = new Class();
+                @class.Id = reader.GetInt32(4);
+                @class.Name = reader.GetString(5);
+                
+                student.Id = reader.GetInt32(0);
+                student.Name = reader.GetString(1);
+                student.Surname = reader.GetString(2);
+                student.Language = reader.GetString(3);
+                student.Class = @class;
+                student.Email = reader.GetString(6);
+                student.Phone = reader.GetString(7);
+            }
+            return student;
+        }
+
         public List<Class> GetClassesByMentorId(int mentorId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();

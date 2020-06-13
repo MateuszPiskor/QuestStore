@@ -41,3 +41,5 @@ msbuild.wrn
 node_modules/
 
 /ToDo.txt
+
+*.sql

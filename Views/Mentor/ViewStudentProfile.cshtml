@@ -1,0 +1,24 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Student's profile";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+<section class="info-page">
+    <h1 class="page-title">Student's profile</h1>
+    <div class="info-page__item">First name: <span class="info-page__item--bold">@Model.Name</span></div>
+    <div class="info-page__item">Last name: <span class="info-page__item--bold">@Model.Surname</span></div>
+    <div class="info-page__item">Phone: <span class="info-page__item--bold">@Model.Phone</span></div>
+    <div class="info-page__item">Email: <span class="info-page__item--bold">@Model.Email</span></div>
+    <div class="info-page__item">
+        <h3>Class:</h3>
+        <ul class="list">
+            <li class="list__item list__item--hover">
+                <span class="item__name">@Model.Class.Name</span>
+                <a class="button button--hidden " href="">View</a>
+            </li>
+        </ul>
+    </div>
+    <a class="button button--inverse form__button" href="../../mentor/edit-student.html">Edit class</a>
+    <a class="button button--inverse form__button" asp-controller="Mentor" asp-action="Students">Back</a>
+</section>

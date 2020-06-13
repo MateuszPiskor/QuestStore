@@ -82,16 +82,6 @@ namespace Queststore.Controllers
             return View(viewModelAddTeam);
         }
 
-        [HttpPost]
-        public IActionResult AddTeam(int classId, List<Student> selectedStudents, string teamName)
-        {
-            ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
-            viewModelAddTeam.ClassId = classId;
-            viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
-            return View(viewModelAddTeam);
-        }
-
         [HttpGet]
         public IActionResult Quests()
         {
@@ -138,6 +128,13 @@ namespace Queststore.Controllers
         {
             _mentorOperationsFromDB.AddArtifact(artifact);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ViewStudentProfile(int id)
+        {
+            Student student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(student);
         }
     }
 }
