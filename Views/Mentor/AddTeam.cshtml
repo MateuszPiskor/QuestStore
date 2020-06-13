@@ -1,44 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Queststore.ViewModels.ViewModelsMentor.ViewModelAddTeam
 @{
+    ViewData["Title"] = "Add team";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
 }
 
 <h1 class="page-title">Add team</h1>
-<form id="form" class="form">
-    <label for="name" class="form__label">Name</label>
+<form method="post" asp-action="AddTeam" class="form">
+    <label asp-for="ClassId" class="form__label">Select class</label>
+    <select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))" required>
+        <option>...</option>
+    </select>
+    <div id="class-error" class="error"></div>
+
+    <button class="button button--inverse form__button" type="submit">Select</button>
+</form >
+
+<form method="post" asp-action="AddTeam" class="form">
+    <label class="form__label">Add students to team:</label>
+    <ul class="list">
+        @for (int i = 0; i < Model.Students.Count; i++)
+        {
+        <li class="list__item list__item--hover">
+            <label class="item__name" asp-for="@Model.Students[i].Id">@(i + 1). @Model.Students[i].Name @Model.Students[i].Surname - @Model.Students[i].Language</label>
+            <input type="checkbox" asp-for="@Model.SelectedStudents[i].Id" />
+        </li>
+        }
+    </ul>
+    <label asp-for="@Model." class="form__label">Team name</label>
     <input class="form__input" type="text" id="name" required />
     <div id="name-error" class="error"></div>
 
-    <label for="type" class="form__label">Class</label>
-    <select class="form__input" id="type" name="type">
-        <option value="Class 1">Class 1</option>
-        <option value="Class 2">Class 2</option>
-    </select>
+    <button class="button button--inverse form__button" type="submit">Add team</button>
 
-    <h3>Add team members</h3>
-    <ul class="list">
-        <li class="list__item list__item--hover">
-            <label class="item__name" for="member">1. John Doe</label>
-            <input type="checkbox" id="member" />
-        </li>
-        <li class="list__item list__item--hover">
-            <label class="item__name" for="member">2. John Doe</label>
-            <input type="checkbox" id="member" />
-        </li>
-        <li class="list__item list__item--hover">
-            <label class="item__name" for="member">3. John Doe</label>
-            <input type="checkbox" id="member" />
-        </li>
-        <li class="list__item list__item--hover">
-            <label class="item__name" for="member">4. John Doe</label>
-            <input type="checkbox" id="member" />
-        </li>
-        <li class="list__item list__item--hover">
-            <label class="item__name" for="member">5. John Doe</label>
-            <input type="checkbox" id="member" />
-        </li>
-    </ul>
-
-    <button class="button button--inverse form__button" type="submit">Add</button>
 </form>
+
+

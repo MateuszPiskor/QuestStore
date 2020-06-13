@@ -65,6 +65,34 @@ namespace Queststore.Controllers
         }
 
         [HttpGet]
+        public IActionResult AddTeam()
+        {
+            ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            return View(viewModelAddTeam);
+        }
+
+        [HttpPost]
+        public IActionResult AddTeam(int classId)
+        {
+            ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            viewModelAddTeam.ClassId = classId;
+            viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
+            return View(viewModelAddTeam);
+        }
+
+        [HttpPost]
+        public IActionResult AddTeam(int classId, List<Student> selectedStudents, string teamName)
+        {
+            ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            viewModelAddTeam.ClassId = classId;
+            viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
+            return View(viewModelAddTeam);
+        }
+
+        [HttpGet]
         public IActionResult Quests()
         {
             ViewModelQuests questsAndSelectedQuest = new ViewModelQuests();
