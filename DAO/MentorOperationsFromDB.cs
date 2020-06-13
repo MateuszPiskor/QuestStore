@@ -180,5 +180,46 @@ namespace Queststore.DAO
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
+
+        public List<string> GetQuestTypes()
+        {
+            List<string> questTypes= new List<string>();
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @"SELECT DISTINCT type FROM quests;";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string questType = reader.GetString(0);
+                questTypes.Add(questType);
+            }
+            return questTypes;
+        }
+
+        public List<Quest> GetQuestsByType(string questType)
+        {
+            List<Quest> quests = new List<Quest>();
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"SELECT id, name, description, type, value FROM quests WHERE type='{questType}';";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Quest quest = new Quest();
+                quest.Id = reader.GetInt32(0);
+                quest.Name = reader.GetString(1);
+                quest.Description = reader.GetString(2);
+                quest.Type = reader.GetString(3);
+                quest.Value = reader.GetInt32(4);
+                quests.Add(quest);
+            }
+            return quests;
+        }
     }
 }

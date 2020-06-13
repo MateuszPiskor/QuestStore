@@ -15,5 +15,7 @@ namespace Queststore.DAO
         void AddStudent(Student student, int classId);
         void AddUser(Student newStudent);
         int GetMaxStudentId();
+        List<string> GetQuestTypes();
+        List<Quest> GetQuestsByType(string questType);
     }
 }

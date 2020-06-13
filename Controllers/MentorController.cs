@@ -65,6 +65,28 @@ namespace Queststore.Controllers
         }
 
         [HttpGet]
+        public IActionResult Quests()
+        {
+            ViewModelQuests questsAndSelectedQuest = new ViewModelQuests();
+            questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+            questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType("");
+            return View(questsAndSelectedQuest);
+        }
+
+        [HttpPost]
+        public IActionResult Quests(string questName)
+        {
+            ViewModelQuests questsAndSelectedQuest = new ViewModelQuests();
+            if (!String.IsNullOrEmpty(questName))
+            {
+                questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+                questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questName);
+                return View(questsAndSelectedQuest);
+            }
+            return RedirectToAction("Quests");
+        }
+
+        [HttpGet]
         public IActionResult AddQuest()
         {
             return View();
