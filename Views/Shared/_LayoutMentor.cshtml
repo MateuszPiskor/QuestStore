@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Queststore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <section class="sidemenu">
+        <nav class="menu">
+            <a class="logo" href="">CodeCoolers</a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="Students"><span>Students</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddStudent"><span>Add student</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="Teams"><span>Teams</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddTeam"><span>Add team</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="Quests"><span>Quests</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddQuest"><span>Add quest</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="Artifacts"><span>Artifacts</span></a>
+            <a class="menu__item" asp-controller="Mentor" asp-action="AddArtifact"><span>Add artifact</span></a>
+        </nav>
+        <button class="button button--inverse sidemenu__button" onclick="toggleMenu();"><i class="sidemenu-icon fas fa-hamburger"></i></button>
+    </section>
+
+    <section class="content">
+        <header>
+            <div class="header__user">
+                <a href="#" class="header__user-profile button">View profile</a>
+                <a href="#" class="header__user-logout button button--alt">Log out</a>
+            </div>
+        </header>
+        <main class="results">
+            <div>@RenderBody()</div>
+        </main>
+        <footer>
+            <div class="footer__media">
+                <a class="facebook footer__media-item" href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                <a class="twitter footer__media-item " href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+                <a class="youtube footer__media-item" href="#"><i class="fab fa-youtube fa-2x"></i></a>
+                <a class="instagram footer__media-item" href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+            <div class="footer__business">
+                <div class="footer__business-item" id="terms">Terms and conditions</div>
+                <div class="footer__business-item" id="contact">Contact</div>
+                <div class="footer__business-item" id="press">Press</div>
+                <div class="footer__business-item" id="subscription">Subscribe</div>
+
+            </div>
+        </footer>
+    </section>
+
+    <script src="../js/includeHTML.js"></script>
+    <script src="../js/scripts.js"></script>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>*@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿@model Queststore.ViewModels.ViewModelsMentor.ViewModelQuests
+@{
+    ViewData["Title"] = "List of quests";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+<h1 class="page-title">List of quests</h1>
+<form asp-action="Quests" method="post">
+    <label asp-for="@Model.QuestType" class="form__label">Select quest type</label>
+    <select asp- asp-for="@Model.QuestType" class="form__input" name="questName" asp-items="@(new SelectList(Model.QuestTypes, "Name"))">
+        <option>...</option>
+    </select>
+    <button class="button button--inverse form__button" type="submit">Select</button>
+</form>
+
+<ul class="list">
+    @for (int i = 0; i < Model.Quests.Count; i++)
+    {
+        <li class="list__item list__item--hover">
+            <span class="item__name">@(i + 1). @Model.Quests[i].Name - @Model.Quests[i].Value cc</span>
+            <a class="button button--hidden " href="../../mentor/edit-quest.html">Edit</a>
+        </li>
+    }
+</ul>
+
