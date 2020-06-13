@@ -32,7 +32,7 @@ namespace Queststore.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddClassForm(Users group)
+        public IActionResult AddClassForm(Class group)
         {
             AdminOperations.AddClass(group);
             return View();

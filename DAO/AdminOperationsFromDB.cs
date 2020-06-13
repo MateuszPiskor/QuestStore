@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
-using Questsore.DataAccess;
 using Queststore.Models;
 using Queststore.Services;
 
@@ -99,7 +98,7 @@ namespace Queststore.DAO
             return expLevels[0];
         }
 
-        public void AddClass(Users group)
+        public void AddClass(Class group)
         {
             string command=$@"INSERT INTO classes(name,city)
                        VALUES('{group.Name}','{group.City}')";
@@ -108,10 +107,10 @@ namespace Queststore.DAO
 
        
 
-        private List<Users> GetClasses()
+        private List<Class> GetClasses()
         {
             string command = $@"SELECT * FROM Classes";
-            List<Users> classes = new List<Users>();
+            List<Class> classes = new List<Class>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {

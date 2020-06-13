@@ -7,6 +7,7 @@ namespace Queststore.Models
 {
     public class Class
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
@@ -15,6 +16,12 @@ namespace Queststore.Models
         {
         }
 
-        
+        public Class(int id, string name, string city)
+        {
+            Id = id;
+            Name = name;
+            City = city;
+            
+        }
     }
 }
