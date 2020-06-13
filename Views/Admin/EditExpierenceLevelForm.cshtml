@@ -6,11 +6,11 @@
 <h1 class="page-title">Edit experience level</h1>
 <form method="post" id ="form" class="form" asp-action="EditExpierenceLevelForm">
     <label asp-for="Name" for="level-name" class="form__label">Level name</label>
-    <input asp-for="Name" class="form__input" type="text" id="level-name" value="@Model.Name" required />
+    <input asp-for="Name" class="form__input" type="text" id="level-name" value="@Model.Name" /*required*/ />
     <div id="name-error" class="error"></div>
 
     <label asp-for="MinPoints" for="min-points" class="form__label">Required points</label>
-    <input asp-for="MinPoints" class="form__input" type="number" id="min-points" value="@Model.MinPoints" required />
+    <input asp-for="MinPoints" class="form__input" type="number" id="min-points" value="@Model.MinPoints" /*required*/ />
     <div id="mentor-error" class="error"></div>
 
     <label for="avatar" class="form__label">Upload avatar</label>
