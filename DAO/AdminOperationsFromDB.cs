@@ -135,17 +135,32 @@ namespace Queststore.DAO
 
         public List<User> GetMentors()
         {
-            string command = $@"SELECT * FROM User
-                               Where isMentor=true";
-            List<User> mentors = new List<User>();
+            string command = "SELECT * FROM users where is_mentor=true";
+            List<User> classes = new List<User>();
+            List<User> users = new List<User>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {
                 con.Open();
                 using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
                 using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                int id = 0;
                 while (rdr.Read())
-                    mentors = MentorsMaker.ParseDbTo(mentors, rdr);
+                {
+                    User user = new User();
+                    user.Id = rdr.GetInt32(0);
+                    user.Name = rdr.GetString(1);
+                    user.Surname = rdr.GetString(2);
+                    user.Email = rdr.GetString(3);
+                    user.Phone = rdr.GetString(4);
+                    user.Address = rdr.GetString(5);
+                    user.IsAdmin = false;
+                    user.IsMentor= rdr.GetBoolean(8);
+                    users.Add(user);
+                }
+                    
+                
+                    //classes = Class.ParseDbTo(classes, rdr);
                 con.Close();
             }
             catch (PostgresException e)
@@ -155,10 +170,10 @@ namespace Queststore.DAO
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Sth else: {e.Message}");
+                Console.WriteLine($"Error: {e.Message}");
                 throw;
             }
-            return mentors;
+            return users;
         }
 
         public void AddMentor(User mentor)

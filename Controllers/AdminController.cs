@@ -74,7 +74,8 @@ namespace Queststore.Controllers
 
         public IActionResult MentorsList()
         {
-            return View();
+            List<User> admins=AdminOperations.GetMentors();
+            return View(admins);
         }
 
         public IActionResult ClassesList()
