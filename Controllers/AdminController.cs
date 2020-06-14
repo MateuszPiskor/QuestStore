@@ -89,9 +89,13 @@ namespace Queststore.Controllers
             return View(levels);
         }
 
-        public IActionResult MentorProfileView()
+        public IActionResult MentorProfileView(int id)
         {
-            return View();
+            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
+            mentorAndClasses.Mentor.Id = id;
+            mentorAndClasses.Classes = AdminOperations.GetClassesByUserId(id);
+            mentorAndClasses.Mentor=AdminOperations.GetUserById(id);
+            return View(mentorAndClasses);
         }
         public IActionResult EditMentorForm()
         {

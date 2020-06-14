@@ -243,5 +243,73 @@ namespace Queststore.DAO
                 Console.WriteLine("Unknown proble occur", e.Message);
             }
         }
+
+        public User GetUserById(int id)
+        {
+            string command = $"select * from users where id = { id } ";
+            User mentor = new User();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    mentor.Name = rdr.GetString(1);
+                    mentor.Surname = rdr.GetString(2);
+                    mentor.Email = rdr.GetString(3);
+                    mentor.Phone = rdr.GetString(4);
+                    mentor.Address = rdr.GetString(5);
+                }
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return mentor;
+        }
+
+        public List<Class> GetClassesByUserId(int id)
+        {
+            string command = $@"Select distinct c.id,c.name,c.city from classes c
+  	                                inner join mentor_class m 	
+ 	                                on c.id=m.class_id	
+ 	                                inner join users u
+  	                                on m.user_id=u.id
+  	                                where u.id={id};";
+            List<Class> classes = new List<Class>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    classes = ClassMaker.ParseDbTo(classes, rdr);
+                }
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return classes;
+        }
     }
 }
