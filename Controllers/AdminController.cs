@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Queststore.DAO;
 using Queststore.Models;
 using Queststore.Services;
+using Queststore.ViewModels.ViewModelsAdmin;
 
 namespace Queststore.Controllers
 {
@@ -21,17 +22,22 @@ namespace Queststore.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult AddMentorForm()
         {
-            ViewBag.Classes = new SelectList(AdminOperations.GetClasses(), "Id", "Name");
-            return View();
+            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
+            mentorAndClasses.Classes = AdminOperations.GetClasses();
+            return View(mentorAndClasses);
         }
         [HttpPost]
-        public IActionResult AddMentorForm(User mentor)
+        public IActionResult AddMentorForm(ViewModelMentorClasses mentorAndClasses)
         {
-            ViewBag.Classes = new SelectList(AdminOperations.GetClasses(), "Id", "Name");
-            return View();
+            AdminOperations.AddMentor(mentorAndClasses.Mentor);
+            mentorAndClasses.Mentor.Id=AdminOperations.GetMaxMentorId();
+            AdminOperations.AddClassMentor(mentorAndClasses.ClassId,mentorAndClasses.Mentor.Id);
+
+            //AdminOperations.AddMentorClass(mentorAndClasses.Mentor.Id, mentorAndClasses.ClassId);
+            return RedirectToAction("AddMentorForm", "Admin");
         }
 
         [HttpGet]
