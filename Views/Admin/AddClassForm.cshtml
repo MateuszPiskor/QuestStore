@@ -1,4 +1,5 @@
-﻿@model Queststore.Models.Class;
+
+@model Queststore.Models.Class;
 @{
 
     ViewData["Title"] = "AddClassForm";
@@ -11,9 +12,9 @@
     <div id="nameError" class="error"></div>
 
     <label for="mentor" class="form__label">Select mentor</label>
-    <select class="form__input" id="mentor" name="mentor">
-        <option value="John Doe">John Doe</option>
-        <option value="John Doe">John Doe</option>
+    <select asp-items="ViewBag.Mentors" class="form__input" id="mentor" name="mentor">
+        @*<option value="John Doe">John Doe</option>
+            <option value="John Doe">John Doe</option>*@
     </select>
     <div id="mentor-error" class="error"></div>
 

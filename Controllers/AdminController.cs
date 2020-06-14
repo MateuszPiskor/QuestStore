@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Queststore.DAO;
 using Queststore.Models;
 using Queststore.Services;
+using Queststore.ViewModels.ViewModelsAdmin;
 
 namespace Queststore.Controllers
 {
@@ -20,11 +22,24 @@ namespace Queststore.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult AddMentorForm()
         {
-            return View();
+            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
+            mentorAndClasses.Classes = AdminOperations.GetClasses();
+            return View(mentorAndClasses);
         }
+        [HttpPost]
+        public IActionResult AddMentorForm(ViewModelMentorClasses mentorAndClasses)
+        {
+            AdminOperations.AddMentor(mentorAndClasses.Mentor);
+            mentorAndClasses.Mentor.Id=AdminOperations.GetMaxMentorId();
+            AdminOperations.AddClassMentor(mentorAndClasses.ClassId,mentorAndClasses.Mentor.Id);
+
+            //AdminOperations.AddMentorClass(mentorAndClasses.Mentor.Id, mentorAndClasses.ClassId);
+            return RedirectToAction("AddMentorForm", "Admin");
+        }
+
         [HttpGet]
         public IActionResult AddClassForm()
         {

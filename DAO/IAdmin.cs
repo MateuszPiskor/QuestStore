@@ -11,5 +11,9 @@ namespace Queststore.DAO
         IEnumerable<ExpLevel> ExpLevelsList();
         ExpLevel GetLevelById(int id);
         void AddClass(Class group);
+        public List<Class> GetClasses();
+        void AddMentor(User mentor);
+        int GetMaxMentorId();
+        void AddClassMentor(int classId, int mentorId);
     }
 }
