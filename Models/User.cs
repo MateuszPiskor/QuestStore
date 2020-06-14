@@ -13,11 +13,9 @@ namespace Queststore.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string Login { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsMentor { get; set; }
-        public Student Student { get; set; }
 
         public User()
         {
