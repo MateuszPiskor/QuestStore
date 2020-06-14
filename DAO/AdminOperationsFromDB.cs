@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
-using Questsore.DataAccess;
-using Queststore.Models;
 using Queststore.Services;
+using Queststore.Models;
 
 namespace Queststore.DAO
 {

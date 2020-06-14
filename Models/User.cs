@@ -9,9 +9,10 @@ namespace Queststore.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Surname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Adrress { get; set; }
+        public string Address { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
@@ -23,14 +24,14 @@ namespace Queststore.Models
 
         }
 
-        public User(int id, string name, string email, string phone,string adress, string login, string password, bool isAdmin, bool isMentor)
+        public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor)
         {
             Id = id;
             Name = name;
+            Surname = surname;
             Email = email;
             Phone = phone;
-            Adrress = adress;
-            Login = login;
+            Address = address;
             Password = password;
             IsAdmin = isAdmin;
             IsMentor = isMentor;

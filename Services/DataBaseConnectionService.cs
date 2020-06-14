@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace Questsore.DataAccess
+namespace Queststore.Services
 {
     public class DataBaseConnectionService
     {
