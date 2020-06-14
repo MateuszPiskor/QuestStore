@@ -26,12 +26,13 @@ namespace Queststore.DAO
                             ON users.student_id = students.id
                             LEFT JOIN classes
                             ON students.class_id = classes.id
-                            WHERE classes.id = {studentId};";
+                            WHERE users.id = {studentId};";
 
             con.Open();
             using var cmd = new NpgsqlCommand(sql, con);
             using NpgsqlDataReader reader = cmd.ExecuteReader();
             Student student = new Student();
+            
             while (reader.Read())
             {
                 Class @class = new Class();
