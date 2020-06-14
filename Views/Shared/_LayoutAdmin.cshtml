@@ -21,7 +21,7 @@
         </nav>
         <button class="button button--inverse sidemenu__button" onclick="toggleMenu();"><i class="sidemenu-icon fas fa-hamburger"></i></button>
     </section>
-    
+
     <section class="content">
         <header>
             <div class="header__user">
@@ -30,10 +30,6 @@
             </div>
         </header>
         <main class="results">
-            @if (TempData["Message"] != null)
-            {
-                <div>@TempData["Message"]</div>
-            }
             <div>@RenderBody()</div>
         </main>
         <footer>
@@ -55,11 +51,9 @@
 
     <script src="../js/includeHTML.js"></script>
     <script src="../js/scripts.js"></script>
- 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>*@
     @RenderSection("Scripts", required: false)
-    </body>
-
+</body>
 </html>
