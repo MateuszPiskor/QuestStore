@@ -12,9 +12,7 @@ namespace Queststore.Models
         public string Name { get; set; }
         public string City { get; set; }
 
-        public Class()
-        {
-        }
+        public Class() { }
 
         public Class(int id, string name, string city)
         {

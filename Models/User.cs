@@ -19,6 +19,7 @@ namespace Queststore.Models
 
         public User()
         {
+
         }
 
         public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor)
