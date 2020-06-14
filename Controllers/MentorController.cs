@@ -136,5 +136,12 @@ namespace Queststore.Controllers
             Student student = _mentorOperationsFromDB.GetStudentById(id);
             return View(student);
         }
+
+        [HttpGet]
+        public IActionResult ViewStudentWallet(int id)
+        {
+            Student student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(student);
+        }
     }
 }

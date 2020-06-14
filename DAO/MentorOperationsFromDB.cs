@@ -20,12 +20,15 @@ namespace Queststore.DAO
         public Student GetStudentById(int studentId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-            string sql = @$"SELECT users.id, users.name, users.surname, students.language, classes.id, classes.name, users.email, users.phone
+            string sql = @$"SELECT users.id, users.name, users.surname, students.language, classes.id, classes.name,
+                            users.email, users.phone, students.coolcoins, exp_levels.id, exp_levels.name
                             FROM users
                             INNER JOIN students
                             ON users.student_id = students.id
                             LEFT JOIN classes
                             ON students.class_id = classes.id
+							JOIN exp_levels
+							ON students.exp_level_id = exp_levels.id
                             WHERE users.id = {studentId};";
 
             con.Open();
@@ -38,7 +41,11 @@ namespace Queststore.DAO
                 Class @class = new Class();
                 @class.Id = reader.GetInt32(4);
                 @class.Name = reader.GetString(5);
-                
+
+                ExpLevel expLevel = new ExpLevel();
+                expLevel.Id = reader.GetInt32(9);
+                expLevel.Name = reader.GetString(10);
+
                 student.Id = reader.GetInt32(0);
                 student.Name = reader.GetString(1);
                 student.Surname = reader.GetString(2);
@@ -46,6 +53,8 @@ namespace Queststore.DAO
                 student.Class = @class;
                 student.Email = reader.GetString(6);
                 student.Phone = reader.GetString(7);
+                student.ExpLevel = expLevel;
+                student.Coolcoins = reader.GetInt32(8);
             }
             return student;
         }
