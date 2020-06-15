@@ -18,5 +18,6 @@ namespace Queststore.DAO
         List<User> GetMentors();
         User GetUserById(int id);
         List<Class> GetClassesByUserId(int id);
+        void EditMentor(int id, User mentor);
     }
 }

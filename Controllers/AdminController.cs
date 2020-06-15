@@ -69,7 +69,7 @@ namespace Queststore.Controllers
         {
             TempData["Message"] = "You have changed level details!";
             AdminOperations.EditExpierenceLevelForm(expLevel);
-            return RedirectToAction("ExpLevelsList", "Admin");
+            return RedirectToAction("Admin", "ExpLevelsList");
         }
 
         public IActionResult MentorsList()
@@ -97,11 +97,22 @@ namespace Queststore.Controllers
             mentorAndClasses.Mentor=AdminOperations.GetUserById(id);
             return View(mentorAndClasses);
         }
-        public IActionResult EditMentorForm()
+        public IActionResult EditMentorForm(int id)
         {
-            return View();
+            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
+            //mentorAndClasses.Mentor.Id = id;
+            mentorAndClasses.Classes = AdminOperations.GetClasses();
+            mentorAndClasses.Mentor=AdminOperations.GetUserById(id);
+            return View(mentorAndClasses);
         }
-        
+        [HttpPost]
+        public IActionResult EditMentorForm(ViewModelMentorClasses mentorAndClasses)
+        {        
+            AdminOperations.EditMentor(mentorAndClasses.Mentor.Id,mentorAndClasses.Mentor);
+            TempData["Message"] = "You have edited mentor details!";
+            return RedirectToAction("Index");
+        }
+
         public IActionResult EditClassForm()
         {
             return View();

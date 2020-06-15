@@ -155,12 +155,12 @@ namespace Queststore.DAO
                     user.Phone = rdr.GetString(4);
                     user.Address = rdr.GetString(5);
                     user.IsAdmin = false;
-                    user.IsMentor= rdr.GetBoolean(8);
+                    user.IsMentor = rdr.GetBoolean(8);
                     users.Add(user);
                 }
-                    
-                
-                    //classes = Class.ParseDbTo(classes, rdr);
+
+
+                //classes = Class.ParseDbTo(classes, rdr);
                 con.Close();
             }
             catch (PostgresException e)
@@ -216,7 +216,7 @@ namespace Queststore.DAO
             return maxId;
         }
 
-        public void AddClassMentor(int classId,int mentorId)
+        public void AddClassMentor(int classId, int mentorId)
         {
             string command = @"insert into mentor_class(user_id, class_id)
                                     values(@user_id, @class_id)";
@@ -225,7 +225,7 @@ namespace Queststore.DAO
             {
                 NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
                 con.Open();
-                using var cmd = new NpgsqlCommand(command, con);
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
                 cmd.Parameters.AddWithValue("user_id", mentorId);
                 cmd.Parameters.AddWithValue("class_id", classId);
 
@@ -235,7 +235,7 @@ namespace Queststore.DAO
             }
             catch (PostgresException e)
             {
-                Console.WriteLine("Server problem occur {0}",e.Message);
+                Console.WriteLine("Server problem occur {0}", e.Message);
                 throw;
             }
             catch (Exception e)
@@ -256,6 +256,7 @@ namespace Queststore.DAO
                 using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
                 while (rdr.Read())
                 {
+                    mentor.Id = rdr.GetInt32(0);
                     mentor.Name = rdr.GetString(1);
                     mentor.Surname = rdr.GetString(2);
                     mentor.Email = rdr.GetString(3);
@@ -310,6 +311,41 @@ namespace Queststore.DAO
                 throw;
             }
             return classes;
+        }
+
+        public void EditMentor(int id, User mentor)
+        {
+            string command = $@"update users
+                                set name = @name,
+                                surname=@surname,
+                                email=@email,
+                                phone=@phone,
+                                address=@address
+                                where id = {id}";
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Parameters.AddWithValue("name", mentor.Name);
+                cmd.Parameters.AddWithValue("surname", mentor.Surname);
+                cmd.Parameters.AddWithValue("email", mentor.Email);
+                cmd.Parameters.AddWithValue("phone", mentor.Phone);
+                cmd.Parameters.AddWithValue("address", mentor.Address);
+
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@
     <li class="list__item list__item--hover">
         <span class="item__name">@(i+1). @Model[i].Name @Model[i].Surname</span>
         <a class="button button--hidden " asp-controller="Admin" asp-action="MentorProfileView" asp-route-id="@Model[i].Id">View</a>
-        <a class="button button--hidden" asp-controller="Admin" asp-action="EditMentorForm">Edit</a>
+        <a class="button button--hidden" asp-controller="Admin" asp-action="EditMentorForm" asp-route-id="@Model[i].Id">Edit</a>
     </li>
     }
 
