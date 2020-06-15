@@ -1,0 +1,32 @@
+﻿@model Queststore.ViewModels.ViewModelsMentor.ViewModelMarkQuest
+@{
+    ViewData["Title"] = "Mark quest for student";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+<h1 class="page-title">Mark quest</h1>
+<form asp-action="MarkQuest" method="post">
+    <label asp-for="QuestType" class="form__label">Select class</label>
+    <select asp-for="QuestType" class="form__input" id="QuestType" name="questType" asp-items="@(new SelectList(Model.QuestTypes, "Name"))">
+        <option>...</option>
+    </select>
+    <button class="button button--inverse form__button" type="submit">Select</button>
+</form>
+
+@if(!String.IsNullOrEmpty(Model.QuestType))
+{
+    <form asp-action="MarkQuest" method="post" class="form">
+        <ul class="list">
+            @for (int i = 0; i < Model.Quests.Count; i++)
+            {
+                <li class="list__item list__item--hover">
+                    <span class="item__name" name="">@(i + 1). @Model.Quests[i].Name - @Model.Quests[i].Value cc</span>
+                    <input type="checkbox" asp-for="Quests[i].IsChecked"/>
+                    <input type="hidden" asp-for="Quests[i].Id"/>
+                </li>
+            }
+
+        </ul>
+        <button class="button button--inverse form__button" type="submit">Mark selected</button>
+    </form>
+}

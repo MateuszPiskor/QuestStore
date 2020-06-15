@@ -17,8 +17,8 @@ namespace Queststore.Controllers
 
         public MentorController()
         {
-            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
-            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
+            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
             _loggedMentor = new User();
             _loggedMentor.Id = 8;
         }
@@ -143,6 +143,45 @@ namespace Queststore.Controllers
         {
             Student student = _mentorOperationsFromDB.GetStudentById(id);
             return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult MarkQuest(int id)
+        {
+            ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
+            viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+            viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(viewModelMarkQuest);
+        }
+
+        [HttpPost]
+        public IActionResult MarkQuest(string questType, int id, List<Quest> quests)
+        {
+            ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
+            viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+            viewModelMarkQuest.QuestType = questType;
+            viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
+            viewModelMarkQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questType);
+            if (quests.All(item => item.IsChecked == false))
+            {
+                return View(viewModelMarkQuest);
+            }
+            else
+            {
+                int checkedItems = quests.Count(item => item.IsChecked == true);
+                if (checkedItems > 1)
+                {
+                    return View("Index"); //add Error message (to select only one quest)
+                }
+                else
+                {
+                    Quest selectedQuest = quests.FirstOrDefault(item => item.IsChecked == true);
+                    _mentorOperationsFromDB.MarkQuest(id, selectedQuest.Id);
+                    return RedirectToAction("Index");
+                }
+                
+            }
+
         }
     }
 }

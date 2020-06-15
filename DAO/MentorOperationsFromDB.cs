@@ -263,5 +263,21 @@ namespace Queststore.DAO
             }
             return quests;
         }
+
+        public void MarkQuest(int studentId, int questId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @"INSERT INTO student_quest(student_id, quest_id)
+                        VALUES (@studentId, @questId)";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("studentId", studentId);
+            cmd.Parameters.AddWithValue("questId", questId);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
     }
 }
