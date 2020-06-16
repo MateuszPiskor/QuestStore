@@ -1,4 +1,4 @@
-﻿namespace Queststore.Models
+﻿ namespace Queststore.Models
 {
     public class Student : User
     {

@@ -19,10 +19,10 @@
     {
         <li class="list__item list__item--hover list__item--long">
             <div class="item__name"><span>@(i + 1). @Model.Students[i].Name @Model.Students[i].Surname</span><span class="item__name-next">@Model.Students[i].Language</span></div>
-            <a class="button button--hidden " href="../../mentor/student-wallet-view.html">Wallet</a>
-            <a class="button button--hidden " href="../../mentor/mark-quests.html">Mark quest</a>
+            <a class="button button--hidden " asp-controller="Mentor" asp-action="ViewStudentWallet" asp-route-id="@Model.Students[i].Id">Wallet</a>
+            <a class="button button--hidden " asp-controller="Mentor" asp-action="MarkQuest" asp-route-id="@Model.Students[i].Id">Mark quest</a>
             <a class="button button--hidden " href="../../mentor/mark-artifacts.html">Mark artifact</a>
-            <a class="button button--hidden" href="../../mentor/student-profile-view.html">Info</a>
+            <a class="button button--hidden" asp-controller="Mentor" asp-action="ViewStudentProfile" asp-route-id="@Model.Students[i].Id">Info</a>
         </li>
     }
 </ul>
