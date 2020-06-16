@@ -19,5 +19,6 @@ namespace Queststore.DAO
         List<Quest> GetQuestsByType(string questType);
         Student GetStudentById(int studentId);
         void MarkQuest(int studentId, int questId);
+        void UpdateStudentCoolcoins(int studentId, int coolcoins);
     }
 }

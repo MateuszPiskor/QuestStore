@@ -177,7 +177,9 @@ namespace Queststore.Controllers
                 {
                     Quest selectedQuest = quests.FirstOrDefault(item => item.IsChecked == true);
                     _mentorOperationsFromDB.MarkQuest(id, selectedQuest.Id);
-                    return RedirectToAction("Index");
+                    viewModelMarkQuest.Student.Coolcoins += selectedQuest.Value;
+                    _mentorOperationsFromDB.UpdateStudentCoolcoins(viewModelMarkQuest.Student.Id, viewModelMarkQuest.Student.Coolcoins);
+                    return RedirectToAction("Index"); //add date of quest mark to db and here
                 }
                 
             }

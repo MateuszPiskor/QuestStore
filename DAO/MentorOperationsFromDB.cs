@@ -279,5 +279,20 @@ namespace Queststore.DAO
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }
+
+        public void UpdateStudentCoolcoins(int studentId, int coolcoins)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"UPDATE students
+                            SET coolcoins={coolcoins}
+                            WHERE id=(SELECT student_id FROM users WHERE id={studentId});";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            
+        }
     }
 }
