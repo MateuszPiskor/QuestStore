@@ -347,5 +347,99 @@ namespace Queststore.DAO
                 Console.WriteLine("Unknown problem occur", e.Message);
             }
         }
+
+        public Class getClassByClassId(int id)
+        {
+            string command = $@"select * From classes
+                                where id = 2";
+           Class group = new Class();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    group.Id = rdr.GetInt32(0);
+                    group.Name = rdr.GetString(1);
+                    group.City = rdr.GetString(2);
+                }   
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return group;
+        }
+
+        public List<string> GetCities()
+        {
+            string command= "select distinct city from classes";
+            List<string> cities = new List<string>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                   cities.Add(rdr.GetString(0));
+                }
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return cities;
+
+        }
+
+        public void EditClass(Class group)
+        {
+            string command = @$"update classes
+                set name = @name,
+                city = @city
+                where id = {group.Id}";
+
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Parameters.AddWithValue("name", group.Name);
+                cmd.Parameters.AddWithValue("city", group.City);
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
+
+        }
     }
 }

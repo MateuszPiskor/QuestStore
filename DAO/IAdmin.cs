@@ -19,5 +19,8 @@ namespace Queststore.DAO
         User GetUserById(int id);
         List<Class> GetClassesByUserId(int id);
         void EditMentor(int id, User mentor);
+        Class getClassByClassId(int id);
+        List<string> GetCities();
+        void EditClass(Class group);
     }
 }

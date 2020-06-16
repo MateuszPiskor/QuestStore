@@ -1,25 +1,26 @@
-﻿
+﻿@model Queststore.ViewModels.ViewModelsAdmin.ViewModelMentorsClass
 @{
     ViewData["Title"] = "EditClassForm";
 }
 
 <h1 class="page-title">Edit class</h1>
-<form id="form" class="form">
-    <label for="name" class="form__label">Class name</label>
-    <input class="form__input" type="text" id="name" value="Weekend-Course-krk-022020" required />
+<form method="post" asp-action="EditClassForm" asp-controller="Admin" id="form" class="form">
+    <input asp-for="Class.Id" type="hidden" value="@Model.Class.Id" />
+    <label asp-for="Class.Name"  class="form__label">Class name</label>
+    <input asp-for="Class.Name" class="form__input" type="text" id="name" value="@Model.Class.Name" required />
     <div id="nameError" class="error"></div>
 
-    <label for="mentor" class="form__label">Select mentor</label>
-    <select class="form__input" id="mentor" name="mentor">
-        <option value="John Doe" selected>John Doe</option>
-        <option value="John Doe">John Doe</option>
+    <label asp-for="MentorId" class="form__label">Select mentor</label>
+    <select asp-for="MentorId" class="form__input" id="mentor" asp-items="@(new SelectList(Model.Mentors,"Id","Name"))">
+        @*<option value="John Doe" selected>John Doe</option>
+        <option value="John Doe">John Doe</option>*@
     </select>
     <div id="mentor-error" class="error"></div>
 
-    <label for="city" class="form__label">Select city</label>
-    <select class="form__input" id="city" name="city">
-        <option value="Warsaw">Warsaw</option>
-        <option value="Cracow" selected>Cracow</option>
+    <label  for="city" class="form__label">Select city</label>
+    <select asp-for="Class.City" class="form__input" id="city" asp-items="@(new SelectList(Model.Cities))">
+        @*<option value="Warsaw">Warsaw</option>
+        <option value="Cracow" selected>Cracow</option>*@
     </select>
     <div id="mentor-error" class="error"></div>
 
