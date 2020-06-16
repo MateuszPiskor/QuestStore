@@ -17,6 +17,48 @@ namespace Queststore.DAO
             _dataBaseConnectionService = new DataBaseConnectionService(dataBaseConnection.HostAddress, dataBaseConnection.HostName, dataBaseConnection.HostPassword, dataBaseConnection.DatabaseName);
         }
 
+        public Student GetStudentById(int studentId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"SELECT users.id, users.name, users.surname, students.language, classes.id, classes.name,
+                            users.email, users.phone, students.coolcoins, exp_levels.id, exp_levels.name
+                            FROM users
+                            INNER JOIN students
+                            ON users.student_id = students.id
+                            LEFT JOIN classes
+                            ON students.class_id = classes.id
+							JOIN exp_levels
+							ON students.exp_level_id = exp_levels.id
+                            WHERE users.id = {studentId};";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+            Student student = new Student();
+            
+            while (reader.Read())
+            {
+                Class @class = new Class();
+                @class.Id = reader.GetInt32(4);
+                @class.Name = reader.GetString(5);
+
+                ExpLevel expLevel = new ExpLevel();
+                expLevel.Id = reader.GetInt32(9);
+                expLevel.Name = reader.GetString(10);
+
+                student.Id = reader.GetInt32(0);
+                student.Name = reader.GetString(1);
+                student.Surname = reader.GetString(2);
+                student.Language = reader.GetString(3);
+                student.Class = @class;
+                student.Email = reader.GetString(6);
+                student.Phone = reader.GetString(7);
+                student.ExpLevel = expLevel;
+                student.Coolcoins = reader.GetInt32(8);
+            }
+            return student;
+        }
+
         public List<Class> GetClassesByMentorId(int mentorId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -220,6 +262,37 @@ namespace Queststore.DAO
                 quests.Add(quest);
             }
             return quests;
+        }
+
+        public void MarkQuest(int studentId, int questId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @"INSERT INTO student_quest(student_id, quest_id)
+                        VALUES (@studentId, @questId)";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("studentId", studentId);
+            cmd.Parameters.AddWithValue("questId", questId);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateStudentCoolcoins(int studentId, int coolcoins)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"UPDATE students
+                            SET coolcoins={coolcoins}
+                            WHERE id=(SELECT student_id FROM users WHERE id={studentId});";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            
         }
     }
 }

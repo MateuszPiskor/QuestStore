@@ -17,8 +17,8 @@ namespace Queststore.Controllers
 
         public MentorController()
         {
-            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
-            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
+            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
             _loggedMentor = new User();
             _loggedMentor.Id = 8;
         }
@@ -83,16 +83,6 @@ namespace Queststore.Controllers
             return View(viewModelAddTeam);
         }
 
-        [HttpPost]
-        public IActionResult AddTeam(int classId, List<Student> selectedStudents, string teamName)
-        {
-            ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
-            viewModelAddTeam.ClassId = classId;
-            viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
-            return View(viewModelAddTeam);
-        }
-
         [HttpGet]
         public IActionResult Quests()
         {
@@ -139,6 +129,61 @@ namespace Queststore.Controllers
         {
             _mentorOperationsFromDB.AddArtifact(artifact);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ViewStudentProfile(int id)
+        {
+            Student student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult ViewStudentWallet(int id)
+        {
+            Student student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(student);
+        }
+
+        [HttpGet]
+        public IActionResult MarkQuest(int id)
+        {
+            ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
+            viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+            viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
+            return View(viewModelMarkQuest);
+        }
+
+        [HttpPost]
+        public IActionResult MarkQuest(string questType, int id, List<Quest> quests)
+        {
+            ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
+            viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
+            viewModelMarkQuest.QuestType = questType;
+            viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
+            viewModelMarkQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questType);
+            if (quests.All(item => item.IsChecked == false))
+            {
+                return View(viewModelMarkQuest);
+            }
+            else
+            {
+                int checkedItems = quests.Count(item => item.IsChecked == true);
+                if (checkedItems > 1)
+                {
+                    return View("Index"); //add Error message (to select only one quest)
+                }
+                else
+                {
+                    Quest selectedQuest = quests.FirstOrDefault(item => item.IsChecked == true);
+                    _mentorOperationsFromDB.MarkQuest(id, selectedQuest.Id);
+                    viewModelMarkQuest.Student.Coolcoins += selectedQuest.Value;
+                    _mentorOperationsFromDB.UpdateStudentCoolcoins(viewModelMarkQuest.Student.Id, viewModelMarkQuest.Student.Coolcoins);
+                    return RedirectToAction("Index"); //add date of quest mark to db and here
+                }
+                
+            }
+
         }
     }
 }

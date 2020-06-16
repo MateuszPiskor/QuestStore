@@ -1,0 +1,38 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Student's Wallet";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+    <section class="info-page">
+        <h1 class="page-title">Student's Wallet</h1>
+        <div class="info-page__item">Student: <span class="info-page__item--bold">@Model.Name @Model.Surname</span></div>
+        <div class="info-page__item">Coolcoins: <span class="info-page__item--bold">@Model.Coolcoins</span></div>
+        <div class="info-page__item">Experience level: <span class="info-page__item--bold">@Model.ExpLevel.Name</span></div>
+        <div class="info-page__item">
+
+            @*Artifacts to be updated with real data*@
+            <h3>Artifacts:</h3>
+            <table id="myTable">
+                <tr>
+                    <th data-sort="0">Date <i class="fas fa-sort"></i></th>
+                    <th data-sort="1">Artifact <i class="fas fa-sort"></i></th>
+                    <th data-sort="2">Type <i class="fas fa-sort"></i></th>
+                    <th data-sort="3">Coolcoins <i class="fas fa-sort"></i></th>
+                </tr>
+                <tr>
+                    <td>01-05-2020</td>
+                    <td>Private mentoring</td>
+                    <td>Basic</td>
+                    <td>50 cc</td>
+                </tr>
+                <tr>
+                    <td>06-05-2020</td>
+                    <td>60 min workshop by a mentor(s) of the chosen topic</td>
+                    <td>Magic</td>
+                    <td>1000 cc</td>
+                </tr>
+            </table>
+        </div>
+        <a class="button button--inverse form__button" asp-controller="Mentor" asp-action="Students">Back</a>
+    </section>

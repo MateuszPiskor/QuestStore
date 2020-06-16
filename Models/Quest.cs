@@ -13,5 +13,6 @@ namespace Queststore.Models
         public string Author { get; set; }
         public int Value { get; set; }
         public string Type { get; set; }
+        public bool IsChecked { get; set; }
     }
 }
