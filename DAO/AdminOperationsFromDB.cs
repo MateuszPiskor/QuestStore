@@ -220,30 +220,30 @@ namespace Queststore.DAO
         {
             string command = @"insert into mentor_class(user_id, class_id)
                                     values(@user_id, @class_id)";
+           
+                try
+                {
+                    NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                    con.Open();
+                    using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                    cmd.Parameters.AddWithValue("user_id", mentorId);
+                    cmd.Parameters.AddWithValue("class_id", classId);
 
-            try
-            {
-                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-                con.Open();
-                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
-                cmd.Parameters.AddWithValue("user_id", mentorId);
-                cmd.Parameters.AddWithValue("class_id", classId);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
 
-                cmd.Prepare();
-                cmd.ExecuteNonQuery();
-
+                }
+                catch (PostgresException e)
+                {
+                    Console.WriteLine("Server problem occur {0}", e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unknown proble occur", e.Message);
+                }
             }
-            catch (PostgresException e)
-            {
-                Console.WriteLine("Server problem occur {0}", e.Message);
-                throw;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unknown proble occur", e.Message);
-            }
-        }
-
+                    
         public User GetUserById(int id)
         {
             string command = $"select * from users where id = { id } ";
@@ -440,6 +440,66 @@ namespace Queststore.DAO
                 Console.WriteLine("Unknown problem occur", e.Message);
             }
 
+        }
+        public void AddClassMentor(List<int> ids, int classId)
+        {
+            foreach(var id in ids)
+            {
+                string command= $@"insert into mentor_class(user_id, class_id)
+                                    values({id}, {classId})";
+
+                try
+                {
+                    NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                    con.Open();
+                    using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                    cmd.Parameters.AddWithValue("user_id", id);
+                    cmd.Parameters.AddWithValue("classId", classId);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (PostgresException e)
+                {
+                    Console.WriteLine("Server problem occur {0}", e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unknown problem occur", e.Message);
+                }
+            }
+        }
+
+        public int GetMaxClassId()
+        {
+            int maxId = 0;
+            string command = "SELECT max(id) from classes";
+
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+
+            try
+            {
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    maxId = rdr.GetInt32(0);
+                }
+
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server - related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unkown problem occur {0}", e.Message);
+            }
+
+            return maxId;
         }
     }
 }

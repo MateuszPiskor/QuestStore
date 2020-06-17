@@ -22,5 +22,7 @@ namespace Queststore.DAO
         Class getClassByClassId(int id);
         List<string> GetCities();
         void EditClass(Class group);
+        void AddClassMentor(List<int> userId, int classId);
+        int GetMaxClassId();
     }
 }

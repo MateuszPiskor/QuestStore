@@ -26,7 +26,7 @@
     <div id="email-error" class="error"></div>
 
     <label asp-for="ClassId" for="class" class="form__label">Select class</label>
-    <select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))" required>
+    <select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))">
         <option>...</option>
     </select>
     <div id="class-error" class="error"></div>

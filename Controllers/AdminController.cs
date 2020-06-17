@@ -34,23 +34,50 @@ namespace Queststore.Controllers
         {
             AdminOperations.AddMentor(mentorAndClasses.Mentor);
             mentorAndClasses.Mentor.Id = AdminOperations.GetMaxMentorId();
-            AdminOperations.AddClassMentor(mentorAndClasses.ClassId, mentorAndClasses.Mentor.Id);
-
-            //AdminOperations.AddMentorClass(mentorAndClasses.Mentor.Id, mentorAndClasses.ClassId);
+            if (mentorAndClasses.ClassId != 0)
+            {
+                AdminOperations.AddClassMentor(mentorAndClasses.ClassId, mentorAndClasses.Mentor.Id);
+            }
             return RedirectToAction("AddMentorForm", "Admin");
         }
 
         [HttpGet]
         public IActionResult AddClassForm()
         {
-            return View();
+            AddClassFormViewModel addClassFormViewModel = new AddClassFormViewModel();
+            addClassFormViewModel.Mentors = AdminOperations.GetMentors();
+            return View(addClassFormViewModel);
         }
 
         [HttpPost]
-        public IActionResult AddClassForm(Class group)
+        public IActionResult AddClassForm(AddClassFormViewModel
+        addClassFormViewModel)
         {
-            AdminOperations.AddClass(group);
-            return View();
+            TempData["Message"] = "Class has been added";
+            AdminOperations.AddClass(addClassFormViewModel.Class);
+            int classId= AdminOperations.GetMaxClassId();
+            List<User> mentors = addClassFormViewModel.Mentors;
+            int selectedMentors = 0;
+            foreach(var mentor in mentors)
+            {
+                if (mentor.IsChecked == true)
+                {
+                    selectedMentors += 1;
+                }
+            }
+            if (selectedMentors > 0)
+            {
+                List<int> mentorsIds = new List<int>();
+                foreach(var mentor in mentors)
+                {
+                    if (mentor.IsChecked == true)
+                    {
+                    mentorsIds.Add(mentor.Id);
+                    }
+                }
+                AdminOperations.AddClassMentor(mentorsIds, classId);
+            }
+            return RedirectToAction("Index", "Admin");
         }
 
         public IActionResult AddLevelForm()
@@ -119,8 +146,8 @@ namespace Queststore.Controllers
             ViewModelMentorsClass mentorsAndClass = new ViewModelMentorsClass();
             mentorsAndClass.Class = AdminOperations.getClassByClassId(id);
             mentorsAndClass.Class.Id = id;
-            mentorsAndClass.Mentors=AdminOperations.GetMentors();
-            mentorsAndClass.Cities= AdminOperations.GetCities();
+            mentorsAndClass.Mentors = AdminOperations.GetMentors();
+            mentorsAndClass.Cities = AdminOperations.GetCities();
             return View(mentorsAndClass);
         }
         [HttpPost]
