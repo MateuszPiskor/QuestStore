@@ -25,20 +25,46 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddMentorForm()
         {
-            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
-            mentorAndClasses.Classes = AdminOperations.GetClasses();
-            return View(mentorAndClasses);
+            AddMentorFormViewModel addMentorFormViewModel = new AddMentorFormViewModel();
+            addMentorFormViewModel.Classes = AdminOperations.GetClasses();
+            return View(addMentorFormViewModel);
         }
         [HttpPost]
-        public IActionResult AddMentorForm(ViewModelMentorClasses mentorAndClasses)
+        public IActionResult AddMentorForm(AddMentorFormViewModel addMentorFormViewModel)
         {
-            AdminOperations.AddMentor(mentorAndClasses.Mentor);
-            mentorAndClasses.Mentor.Id = AdminOperations.GetMaxMentorId();
-            if (mentorAndClasses.ClassId != 0)
+            TempData["Message"] = "Mentor has been added";
+            AdminOperations.AddMentor(addMentorFormViewModel.Mentor);
+            addMentorFormViewModel.Mentor.Id = AdminOperations.GetMaxMentorId();
+            List<Class> classes = addMentorFormViewModel.Classes;
+            int selectedClasses = 0;
+            foreach (var group in classes)
             {
-                AdminOperations.AddClassMentor(mentorAndClasses.ClassId, mentorAndClasses.Mentor.Id);
+                if (group.IsChecked == true)
+                {
+                    selectedClasses += 1;
+                }
             }
-            return RedirectToAction("AddMentorForm", "Admin");
+            if (selectedClasses > 0)
+            {
+                List<int> classesIds = new List<int>();
+                foreach (var group in classes)
+                {
+                    if (group.IsChecked == true)
+                    {
+                        classesIds.Add(group.Id);
+                    }
+                }
+                AdminOperations.AddClassMentor(classesIds, addMentorFormViewModel.Mentor.Id);
+            }
+            return RedirectToAction("Index", "Admin");
+
+            //AdminOperations.AddMentor(mentorAndClasses.Mentor);
+            //mentorAndClasses.Mentor.Id = AdminOperations.GetMaxMentorId();
+            //if (mentorAndClasses.ClassId != 0)
+            //{
+            //    AdminOperations.AddClassMentor(mentorAndClasses.ClassId, mentorAndClasses.Mentor.Id);
+            //}
+            //return RedirectToAction("AddMentorForm", "Admin");
         }
 
         [HttpGet]
