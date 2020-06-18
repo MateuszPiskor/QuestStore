@@ -447,7 +447,9 @@ namespace Queststore.DAO
             foreach (int id in ids)
             {
                 string command = $@"insert into mentor_class(user_id, class_id)
-                                    values({id}, {classId})";
+                                    values({id}, {classId})
+                                    ON CONFLICT
+                                    DO NOTHING";
 
                 try
                 {
@@ -564,6 +566,29 @@ namespace Queststore.DAO
                 {
                     Console.WriteLine("Unknown problem occur", e.Message);
                 }
+            }
+        }
+
+        public void RemoveAllMentorsFromCurrentClass(int classId)
+        {
+            string command= $"delete from mentor_class where class_id = {classId} ";
+
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
             }
         }
     }

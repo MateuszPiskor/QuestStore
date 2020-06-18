@@ -169,18 +169,18 @@ namespace Queststore.Controllers
             editClassFormViewModel.Class = AdminOperations.getClassByClassId(id);
             editClassFormViewModel.Class.Id = id;
             editClassFormViewModel.Mentors = AdminOperations.GetMentors();
-            editClassFormViewModel.MentorsPreviousChecked = AdminOperations.GetMentorsByClassId(id);
-            markMentorsAsPreviousChecked(editClassFormViewModel.Mentors, editClassFormViewModel.MentorsPreviousChecked);
+            editClassFormViewModel.ClassMentors = AdminOperations.GetMentorsByClassId(id);
+            markMentorsAsClassMentors(editClassFormViewModel.Mentors, editClassFormViewModel.ClassMentors);
 
             editClassFormViewModel.Cities = AdminOperations.GetCities();
             return View(editClassFormViewModel);
         }
 
-        private void markMentorsAsPreviousChecked(List<User> mentors, List<User> mentorsPreviousChecked)
+        private void markMentorsAsClassMentors(List<User> mentors, List<User> ClassMentors)
         {
             foreach (User mentor in mentors)
             {
-                foreach (User previus in mentorsPreviousChecked)
+                foreach (User previus in ClassMentors)
                 {
                     if (mentor.Id == previus.Id)
                     {
@@ -193,8 +193,25 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult EditClassForm(EditClassFormViewModel editClassFormViewModel)
         {
+            TempData["Message"] = "Class has been edited";
+            AdminOperations.RemoveAllMentorsFromCurrentClass(editClassFormViewModel.Class.Id);
             AdminOperations.EditClass(editClassFormViewModel.Class);
+            List<int> mentorsIds = GetClassMentorsIds(editClassFormViewModel.Mentors);
+            AdminOperations.AddClassMentors(mentorsIds, editClassFormViewModel.Class.Id);
             return RedirectToAction("Index");
+        }
+
+        private List<int> GetClassMentorsIds(List<User> mentors)
+        {
+            List<int> ids = new List<int>();
+            foreach (User mentor in mentors)
+            {
+                if (mentor.IsChecked == true)
+                {
+                    ids.Add(mentor.Id);
+                }
+            }
+            return ids;
         }
 
         public IActionResult EditExpierenceLevelForm(int id)

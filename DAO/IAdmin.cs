@@ -26,5 +26,6 @@ namespace Queststore.DAO
         void AddClassMentors(List<int> userId, int classId);
         int GetMaxClassId();
         void AddClassesMentor(List<int> classesIds, int id);
+        void RemoveAllMentorsFromCurrentClass(int classId);
     }
 }
