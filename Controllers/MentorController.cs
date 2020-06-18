@@ -20,12 +20,13 @@ namespace Queststore.Controllers
             _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
             _loggedMentor = new User();
-            _loggedMentor.Id = 8;
+            
         }
 
 
         public IActionResult Index()
         {
+            _loggedMentor.Id = (int)TempData["loggedUserId"];
             return View();
         }
 

@@ -151,8 +151,8 @@ namespace Queststore.DAO
         public void AddUser(Student newStudent)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-            string sql_user = @"INSERT INTO users(name, surname, address, phone, email, is_admin, is_mentor, student_id)
-                    VALUES (@name, @surname, @address, @phone, @email, @isAdmin, @isMentor, @studentId);";
+            string sql_user = @"INSERT INTO users(name, surname, address, phone, email, is_admin, is_mentor, student_id, is_student)
+                    VALUES (@name, @surname, @address, @phone, @email, @isAdmin, @isMentor, @studentId, @isStudent);";
 
             con.Open();
             using var cmd = new NpgsqlCommand(sql_user, con);
@@ -165,6 +165,7 @@ namespace Queststore.DAO
             cmd.Parameters.AddWithValue("isAdmin", false);
             cmd.Parameters.AddWithValue("isMentor", false);
             cmd.Parameters.AddWithValue("studentId", newStudent.Id);
+            cmd.Parameters.AddWithValue("isStudent", true);
 
             cmd.Prepare();
             cmd.ExecuteNonQuery();

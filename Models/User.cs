@@ -16,13 +16,14 @@ namespace Queststore.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsMentor { get; set; }
+        public bool IsStudent { get; set; }
 
         public User()
         {
 
         }
 
-        public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor)
+        public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor, bool isStudent)
         {
             Id = id;
             Name = name;
@@ -33,6 +34,7 @@ namespace Queststore.Models
             Password = password;
             IsAdmin = isAdmin;
             IsMentor = isMentor;
+            IsStudent = isStudent;
         }
 
     }

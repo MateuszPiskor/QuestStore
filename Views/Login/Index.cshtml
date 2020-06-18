@@ -1,0 +1,19 @@
+﻿@model Queststore.ViewModels.ViewModelLogin
+@{
+    ViewData["Title"] = "Queststore - Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+<form class="login-page__form" action="" method="post">
+    <label  class="form__label"></label>
+    <input asp-for="Email" name="email" class="form__input login-page__form__input" type="text" id="login" placeholder="Login" />
+
+    <label class="form__label"></label>
+    <input asp-for="Password" name="password" class="form__input login-page__form__input" type="password" id="password" placeholder="Password" />
+    <a id="password-forgotten" class="input-comment input-comment--underline" href="">Forgot your password?</a>
+    <div id="login-error" class="error"></div>
+
+    <input class="button form__button button--orange" type="submit" />
+</form>
+
