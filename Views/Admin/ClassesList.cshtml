@@ -11,7 +11,7 @@
     {
     <li class="list__item list__item--hover">
         <span class="item__name">@group.Name @group.City</span>
-        <a asp-action="ClassesList" class="button button--hidden" asp-route-id="@group.Id">View</a>
+        <a asp-action="ClassProfileView" class="button button--hidden" asp-route-id="@group.Id">View</a>
         <a asp-action="EditClassForm" class="button button--hidden" aps-controller="Admin" asp-route-id="@group.Id" >Edit</a>
     </li>
     }

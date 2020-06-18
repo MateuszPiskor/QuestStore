@@ -220,5 +220,12 @@ namespace Queststore.Controllers
             return View(expLevel);
         }
 
+        public IActionResult ClassProfileView(int id)
+        {
+            ClassProfileViewModel classProfileViewModel = new ClassProfileViewModel();
+            classProfileViewModel.Class = AdminOperations.getClassByClassId(id);
+            classProfileViewModel.Mentors = AdminOperations.GetMentorsByClassId(id);
+            return View(classProfileViewModel);
+        }
     }
 }
