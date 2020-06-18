@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Queststore.Models;
 
 namespace Queststore.ViewModels.ViewModelsAdmin
@@ -11,6 +8,7 @@ namespace Queststore.ViewModels.ViewModelsAdmin
         public List<User> Mentors { get; set; }
         public Class Class { get; set; }
         public int ClassId { get; set; }
+        public List<string> Cities { get; set; } = new List<string>() { "Warszawa", "Kraków", "Wrocław" };
         public bool IsChecked { get; set; }
 
         public AddClassFormViewModel()

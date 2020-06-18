@@ -10,16 +10,19 @@ namespace Queststore.DAO
     public class AdminOperationsFromDB : IAdmin
     {
         private readonly DataBaseConnectionService _dataBaseConnectionService;
+
         public AdminOperationsFromDB(DataBaseConnection dataBaseConnection)
         {
             _dataBaseConnectionService = new DataBaseConnectionService(dataBaseConnection.HostAddress, dataBaseConnection.HostName, dataBaseConnection.HostPassword, dataBaseConnection.DatabaseName);
         }
+
         public void AddLevelForm(ExpLevel expLevel)
         {
             string command = $@"INSERT INTO exp_levels(name,min_points)
                        VALUES('{expLevel.Name}','{expLevel.MinPoints}')";
             ExecuteNonQueryCommand(command);
         }
+
         public void EditExpierenceLevelForm(ExpLevel expLevel)
         {
             string command = @$"update exp_levels 
@@ -104,8 +107,6 @@ namespace Queststore.DAO
             ExecuteNonQueryCommand(command);
         }
 
-
-
         public List<Class> GetClasses()
         {
             string command = $@"SELECT * FROM Classes";
@@ -145,23 +146,23 @@ namespace Queststore.DAO
                 using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
                 using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
                 int id = 0;
-                while (rdr.Read())
+                if (rdr != null)
                 {
-                    User user = new User();
-                    user.Id = rdr.GetInt32(0);
-                    user.Name = rdr.GetString(1);
-                    user.Surname = rdr.GetString(2);
-                    user.Email = rdr.GetString(3);
-                    user.Phone = rdr.GetString(4);
-                    user.Address = rdr.GetString(5);
-                    user.IsAdmin = false;
-                    user.IsMentor = rdr.GetBoolean(8);
-                    users.Add(user);
+                    while (rdr.Read())
+                    {
+                        User user = new User();
+                        user.Id = rdr.GetInt32(0);
+                        user.Name = rdr.GetString(1);
+                        user.Surname = rdr.GetString(2);
+                        user.Email = rdr.GetString(3);
+                        user.Phone = rdr.GetString(4);
+                        user.Address = rdr.GetString(5);
+                        user.IsAdmin = false;
+                        user.IsMentor = rdr.GetBoolean(8);
+                        users.Add(user);
+                    }
+                    con.Close();
                 }
-
-
-                //classes = Class.ParseDbTo(classes, rdr);
-                con.Close();
             }
             catch (PostgresException e)
             {
@@ -182,7 +183,6 @@ namespace Queststore.DAO
              Values ('{mentor.Name}','{mentor.Surname}','{mentor.Email}',{mentor.Phone},'{mentor.Address}',{mentor.IsAdmin = false},{mentor.IsMentor = true})";
             ExecuteNonQueryCommand(command);
         }
-
 
         public int GetMaxMentorId()
         {
@@ -220,30 +220,30 @@ namespace Queststore.DAO
         {
             string command = @"insert into mentor_class(user_id, class_id)
                                     values(@user_id, @class_id)";
-           
-                try
-                {
-                    NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-                    con.Open();
-                    using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
-                    cmd.Parameters.AddWithValue("user_id", mentorId);
-                    cmd.Parameters.AddWithValue("class_id", classId);
 
-                    cmd.Prepare();
-                    cmd.ExecuteNonQuery();
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Parameters.AddWithValue("user_id", mentorId);
+                cmd.Parameters.AddWithValue("class_id", classId);
 
-                }
-                catch (PostgresException e)
-                {
-                    Console.WriteLine("Server problem occur {0}", e.Message);
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Unknown proble occur", e.Message);
-                }
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
             }
-                    
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown proble occur", e.Message);
+            }
+        }
+
         public User GetUserById(int id)
         {
             string command = $"select * from users where id = { id } ";
@@ -351,8 +351,8 @@ namespace Queststore.DAO
         public Class getClassByClassId(int id)
         {
             string command = $@"select * From classes
-                                where id = 2";
-           Class group = new Class();
+                                where id = {id}";
+            Class group = new Class();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {
@@ -364,7 +364,7 @@ namespace Queststore.DAO
                     group.Id = rdr.GetInt32(0);
                     group.Name = rdr.GetString(1);
                     group.City = rdr.GetString(2);
-                }   
+                }
 
                 con.Close();
             }
@@ -383,7 +383,7 @@ namespace Queststore.DAO
 
         public List<string> GetCities()
         {
-            string command= "select distinct city from classes";
+            string command = "select distinct city from classes";
             List<string> cities = new List<string>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
@@ -393,7 +393,7 @@ namespace Queststore.DAO
                 using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
                 while (rdr.Read())
                 {
-                   cities.Add(rdr.GetString(0));
+                    cities.Add(rdr.GetString(0));
                 }
 
                 con.Close();
@@ -441,11 +441,12 @@ namespace Queststore.DAO
             }
 
         }
-        public void AddClassMentor(List<int> ids, int classId)
+
+        public void AddClassMentors(List<int> ids, int classId)
         {
-            foreach(var id in ids)
+            foreach (int id in ids)
             {
-                string command= $@"insert into mentor_class(user_id, class_id)
+                string command = $@"insert into mentor_class(user_id, class_id)
                                     values({id}, {classId})";
 
                 try
@@ -453,8 +454,6 @@ namespace Queststore.DAO
                     NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
                     con.Open();
                     using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
-                    cmd.Parameters.AddWithValue("user_id", id);
-                    cmd.Parameters.AddWithValue("classId", classId);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
 
@@ -500,6 +499,72 @@ namespace Queststore.DAO
             }
 
             return maxId;
+        }
+
+        public List<User> GetMentorsByClassId(int id)
+        {
+            string command = $@"Select u.id,u.name, u.surname from users u
+                                    inner join mentor_class m
+                                    on u.id=m.user_id
+                                    inner join classes c
+                                    on m.class_id=c.id
+                                    where c.id={id};";
+
+            List<User> mentors = new List<User>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    User user = new User();
+                    user.Id = rdr.GetInt32(0);
+                    user.Name = rdr.GetString(1);
+                    user.Surname = rdr.GetString(2);
+                    mentors.Add(user);
+                }
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
+            return mentors;
+        }
+
+        public void AddClassesMentor(List<int> classesIds, int id)
+        {
+            foreach (int classId in classesIds)
+            {
+                string command = $@"insert into mentor_class(user_id, class_id)
+                                    values({id}, {classId})";
+
+                try
+                {
+                    NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                    con.Open();
+                    using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (PostgresException e)
+                {
+                    Console.WriteLine("Server problem occur {0}", e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unknown problem occur", e.Message);
+                }
+            }
         }
     }
 }

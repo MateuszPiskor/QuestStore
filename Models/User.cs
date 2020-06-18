@@ -17,6 +17,7 @@ namespace Queststore.Models
         public bool IsAdmin { get; set; }
         public bool IsMentor { get; set; }
         public bool IsChecked { get; set; }
+        public bool PreviusChecked { get; set; }
 
         public User()
         {

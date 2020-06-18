@@ -16,13 +16,15 @@ namespace Queststore.DAO
         int GetMaxMentorId();
         void AddClassMentor(int classId, int mentorId);
         List<User> GetMentors();
+        List<User> GetMentorsByClassId(int id);
         User GetUserById(int id);
         List<Class> GetClassesByUserId(int id);
         void EditMentor(int id, User mentor);
         Class getClassByClassId(int id);
         List<string> GetCities();
         void EditClass(Class group);
-        void AddClassMentor(List<int> userId, int classId);
+        void AddClassMentors(List<int> userId, int classId);
         int GetMaxClassId();
+        void AddClassesMentor(List<int> classesIds, int id);
     }
 }

@@ -25,14 +25,14 @@
     <input asp-for="Mentor.Email" class="form__input" type="email" id="email" required />
     <div id="email-error" class="error"></div>
 
-    <label class="form__label">Add students to team:</label>
+    <label class="form__label">Add students to class:</label>
     @for (int i = 0; i < Model.Classes.Count; i++)
     {
-        <li class="list__item list__item--hover">
-            <span class="item__name" name="">@(i + 1). @Model.Classes[i].Name @Model.Classes[i].City</span>
-            <input type="checkbox" asp-for="Classes[i].IsChecked" />
-            <input type="hidden" asp-for="Classes[i].Id" />
-        </li>
+    <li class="list__item list__item--hover">
+        <span class="item__name" name="">@(i + 1). @Model.Classes[i].Name @Model.Classes[i].City</span>
+        <input type="checkbox" asp-for="Classes[i].IsChecked" />
+        <input type="hidden" asp-for="Classes[i].Id" />
+    </li>
     }
 
     <button class="button button--inverse form__button">Add</button>

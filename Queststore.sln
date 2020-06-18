@@ -4,6 +4,10 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queststore", "Queststore.csproj", "{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueststoreTests", "..\QueststoreTests\QueststoreTests.csproj", "{D6D396D7-821E-4276-9C27-341ED881F3D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "..\..\..\..\OOP\PA\Libraray4.0\Library.csproj", "{A783D137-0B5F-4B18-AB97-C8A98B81E7C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +18,14 @@ Global
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D72022CB-E9E3-4E69-9737-3B0BAF2ADE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D396D7-821E-4276-9C27-341ED881F3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D396D7-821E-4276-9C27-341ED881F3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D396D7-821E-4276-9C27-341ED881F3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D396D7-821E-4276-9C27-341ED881F3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A783D137-0B5F-4B18-AB97-C8A98B81E7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A783D137-0B5F-4B18-AB97-C8A98B81E7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A783D137-0B5F-4B18-AB97-C8A98B81E7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A783D137-0B5F-4B18-AB97-C8A98B81E7C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
