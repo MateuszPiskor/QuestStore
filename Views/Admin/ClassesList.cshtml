@@ -4,16 +4,14 @@
     ViewData["Title"] = "ClassesList";
 }
 
-
 <h1 class="page-title">List of classes</h1>
 <ul class="list">
-    @foreach(var group in Model)
+    @foreach (var group in Model)
     {
-    <li class="list__item list__item--hover">
-        <span class="item__name">@group.Name @group.City</span>
-        <a asp-action="ClassProfileView" class="button button--hidden" asp-route-id="@group.Id">View</a>
-        <a asp-action="EditClassForm" class="button button--hidden" aps-controller="Admin" asp-route-id="@group.Id" >Edit</a>
-    </li>
+        <li class="list__item list__item--hover">
+            <span class="item__name">@group.Name @group.City</span>
+            <a asp-action="ClassProfileView" class="button button--hidden" asp-route-id="@group.Id">View</a>
+            <a asp-action="EditClassForm" class="button button--hidden" aps-controller="Admin" asp-route-id="@group.Id">Edit</a>
+        </li>
     }
 </ul>
-

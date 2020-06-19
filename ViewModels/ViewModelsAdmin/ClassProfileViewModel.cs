@@ -5,7 +5,6 @@ namespace Queststore.ViewModels.ViewModelsAdmin
 {
     public class ClassProfileViewModel
     {
-       
         public Class Class { get; set; }
         public List<User> Mentors { get; set; }
 

@@ -13,21 +13,19 @@
 
     <label asp-for="Class.City" for="city" class="form__label">Select city</label>
     <select asp-for="Class.City"class ="form__input" id="city" asp-items="@(new SelectList(Model.Cities))">
-        
     </select>
 
     <label for="mentor" class="form__label">Select mentor: </label>
-    
+
 <ul class="list">
     @for (int i = 0; i < Model.Mentors.Count; i++)
     {
         <li class="list__item list__item--hover">
             <span class="item__name" name="">@(i + 1). @Model.Mentors[i].Name @Model.Mentors[i].Surname</span>
-            <input type="checkbox" asp-for="Mentors[i].IsChecked"/>
+            <input type="checkbox" asp-for="Mentors[i].IsChecked" />
             <input type="hidden" asp-for="Mentors[i].Id" />
         </li>
     }
 </ul>
     <button class="button button--inverse form__button" type="submit">Add</button>
 </form>
-
