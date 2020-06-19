@@ -255,7 +255,9 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            IndexViewModel indexViewModel=new IndexViewModel();
+            indexViewModel.Class=AdminOperations.GetLastClass();
+            return View(indexViewModel);
         }
 
         [HttpGet]

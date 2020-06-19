@@ -54,5 +54,6 @@ namespace Queststore.DAO
         void RemoveAllClassesToCurrentMentor(int id);
 
         void RemoveAllMentorsFromCurrentClass(int classId);
+        Class GetLastClass();
     }
 }

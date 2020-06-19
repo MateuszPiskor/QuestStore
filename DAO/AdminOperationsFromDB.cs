@@ -18,8 +18,8 @@ namespace Queststore.DAO
 
         public void AddClass(Class group)
         {
-            string command = $@"INSERT INTO classes(name,city)
-                       VALUES('{group.Name}','{group.City}')";
+            string command = $@"INSERT INTO classes(name,city,create_date)
+                       VALUES('{group.Name}','{group.City}',Now())";
             ExecuteNonQueryCommand(command);
         }
 
@@ -420,6 +420,40 @@ namespace Queststore.DAO
                 throw;
             }
             return classes;
+        }
+
+        public Class GetLastClass()
+        {
+            string command= $@"Select* from classes
+                    Where id = (Select Max(id) from classes)";
+            Class @class = new Class();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    @class.Id = rdr.GetInt32(0);
+                    @class.Name = rdr.GetString(1);
+                    @class.City = rdr.GetString(2);
+                    @class.CreateTime = rdr.GetDateTime(3);
+                }
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return @class;
         }
 
         public ExpLevel GetLevelById(int id)
