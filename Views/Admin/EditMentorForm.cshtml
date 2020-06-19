@@ -1,4 +1,4 @@
-﻿@model Queststore.ViewModels.ViewModelsAdmin.ViewModelMentorClasses
+﻿@model Queststore.ViewModels.ViewModelsAdmin.EditMentorFormViewModel
 @{
     ViewData["Title"] = "EditMentorForm";
 }
@@ -6,7 +6,7 @@
 <h1 class="page-title">Edit mentor</h1>
 <form method="post" asp-action="EditMentorForm" id="form" class="form">
     <input type="hidden" asp-for="Mentor.Id" value="@Model.Mentor.Id" />
-    <label asp-for="Mentor.Name" class="form__label" >First name</label>
+    <label asp-for="Mentor.Name" class="form__label">First name</label>
     <input asp-for="Mentor.Name" class="form__input" type="text" id="firstName" value="@Model.Mentor.Name" required />
     <div id="name-error" class="error"></div>
 
@@ -26,11 +26,17 @@
     <input asp-for="Mentor.Email" class="form__input" type="email" id="email" value="@Model.Mentor.Email" required />
     <div id="email-error" class="error"></div>
 
-    <label asp-for="ClassId" for="class" class="form__label">Select class</label>
-    @*<select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))" required multiple>*@
-    <select asp-for="ClassId" class="form__input" asp-items="@(new SelectList(Model.Classes, "Id", "Name"))" required>
-        <option>...</option>
-    </select>
+    <label asp-for="MentorId" class="form__label">Select class/classes: </label>
+    @for (int i = 0; i < Model.Classes.Count; i++)
+    {
+        <li class="list__item list__item--hover">
+            <span class="item__name" name="">@(i + 1). @Model.Classes[i].Name @Model.Classes[i].City</span>
+            <input type="checkbox" asp-for="Classes[i].IsChecked" checked="@Model.Classes[i].PreviusChecked" />
+            <input type="hidden" asp-for="Classes[i].Id" />
+        </li>
+        <div id="mentor-error" class="error"></div>
+    }
+
     <div id="class-error" class="error"></div>
     <button class="button button--inverse form__button" type="submit">Edit</button>
 </form>
