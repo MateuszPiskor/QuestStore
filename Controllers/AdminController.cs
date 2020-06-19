@@ -213,6 +213,22 @@ namespace Queststore.Controllers
         }
 
         [HttpGet]
+        public IActionResult EditUser(int id) //id from cookie/session
+        {
+            id = 3;
+            User user = AdminOperations.GetUserById(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(User user)
+        {
+            TempData["Message"] = "Your personal detalis has been upadted";
+            AdminOperations.EditMentor(user);
+            return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
