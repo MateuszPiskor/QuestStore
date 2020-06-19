@@ -227,6 +227,30 @@ namespace Queststore.Controllers
             AdminOperations.EditMentor(user);
             return RedirectToAction("Index", "Admin");
         }
+        
+        [HttpGet]
+        public IActionResult GoToFacebook()
+        {
+            return Redirect("http://www.facebook.com");
+        }
+
+        [HttpGet]
+        public IActionResult GoToTwitter()
+        {
+            return Redirect("http://www.twitter.com");
+        }
+
+        [HttpGet]
+        public IActionResult GoToYoutube()
+        {
+            return Redirect("http://www.youtube.com");
+        }
+
+        [HttpGet]
+        public IActionResult GoToInstagram()
+        {
+            return Redirect("http://www.instagram.com");
+        }
 
         [HttpGet]
         public IActionResult Index()
