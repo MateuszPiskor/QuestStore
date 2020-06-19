@@ -108,8 +108,8 @@ namespace Queststore.DAO
 
         public void AddLevelForm(ExpLevel expLevel)
         {
-            string command = $@"INSERT INTO exp_levels(name,min_points)
-                       VALUES('{expLevel.Name}','{expLevel.MinPoints}')";
+            string command = $@"INSERT INTO exp_levels(name,min_points,create_date)
+                       VALUES('{expLevel.Name}','{expLevel.MinPoints}',NOW())";
             ExecuteNonQueryCommand(command);
         }
 
@@ -422,7 +422,7 @@ namespace Queststore.DAO
             return classes;
         }
 
-        public Class GetLastClass()
+        public Class GetLastAddedClass()
         {
             string command= $@"Select* from classes
                     Where id = (Select Max(id) from classes)";
@@ -454,6 +454,41 @@ namespace Queststore.DAO
                 throw;
             }
             return @class;
+        }
+
+        public ExpLevel GetLastAddedLevel()
+        {
+            string command = $@"SELECT * FROM exp_levels
+                            WHERE id = (SELECT MAX(id) from exp_levels)";
+
+            ExpLevel level = new ExpLevel();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    level.Id = rdr.GetInt32(0);
+                    level.Name = rdr.GetString(1);
+                    level.MinPoints = rdr.GetInt32(2);
+                    level.CreateTime = rdr.GetDateTime(3);
+                }
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return level;
         }
 
         public ExpLevel GetLevelById(int id)
