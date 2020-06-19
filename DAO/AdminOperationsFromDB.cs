@@ -591,5 +591,131 @@ namespace Queststore.DAO
                 Console.WriteLine("Unknown problem occur", e.Message);
             }
         }
+
+        public List<Class> GetClassesByMentorId(int id)
+        {
+            string command = $@"Select c.id,c.name, c.city from classes c
+                                    inner join mentor_class m
+                                    on c.id=m.class_id
+                                    inner join users u
+                                    on m.user_id=u.id
+                                    where u.id={id};";
+
+            List<Class> classes = new List<Class>();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Class @class = new Class();
+                    @class.Id = rdr.GetInt32(0);
+                    @class.Name = rdr.GetString(1);
+                    @class.City = rdr.GetString(2);
+                    classes.Add(@class);
+                }
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
+            return classes;
+        }
+
+        public void RemoveAllClassesToCurrentMentor(int id)
+        {
+            string command = $"delete from mentor_class where user_id = {id} ";
+
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
+        }
+
+        public void EditMentor(User mentor)
+        {
+            string command = @$"update users
+                                set name = @name,
+                                surname=@surname,
+                                email=@email,
+                                phone=@phone,
+                                address=@address
+                                where id = {mentor.Id}";
+
+            try
+            {
+                NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                con.Open();
+                using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                cmd.Parameters.AddWithValue("name", mentor.Name);
+                cmd.Parameters.AddWithValue("surname", mentor.Surname);
+                cmd.Parameters.AddWithValue("email", mentor.Email);
+                cmd.Parameters.AddWithValue("phone", mentor.Phone);
+                cmd.Parameters.AddWithValue("address", mentor.Address);
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (PostgresException e)
+            {
+                Console.WriteLine("Server problem occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unknown problem occur", e.Message);
+            }
+        }
+
+        public void AddMentorClasses(List<int> classesIds, int id)
+        {
+            foreach (int classId in classesIds)
+            {
+                string command = $@"insert into mentor_class(user_id, class_id)
+                                    values({id}, {classId})
+                                    ON CONFLICT
+                                    DO NOTHING";
+
+                try
+                {
+                    NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+                    con.Open();
+                    using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch (PostgresException e)
+                {
+                    Console.WriteLine("Server problem occur {0}", e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unknown problem occur", e.Message);
+                }
+            }
+        }
     }
 }

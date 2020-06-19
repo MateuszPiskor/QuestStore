@@ -12,6 +12,7 @@ namespace Queststore.Models
         public string Name { get; set; }
         public string City { get; set; }
         public bool IsChecked { get; set; }
+        public bool PreviusChecked { get; set; }
 
         public Class() { }
 

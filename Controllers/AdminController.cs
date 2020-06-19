@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Queststore.DAO;
 using Queststore.Models;
@@ -149,18 +150,70 @@ namespace Queststore.Controllers
 
         public IActionResult EditMentorForm(int id)
         {
-            ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
-            mentorAndClasses.Classes = AdminOperations.GetClasses();
-            mentorAndClasses.Mentor = AdminOperations.GetUserById(id);
-            return View(mentorAndClasses);
+            EditMentorFormViewModel editMentorFormViewModel = new EditMentorFormViewModel();
+            editMentorFormViewModel.Mentor = AdminOperations.GetUserById(id);
+            editMentorFormViewModel.Mentor.Id = id;
+            editMentorFormViewModel.Classes = AdminOperations.GetClasses();
+            editMentorFormViewModel.MentorClasses = AdminOperations.GetClassesByMentorId(id);
+            markClassesAsMentorClass(editMentorFormViewModel.Classes, editMentorFormViewModel.MentorClasses);
+
+            //editMentorFormViewModel.Cities = AdminOperations.GetCities();
+            return View(editMentorFormViewModel);
+
+            //ViewModelMentorClasses mentorAndClasses = new ViewModelMentorClasses();
+            //mentorAndClasses.Classes = AdminOperations.GetClasses();
+            //mentorAndClasses.Mentor = AdminOperations.GetUserById(id);
+            //return View(mentorAndClasses);
+        }
+
+        private void markClassesAsMentorClass(List<Class> classes, List<Class> mentorClasses)
+        {
+            foreach (Class @class in classes)
+            {
+                foreach (Class previus in mentorClasses)
+                {
+                    if (@class.Id == previus.Id)
+                    {
+                        @class.PreviusChecked = true;
+                    }
+                }
+            }
         }
 
         [HttpPost]
-        public IActionResult EditMentorForm(ViewModelMentorClasses mentorAndClasses)
+        public IActionResult EditMentorForm(EditMentorFormViewModel editMentorFormViewModel)
         {
-            AdminOperations.EditMentor(mentorAndClasses.Mentor.Id, mentorAndClasses.Mentor);
-            TempData["Message"] = "You have edited mentor details!";
+
+            TempData["Message"] = "Mentor has been edited";
+            AdminOperations.RemoveAllClassesToCurrentMentor(editMentorFormViewModel.Mentor.Id);
+            AdminOperations.EditMentor(editMentorFormViewModel.Mentor);
+            List<int> classesIds = GetMentorClassesIds(editMentorFormViewModel.Classes);
+            //AdminOperations.EditMentor(mentorAndClasses.Mentor.Id, mentorAndClasses.Mentor);
+            AdminOperations.AddMentorClasses(classesIds, editMentorFormViewModel.Mentor.Id);
             return RedirectToAction("Index");
+
+            //TempData["Message"] = "Class has been edited";
+            //AdminOperations.RemoveAllMentorsFromCurrentClass(editClassFormViewModel.Class.Id);
+            //AdminOperations.EditClass(editClassFormViewModel.Class);
+            //List<int> mentorsIds = GetClassMentorsIds(editClassFormViewModel.Mentors);
+            //AdminOperations.AddClassMentors(mentorsIds, editClassFormViewModel.Class.Id);
+            //return RedirectToAction("Index");
+
+            //TempData["Message"] = "You have edited mentor details!";
+            //return RedirectToAction("Index");
+        }
+
+        private List<int> GetMentorClassesIds(List<Class> classes)
+        {
+            List<int> ids = new List<int>();
+            foreach (Class @class in classes)
+            {
+                if (@class.IsChecked == true)
+                {
+                    ids.Add(@class.Id);
+                }
+            }
+            return ids;
         }
 
         public IActionResult EditClassForm(int id)
