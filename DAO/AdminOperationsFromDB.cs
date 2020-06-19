@@ -25,7 +25,7 @@ namespace Queststore.DAO
 
         public void EditExpierenceLevelForm(ExpLevel expLevel)
         {
-            string command = @$"update exp_levels 
+            string command = @$"update exp_levels
                                 set name = '{expLevel.Name}',
                                 min_points = {expLevel.MinPoints}
                                 where id = {expLevel.Id} ";
@@ -34,7 +34,6 @@ namespace Queststore.DAO
 
         public IEnumerable<ExpLevel> ExpLevelsList()
         {
-
             string command = $@"Select * from exp_levels";
             List<ExpLevel> expLevelsList = GetExpLevels(command);
             return sortLevelsByMinPoints(expLevelsList);
@@ -47,7 +46,6 @@ namespace Queststore.DAO
 
         private void ExecuteNonQueryCommand(string command)
         {
-
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
             {
@@ -201,7 +199,6 @@ namespace Queststore.DAO
                 {
                     maxId = rdr.GetInt32(0);
                 }
-
             }
             catch (PostgresException e)
             {
@@ -231,7 +228,6 @@ namespace Queststore.DAO
 
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
-
             }
             catch (PostgresException e)
             {
@@ -282,8 +278,8 @@ namespace Queststore.DAO
         public List<Class> GetClassesByUserId(int id)
         {
             string command = $@"Select distinct c.id,c.name,c.city from classes c
-  	                                inner join mentor_class m 	
- 	                                on c.id=m.class_id	
+  	                                inner join mentor_class m
+ 	                                on c.id=m.class_id
  	                                inner join users u
   	                                on m.user_id=u.id
   	                                where u.id={id};";
@@ -335,7 +331,6 @@ namespace Queststore.DAO
 
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
-
             }
             catch (PostgresException e)
             {
@@ -409,7 +404,6 @@ namespace Queststore.DAO
                 throw;
             }
             return cities;
-
         }
 
         public void EditClass(Class group)
@@ -428,7 +422,6 @@ namespace Queststore.DAO
                 cmd.Parameters.AddWithValue("city", group.City);
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
-
             }
             catch (PostgresException e)
             {
@@ -439,7 +432,6 @@ namespace Queststore.DAO
             {
                 Console.WriteLine("Unknown problem occur", e.Message);
             }
-
         }
 
         public void AddClassMentors(List<int> ids, int classId)
@@ -458,7 +450,6 @@ namespace Queststore.DAO
                     using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
-
                 }
                 catch (PostgresException e)
                 {
@@ -488,7 +479,6 @@ namespace Queststore.DAO
                 {
                     maxId = rdr.GetInt32(0);
                 }
-
             }
             catch (PostgresException e)
             {
@@ -555,7 +545,6 @@ namespace Queststore.DAO
                     using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
-
                 }
                 catch (PostgresException e)
                 {
@@ -571,7 +560,7 @@ namespace Queststore.DAO
 
         public void RemoveAllMentorsFromCurrentClass(int classId)
         {
-            string command= $"delete from mentor_class where class_id = {classId} ";
+            string command = $"delete from mentor_class where class_id = {classId} ";
 
             try
             {
@@ -675,7 +664,6 @@ namespace Queststore.DAO
                 cmd.Parameters.AddWithValue("address", mentor.Address);
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
-
             }
             catch (PostgresException e)
             {
@@ -704,7 +692,6 @@ namespace Queststore.DAO
                     using NpgsqlCommand cmd = new NpgsqlCommand(command, con);
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
-
                 }
                 catch (PostgresException e)
                 {
