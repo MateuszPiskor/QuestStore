@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Queststore.DAO;
 using Queststore.Models;
@@ -13,19 +14,19 @@ namespace Queststore.Controllers
     public class MentorController : Controller
     {
         private readonly IMentor _mentorOperationsFromDB;
-        private readonly User _loggedMentor;
+        private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
 
         public MentorController()
         {
             _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db2"));
-            _loggedMentor = new User();
-            _loggedMentor.Id = 8;
         }
 
 
+        [HttpGet]
         public IActionResult Index()
         {
+           // _loggedMentor.Id = (int)TempData["loggedUserId"];
             return View();
         }
 
@@ -33,7 +34,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Students()
         {
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentor.Id, 0);
+            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, 0);
             return View(studentsAndClasses);
 
         }
@@ -44,7 +45,7 @@ namespace Queststore.Controllers
             {
                 return RedirectToAction("Students");
             }
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentor.Id, classId);
+            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, classId);
             return View(studentsAndClasses);
         }
 
@@ -52,7 +53,7 @@ namespace Queststore.Controllers
         public IActionResult AddStudent()
         {
             ViewModelStudentClasses studentAndClasses = new ViewModelStudentClasses();
-            studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             return View(studentAndClasses);
         }
 
@@ -69,7 +70,7 @@ namespace Queststore.Controllers
         public IActionResult AddTeam()
         {
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             return View(viewModelAddTeam);
         }
 
@@ -77,7 +78,7 @@ namespace Queststore.Controllers
         public IActionResult AddTeam(int classId)
         {
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentor.Id);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             viewModelAddTeam.ClassId = classId;
             viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
             return View(viewModelAddTeam);

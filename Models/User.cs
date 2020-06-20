@@ -16,6 +16,7 @@ namespace Queststore.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsMentor { get; set; }
+        public bool IsStudent { get; set; }
         public bool IsChecked { get; set; }
         public bool PreviusChecked { get; set; }
         public DateTime CreateTime { get; set; }
@@ -25,7 +26,7 @@ namespace Queststore.Models
 
         }
 
-        public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor)
+        public User(int id, string name, string surname, string email, string phone, string address, string password, bool isAdmin, bool isMentor, bool isStudent)
         {
             Id = id;
             Name = name;
@@ -36,6 +37,7 @@ namespace Queststore.Models
             Password = password;
             IsAdmin = isAdmin;
             IsMentor = isMentor;
+            IsStudent = isStudent;
         }
 
     }

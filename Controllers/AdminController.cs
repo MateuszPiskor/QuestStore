@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Queststore.DAO;
 using Queststore.Models;
@@ -10,10 +12,12 @@ namespace Queststore.Controllers
     public class AdminController : Controller
     {
         private IAdmin AdminOperations;
+        private int _loggedAdminId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
 
         public AdminController()
         {
-            AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            //AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
         }
 
         [HttpGet]
@@ -213,10 +217,9 @@ namespace Queststore.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditUser(int id) //id from cookie/session
+        public IActionResult EditUser() //id from cookie/session
         {
-            id = 3;
-            User user = AdminOperations.GetUserById(id);
+            User user = AdminOperations.GetUserById(_loggedAdminId);
             return View(user);
         }
 
