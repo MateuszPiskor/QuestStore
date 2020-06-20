@@ -6,7 +6,7 @@
 
 <h1 class="page-title">Mark quest</h1>
 <form asp-action="MarkQuest" method="post">
-    <label asp-for="QuestType" class="form__label">Select class</label>
+    <label asp-for="QuestType" class="form__label">Select quest type</label>
     <select asp-for="QuestType" class="form__input" id="QuestType" name="questType" asp-items="@(new SelectList(Model.QuestTypes, "Name"))">
         <option>...</option>
     </select>
