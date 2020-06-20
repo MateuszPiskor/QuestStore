@@ -493,7 +493,10 @@ namespace Queststore.DAO
 
         public User GetLastUser()
         {
-            string command = $"select * from users where id = (SELECT MAX(id) from users)";
+            string command = $@"select * from users
+                                    where is_mentor=true 
+                                    and id = (SELECT MAX(id) from users
+                                    where is_mentor=true)";
             User mentor = new User();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
