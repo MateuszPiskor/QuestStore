@@ -56,5 +56,6 @@ namespace Queststore.DAO
         void RemoveAllMentorsFromCurrentClass(int classId);
         Class GetLastAddedClass();
         ExpLevel GetLastAddedLevel();
+        User GetLastUser();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Queststore.Models;
 
 namespace Queststore.ViewModels.ViewModelsAdmin
 {
     public class AddClassFormViewModel
-    {
+    {    
         public List<User> Mentors { get; set; }
         public Class Class { get; set; }
         public int ClassId { get; set; }

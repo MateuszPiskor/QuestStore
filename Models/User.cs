@@ -18,6 +18,7 @@ namespace Queststore.Models
         public bool IsMentor { get; set; }
         public bool IsChecked { get; set; }
         public bool PreviusChecked { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public User()
         {

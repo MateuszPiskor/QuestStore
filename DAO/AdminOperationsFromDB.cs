@@ -491,6 +491,43 @@ namespace Queststore.DAO
             return level;
         }
 
+        public User GetLastUser()
+        {
+            string command = $"select * from users where id = (SELECT MAX(id) from users)";
+            User mentor = new User();
+            using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            try
+            {
+                con.Open();
+                using NpgsqlCommand preparedCommand = new NpgsqlCommand(command, con);
+                using NpgsqlDataReader rdr = preparedCommand.ExecuteReader();
+                while (rdr.Read())
+                {
+                    mentor.Id = rdr.GetInt32(0);
+                    mentor.Name = rdr.GetString(1);
+                    mentor.Surname = rdr.GetString(2);
+                    mentor.Email = rdr.GetString(3);
+                    mentor.Phone = rdr.GetString(4);
+                    mentor.Address = rdr.GetString(5);
+                    mentor.CreateTime = rdr.GetDateTime(12);
+                }
+
+                con.Close();
+            }
+            catch (PostgresException e)
+            {
+                System.Console.WriteLine("Server-related issues occur {0}", e.Message);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                throw;
+            }
+            return mentor;
+            
+        }
+
         public ExpLevel GetLevelById(int id)
         {
             string command = $"select * from exp_levels where id = { id } ";

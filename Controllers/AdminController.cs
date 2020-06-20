@@ -258,6 +258,7 @@ namespace Queststore.Controllers
             IndexViewModel indexViewModel=new IndexViewModel();
             indexViewModel.Class=AdminOperations.GetLastAddedClass();
             indexViewModel.Level = AdminOperations.GetLastAddedLevel();
+            indexViewModel.User = AdminOperations.GetLastUser();
             return View(indexViewModel);
         }
 
