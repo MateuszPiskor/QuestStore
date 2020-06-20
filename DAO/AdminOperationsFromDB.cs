@@ -325,7 +325,7 @@ namespace Queststore.DAO
 
         public List<Class> GetClasses()
         {
-            string command = $@"SELECT * FROM Classes";
+            string command = $@"SELECT * FROM Classes ORDER BY name ASC";
             List<Class> classes = new List<Class>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
@@ -357,7 +357,8 @@ namespace Queststore.DAO
                                     on c.id=m.class_id
                                     inner join users u
                                     on m.user_id=u.id
-                                    where u.id={id};";
+                                    where u.id={id}
+                                    ORDER BY name ASC";
 
             List<Class> classes = new List<Class>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -395,7 +396,8 @@ namespace Queststore.DAO
  	                                on c.id=m.class_id
  	                                inner join users u
   	                                on m.user_id=u.id
-  	                                where u.id={id};";
+  	                                where u.id={id}
+                                    ORDER BY c.name ASC";
             List<Class> classes = new List<Class>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             try
@@ -601,7 +603,7 @@ namespace Queststore.DAO
 
         public List<User> GetMentors()
         {
-            string command = "SELECT * FROM users where is_mentor=true";
+            string command = "SELECT * FROM users WHERE is_mentor=true ORDER BY name ASC; ";
             List<User> classes = new List<User>();
             List<User> users = new List<User>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -649,7 +651,8 @@ namespace Queststore.DAO
                                     on u.id=m.user_id
                                     inner join classes c
                                     on m.class_id=c.id
-                                    where c.id={id};";
+                                    where c.id={id} 
+                                    ORDER BY name ASC;";
 
             List<User> mentors = new List<User>();
             using NpgsqlConnection con = _dataBaseConnectionService.GetDatabaseConnectionObject();
@@ -802,7 +805,7 @@ namespace Queststore.DAO
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Jebło coś innego: {e.Message}");
+                Console.WriteLine($"Sth else: {e.Message}");
                 throw;
             }
             return levels;
