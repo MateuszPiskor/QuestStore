@@ -1,8 +1,36 @@
-﻿
+﻿@model Queststore.ViewModels.ViewModelsAdmin.IndexViewModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<h1>News</h1>
 
+<div asp-for="Address" class="form__label">Last added class: </div>
+
+<a asp-controller="Admin" asp-action="ClassProfileView" asp-route-id="@Model.Class.Id">
+    <div class="news-box">
+        <span class="news-box__date">@Model.Class.CreateTime.ToShortDateString()</span>
+        <span class="news-box__text">Name: @Model.Class.Name </span>
+        <span class="news-box__points">City: @Model.Class.City</span>
+    </div>
+</a>
+
+<div asp-for="Address" class="form__label">Last added mentor: </div>
+<a asp-controller="Admin" asp-action="MentorProfileView" asp-route-id="@Model.User.Id">
+    <div class="news-box">
+        <span class="news-box__date">@Model.User.CreateTime.ToShortDateString()</span>
+        <span class="news-box__text">@Model.User.Name @Model.User.Surname</span>
+        <span class="news-box__points">Tel: @Model.User.Phone</span>
+    </div>
+</a>
+
+<a asp-controller="Admin" asp-action="ExpLevelsList">
+    <div asp-for="Address" class="form__label">Last added level: </div>
+    <div class="news-box">
+        <span class="news-box__date">@Model.Level.CreateTime.ToShortDateString()</span>
+        <span class="news-box__text">Name: @Model.Level.Name</span>
+        <span class="news-box__points">Points: @Model.Level.MinPoints</span>
+    </div>
+</a>

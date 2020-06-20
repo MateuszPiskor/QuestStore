@@ -1,0 +1,31 @@
+﻿@model Queststore.Models.User
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<h1 class="page-title">Edit personal dates</h1>
+<form method="post" asp-action="EditUser" id="form" class="form">
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <label asp-for="Name" class="form__label">First name</label>
+    <input asp-for="Name" class="form__input" type="text" id="firstName" value="@Model.Name" required />
+    <div id="name-error" class="error"></div>
+
+    <label asp-for="Surname" class="form__label">Last name</label>
+    <input asp-for="Surname" class="form__input" type="text" id="surname" value="@Model.Surname" required />
+    <div id="surname-error" class="error"></div>
+
+    <label asp-for="Address" class="form__label">Adress</label>
+    <input asp-for="Address" class="form__input" type="text" id="address" value="@Model.Address" required />
+    <div id="address-error" class="error"></div>
+
+    <label asp-for="Phone" class="form__label">Phone number</label>
+    <input asp-for="Phone" class="form__input" type="number" id="phone" value="@Model.Phone" required />
+    <div id="phone-error" class="error"></div>
+
+    <label asp-for="Email" class="form__label">Email</label>
+    <input asp-for="Email" class="form__input" type="email" id="email" value="@Model.Email" required />
+    <div id="email-error" class="error"></div>
+
+    <button class="button button--inverse form__button" type="submit">Edit</button>
+</form>
+

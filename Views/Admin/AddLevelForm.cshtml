@@ -6,7 +6,7 @@
 <h1 class="page-title">Add experience level</h1>
 <form id="form" class="form" method="post" asp-action="AddLevelForm">
     <label asp-for="Name" for="input-level-name" class="form__label">Level name</label>
-    <input asp-for="Name" class="form__input" type="text" id="input-level-name"/>
+    <input asp-for="Name" class="form__input" type="text" id="input-level-name" />
     <div id="nameError" class="error"></div>
 
     <label asp-for="MinPoints" for="input-points" class="form__label"> required points</label>
@@ -19,4 +19,3 @@
 
     <button class="button button--inverse form__button" type="submit">Add</button>
 </form>
-

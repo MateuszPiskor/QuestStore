@@ -3,13 +3,14 @@ using Queststore.Models;
 
 namespace Queststore.ViewModels.ViewModelsAdmin
 {
-    public class ViewModelMentorClasses
+    public class EditMentorFormViewModel
     {
         public User Mentor { get; set; }
         public List<Class> Classes { get; set; }
-        public int ClassId { get; set; }
+        public List<Class> MentorClasses { get; set; }
+        public int MentorId { get; set; }
 
-        public ViewModelMentorClasses()
+        public EditMentorFormViewModel()
         {
             Mentor = new User();
             Classes = new List<Class>();

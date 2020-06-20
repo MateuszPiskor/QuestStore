@@ -1,30 +1,31 @@
-
-@model Queststore.Models.Class;
+@model Queststore.ViewModels.ViewModelsAdmin.AddClassFormViewModel
 @{
 
     ViewData["Title"] = "AddClassForm";
 }
 
 <h1 class="page-title">Add class</h1>
-<form method="post" id="form" class="form">
-    <label asp-for="Name" for="name" class="form__label">Class name</label>
-    <input asp-for="Name" class="form__input" type="text" id="name" required />
+<form method="post" asp-action="AddClassForm" id="form" class="form">
+
+    <label asp-for="Class.Name" for="name" class="form__label">Class name</label>
+    <input asp-for="Class.Name" class="form__input" type="text" id="name" required />
     <div id="nameError" class="error"></div>
 
-    <label for="mentor" class="form__label">Select mentor</label>
-    <select asp-items="ViewBag.Mentors" class="form__input" id="mentor" name="mentor">
-        @*<option value="John Doe">John Doe</option>
-            <option value="John Doe">John Doe</option>*@
+    <label asp-for="Class.City" for="city" class="form__label">Select city</label>
+    <select asp-for="Class.City"class ="form__input" id="city" asp-items="@(new SelectList(Model.Cities))">
     </select>
-    <div id="mentor-error" class="error"></div>
 
-    <label asp-for="City" for="city" class="form__label">Select city</label>
-    <select class="form__input" id="city" name="city">
-        <option value="Warsaw">Warsaw</option>
-        <option value="Cracow">Cracow</option>
-    </select>
-    <div id="mentor-error" class="error"></div>
+    <label for="mentor" class="form__label">Select mentor: </label>
 
+<ul class="list">
+    @for (int i = 0; i < Model.Mentors.Count; i++)
+    {
+        <li class="list__item list__item--hover">
+            <span class="item__name" name="">@(i + 1). @Model.Mentors[i].Name @Model.Mentors[i].Surname</span>
+            <input type="checkbox" asp-for="Mentors[i].IsChecked" />
+            <input type="hidden" asp-for="Mentors[i].Id" />
+        </li>
+    }
+</ul>
     <button class="button button--inverse form__button" type="submit">Add</button>
 </form>
-
