@@ -7,10 +7,12 @@ namespace Queststore.Models
 {
     public class Class
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
+        public bool IsChecked { get; set; }
+        public bool PreviusChecked { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public Class() { }
 

@@ -1,28 +1,30 @@
-﻿
+﻿@model Queststore.ViewModels.ViewModelsAdmin.ViewModelMentorClasses
 @{
     ViewData["Title"] = "MentorProfileView";
 }
 
     <section class="info-page">
         <h1 class="page-title">Mentor's info</h1>
-        <div class="info-page__item">First name: <span class="info-page__item--bold">John</span></div>
-        <div class="info-page__item">Last name: <span class="info-page__item--bold">Doe</span></div>
-        <div class="info-page__item">Address: <span class="info-page__item--bold">ul. Mazowiecka 5/11</span></div>
-        <div class="info-page__item">Phone: <span class="info-page__item--bold">(0048)789567345</span></div>
-        <div class="info-page__item">Email: <span class="info-page__item--bold">john.doe@gmail.com</span></div>
+        <div class="info-page__item">First name: <span class="info-page__item--bold">@Model.Mentor.Name</span></div>
+        <div class="info-page__item">Last name: <span class="info-page__item--bold">@Model.Mentor.Surname</span></div>
+        <div class="info-page__item">Address: <span class="info-page__item--bold">@Model.Mentor.Address</span></div>
+        <div class="info-page__item">Phone: <span class="info-page__item--bold">(0048)@Model.Mentor.Phone</span></div>
+        <div class="info-page__item">Email: <span class="info-page__item--bold">@Model.Mentor.Email</span></div>
         <div class="info-page__item">
             <h3>Classes:</h3>
             <ul class="list">
-                <li class="list__item list__item--hover">
-                    <span class="item__name">1. Weekend-Course-krk-022020</span>
-                    <a class="button button--hidden " href="">View</a>
-                </li>
-                <li class="list__item list__item--hover">
-                    <span class="item__name">2. Weekend-Course-krk-022020</span>
-                    <a class="button button--hidden " href="">View</a>
-                </li>
+                @{
+                    int counter = 1;
+                    @foreach (var group in Model.Classes)
+                    {
+                        <li class="list__item list__item--hover">
+                            <span class="item__name">@counter  @group.Name @group.City</span>
+                            <a class="button button--hidden " href="">View</a>
+                        </li>
+                        counter+= 1;
+                    }
+                }
             </ul>
         </div>
         <a class="button button--inverse form__button" asp-action="MentorsList">Back</a>
     </section>
-

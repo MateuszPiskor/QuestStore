@@ -1,30 +1,17 @@
-﻿
+﻿@model List<Queststore.Models.Class>
+
 @{
     ViewData["Title"] = "ClassesList";
 }
 
 <h1 class="page-title">List of classes</h1>
 <ul class="list">
-    <li class="list__item list__item--hover">
-        <span class="item__name">1. Weekend-Course-krk-022020</span>
-        <a class="button button--hidden " href="">View</a>
-        <a class="button button--hidden" aps-controller="Admin" asp-action="EditClassForm">Edit</a>
-    </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">2. Weekend-Course-krk-022020</span>
-        <a class="button button--hidden " href="">View</a>
-        <a class="button button--hidden" aps-controller="Admin" asp-action="EditClassForm">Edit</a>
-    </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">3. Weekend-Course-krk-022020</span>
-        <a class="button button--hidden " href="">View</a>
-        <a class="button button--hidden" aps-controller="Admin" asp-action="EditClassForm">Edit</a>
-    </li>
-    <li class="list__item list__item--hover">
-        <span class="item__name">4. Weekend-Course-krk-022020</span>
-        <a class="button button--hidden " href="">View</a>
-        <a class="button button--hidden" aps-controller="Admin" asp-action="EditClassForm">Edit</a>
-    </li>
-
+    @foreach (var group in Model)
+    {
+        <li class="list__item list__item--hover">
+            <span class="item__name">@group.Name @group.City</span>
+            <a asp-action="ClassProfileView" class="button button--hidden" asp-route-id="@group.Id">View</a>
+            <a asp-action="EditClassForm" class="button button--hidden" aps-controller="Admin" asp-route-id="@group.Id">Edit</a>
+        </li>
+    }
 </ul>
-
