@@ -25,19 +25,23 @@
     <section class="content">
         <header>
             <div class="header__user">
-                <a href="#" class="header__user-profile button">View profile</a>
-                <a href="#" class="header__user-logout button button--alt">Log out</a>
+                <a asp-action="EditUser" asp-controller="Admin" class="header__user-profile button">View profile</a>
+                <a asp-controller="Login" asp-action="Logout" class="header__user-logout button button--alt">Log out</a>
             </div>
         </header>
         <main class="results">
+            @if (TempData["Message"] != null)
+            {
+                <div class="allert alert-info">@TempData["Message"]</div>
+            }
             <div>@RenderBody()</div>
         </main>
         <footer>
             <div class="footer__media">
-                <a class="facebook footer__media-item" href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                <a class="twitter footer__media-item " href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
-                <a class="youtube footer__media-item" href="#"><i class="fab fa-youtube fa-2x"></i></a>
-                <a class="instagram footer__media-item" href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <a class="facebook footer__media-item" asp-action="GoToFacebook"><i class="fab fa-facebook fa-2x"></i></a>
+                <a class="twitter footer__media-item " asp-action="GoToTwitter"><i class="fab fa-twitter-square fa-2x"></i></a>
+                <a class="youtube footer__media-item" asp-action="GoToYoutube"><i class="fab fa-youtube fa-2x"></i></a>
+                <a class="instagram footer__media-item" asp-action="GoToInstagram"><i class="fab fa-instagram fa-2x"></i></a>
             </div>
             <div class="footer__business">
                 <div class="footer__business-item" id="terms">Terms and conditions</div>
