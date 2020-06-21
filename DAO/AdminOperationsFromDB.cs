@@ -115,8 +115,8 @@ namespace Queststore.DAO
 
         public void AddMentor(User mentor)
         {
-            string command = $@"insert into users (name,surname,email,phone,address,is_admin,is_mentor)
-             Values ('{mentor.Name}','{mentor.Surname}','{mentor.Email}',{mentor.Phone},'{mentor.Address}',{mentor.IsAdmin = false},{mentor.IsMentor = true})";
+            string command = $@"insert into users (name,surname,email,phone,address,is_admin,is_mentor,create_time)
+             Values ('{mentor.Name}','{mentor.Surname}','{mentor.Email}',{mentor.Phone},'{mentor.Address}',{mentor.IsAdmin = false},{mentor.IsMentor = true},NOW())";
             ExecuteNonQueryCommand(command);
         }
 
