@@ -12,6 +12,7 @@
   <ItemGroup>
     <Folder Include="Views\Mentor\" />
     <Folder Include="Views\Student\" />
+    <Folder Include="ViewModels\ViewModelsStudent\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="src\IncludesHTML\mentor\students-list.cshtml" />
