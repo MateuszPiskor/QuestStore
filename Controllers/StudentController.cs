@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Queststore.DAO;
 using Queststore.Models;
@@ -18,7 +19,7 @@ namespace Queststore.Controllers
 
         private readonly IMentor _mentorSqlDao;
         private readonly IStudent _studentSqlDao;
-        private readonly int _loggedStudent = 3;
+        private int _loggedStudent => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
 
         public StudentController()
         {

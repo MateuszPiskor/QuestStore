@@ -17,7 +17,7 @@ namespace Queststore.Controllers
 
         public LoginController()
         {
-            _loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            _loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "magdalenaopiola", "Lena1234", "queststore"));
             _dataStorage = new DataStorageOperationsFromJson("wwwroot/lib/data.json");
         }
 
@@ -46,7 +46,7 @@ namespace Queststore.Controllers
                     }
                     else if (user.IsStudent == true)
                     {
-                        return View(); // adapt to Student
+                        return RedirectToAction("Index", "Student");
                     }
                 }
             }
