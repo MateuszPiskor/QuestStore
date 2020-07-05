@@ -26,7 +26,6 @@ namespace Queststore
             services.AddControllersWithViews();
             services.AddSession(options =>
             {
-                options.Cookie.Name = ".User.Session";
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
             });
         }

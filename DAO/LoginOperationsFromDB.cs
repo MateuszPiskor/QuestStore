@@ -5,7 +5,7 @@ using Queststore.Services;
 
 namespace Queststore.DAO
 {
-    public class LoginOperationsFromDB : ILogger
+    public class LoginOperationsFromDB : ILogin
     {
         private readonly DataBaseConnectionService _dataBaseConnectionService;
 
@@ -55,5 +55,6 @@ namespace Queststore.DAO
             }
             return isRegistered;
         }
+
     }
 }

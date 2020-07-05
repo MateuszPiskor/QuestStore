@@ -18,15 +18,16 @@ namespace Queststore.Controllers
 
         public MentorController()
         {
-            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
-            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
         }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-           // _loggedMentor.Id = (int)TempData["loggedUserId"];
+            // _loggedMentor.Id = (int)TempData["loggedUserId"];
+            string cookie = Request.Cookies["UserRole"];
             return View();
         }
 
