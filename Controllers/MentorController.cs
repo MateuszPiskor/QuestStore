@@ -15,6 +15,8 @@ namespace Queststore.Controllers
     {
         private readonly IMentor _mentorOperationsFromDB;
         private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
+        private string _loggedUserRole => Request.Cookies["UserRole"];
+        private string _expectedUserRole = "Mentor";
 
         public MentorController()
         {
@@ -26,9 +28,12 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // _loggedMentor.Id = (int)TempData["loggedUserId"];
-            string cookie = Request.Cookies["UserRole"];
-            return View();
+            if (_loggedUserRole == _expectedUserRole)
+            {
+                return View();
+            }
+            TempData["Message"] = $"You have no access to {_expectedUserRole} account.";
+            return RedirectToAction("Index", $"{_loggedUserRole}");
         }
 
 
@@ -186,6 +191,14 @@ namespace Queststore.Controllers
                 
             }
 
+        }
+
+        [HttpGet]
+        public IActionResult Error()
+        {
+            var message = TempData["Message"];
+            TempData.Remove("Message");
+            return View(message);
         }
     }
 }
