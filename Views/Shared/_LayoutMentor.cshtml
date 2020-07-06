@@ -32,6 +32,10 @@
             </div>
         </header>
         <main class="results">
+            @if (TempData["Message"] != null)
+            {
+                <div class="allert alert-info">@TempData["Message"]</div>
+            }
             <div>@RenderBody()</div>
         </main>
         <footer>

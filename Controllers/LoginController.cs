@@ -14,12 +14,14 @@ namespace Queststore.Controllers
     {
         private readonly ILogin _loginOperationsFromDB;
         private readonly IDataStorage _dataStorage;
+        private ISessionManager _sessionManager; 
 
         public LoginController()
         {
             _loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
             _dataStorage = new DataStorageOperationsFromJson("wwwroot/lib/data.json");
+            _sessionManager = new SessionManager(new HttpContextAccessor());
         }
 
         [HttpGet]
@@ -36,7 +38,7 @@ namespace Queststore.Controllers
                 if (IsPasswordCorrect(email, password))
                 {
                     User user = GetUser(email);
-                    HttpContext.Session.SetString("activeUserId", Convert.ToString(user.Id));
+                    _sessionManager.LoggedUserId = user.Id;
                     if (user.IsAdmin == true && user.IsMentor == false)
                     {
                         Response.Cookies.Append("UserRole", "Admin");
@@ -44,7 +46,7 @@ namespace Queststore.Controllers
                     }
                     else if (user.IsMentor == true && user.IsAdmin == false)
                     {
-                        Response.Cookies.Append("UserRole", "Mentor");
+                        _sessionManager.LoggedUserRole = "Mentor";
                         return RedirectToAction("Index", "Mentor");
                     }
                     else if (user.IsMentor == true && user.IsAdmin == true)
@@ -79,7 +81,8 @@ namespace Queststore.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear(); // remove all keys from session
+            _sessionManager.ClearSession();
+            _sessionManager.ClearCookies();
 
             return RedirectToAction("Index", "Login");
         }

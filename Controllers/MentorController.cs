@@ -14,32 +14,54 @@ namespace Queststore.Controllers
     public class MentorController : Controller
     {
         private readonly IMentor _mentorOperationsFromDB;
-        private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
-        private string _loggedUserRole => Request.Cookies["UserRole"];
+        private ISessionManager _sessionManager;
+        //private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
+        //private string _loggedUserRole => Request.Cookies["UserRole"];
         private string _expectedUserRole = "Mentor";
 
         public MentorController()
         {
             _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            _sessionManager = new SessionManager(new HttpContextAccessor());
         }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-            if (_loggedUserRole == _expectedUserRole)
-            {
-                return View();
-            }
-            TempData["Message"] = $"You have no access to {_expectedUserRole} account.";
-            return RedirectToAction("Index", $"{_loggedUserRole}");
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
+        private IActionResult ConfirmUserRoleWithAccountAndDisplayView(IActionResult view)
+        {
+            if (IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                return view;
+            }
+            else if (!IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                TempData["Message"] = $"You have no access to {_expectedUserRole} account.";
+                return RedirectToAction("Index", $"{_sessionManager.LoggedUserRole}");
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        private bool IsLoggedUserExpectedUser()
+        {
+            return _sessionManager.LoggedUserRole == _expectedUserRole;
+        }
+
+        private bool IsAnyUserLogged()
+        {
+            return _sessionManager.LoggedUserId != 0;
+        }
 
         [HttpGet]
         public IActionResult Students()
         {
+            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, 0);
             return View(studentsAndClasses);
 
@@ -47,6 +69,7 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult Students(int classId)
         {
+            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             if (classId == 0)
             {
                 return RedirectToAction("Students");
@@ -58,6 +81,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddStudent()
         {
+            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             ViewModelStudentClasses studentAndClasses = new ViewModelStudentClasses();
             studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             return View(studentAndClasses);
@@ -75,6 +99,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddTeam()
         {
+            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
             viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             return View(viewModelAddTeam);
@@ -83,6 +108,7 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult AddTeam(int classId)
         {
+            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
             viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
             viewModelAddTeam.ClassId = classId;
