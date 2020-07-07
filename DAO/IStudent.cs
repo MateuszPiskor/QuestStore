@@ -7,12 +7,14 @@ namespace Queststore.DAO
         List<Student> GetStudentClassMembers(int studentId);
         List<Student> GetStudentTeamMembers(int studentId);
         Student GetStudentById(int studentId);
-        void AddArtifacts(List<Artifact> artifacts, int studentId);
-        void AddQuests(List<Quest> quests, int studentId);
-        void UpdateCoolcoins(int studentId, int coolcoin, IMentor mentorDao);
+        void AddArtifact(Artifact artifacts, int studentId);
+        void AddQuest(Quest quests, int studentId);
         void UpdateExperienceLevel(int studentId, ExpLevel expLevel);
         int  GetCoolcoinsByStudentId(int studentId);
         public ExpLevel GetStudentExpLevel(int studentId);
         List<Artifact> GetArtifactsByStudentId(int student);
+        List<Artifact> GetArtifactsByType(string type);
+        Artifact GetArtifactByArtifactId(int artifactId);
+        void UpdateCoolcoins(int studentId, int coolcoins);
     }
 }

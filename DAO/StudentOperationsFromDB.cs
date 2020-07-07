@@ -52,9 +52,19 @@ namespace Queststore.DAO
             return student;
         }
 
-        public void UpdateCoolcoins(int studentId, int coolcoin, IMentor mentorDao)
+        public void UpdateCoolcoins(int studentId, int coolcoins)
         {
-            mentorDao.UpdateStudentCoolcoins(studentId, coolcoin);
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"UPDATE students
+                            SET coolcoins={coolcoins}
+                            WHERE id={studentId};";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
         }
 
         public void UpdateExperienceLevel(int studentId, ExpLevel expLevel)
@@ -119,7 +129,7 @@ namespace Queststore.DAO
                 AddQuest(quest, studentId);
             
         }
-        private void AddArtifact(Artifact artifact, int studentId)
+        public void AddArtifact(Artifact artifact, int studentId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             string sql = $@"INSERT INTO student_artifact(student_id, artifact_id)
@@ -133,7 +143,7 @@ namespace Queststore.DAO
             cmd.ExecuteNonQuery();
 
         }
-        private void AddQuest(Quest quest, int studentId)
+        public void AddQuest(Quest quest, int studentId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
             string sql = $@"INSERT INTO student_quest(student_id, quest_id)
@@ -315,6 +325,46 @@ namespace Queststore.DAO
             return classId;
         }
 
+        public List<Artifact> GetArtifactsByType(string type)
+        {
+            List<Artifact> artifacts = new List<Artifact>();
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = $@"SELECT id, name, description, price FROM artifacts WHERE type = '{type}';";
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+            {
+                var artifact = new Artifact();
+                artifact.Id = reader.GetInt32(0);
+                artifact.Name = reader.GetString(1);
+                artifact.Description = reader.GetString(2);
+                artifact.Price = reader.GetInt32(3);
+                artifacts.Add(artifact);
+            }
+
+            return artifacts;
+        }
+
+        public Artifact GetArtifactByArtifactId(int artifactId)
+        {
+            var artifact = new Artifact();
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = $@"SELECT name, description, price, type FROM artifacts WHERE id = {artifactId};";
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                artifact.Id = artifactId;
+                artifact.Name = reader.GetString(0);
+                artifact.Description = reader.GetString(1);
+                artifact.Price = reader.GetInt32(2);
+                artifact.Type = reader.GetString(3);
+            }
+            return artifact;
+        }
     }
 }

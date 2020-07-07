@@ -55,9 +55,16 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Shop()
         {
-            var artifacts = new List<Artifact>();
-            //var artifacts = _studentSqlDao.GetAllArtifacts();
-            return View(artifacts);
+            var student = _studentSqlDao.GetStudentById(_loggedStudent);
+            var basicArtifacts = _studentSqlDao.GetArtifactsByType("basic");
+            var magicArtifacts = _studentSqlDao.GetArtifactsByType("magic");
+            var shop = new Shop()
+            {
+                LoggedStudent = student,
+                BasicArtifacts = basicArtifacts,
+                MagicArtifacts = magicArtifacts
+            };
+            return View(shop);
         }
 
         [HttpGet]
@@ -71,6 +78,26 @@ namespace Queststore.Controllers
         {
             var team = _studentSqlDao.GetStudentTeamMembers(_loggedStudent);
             return View(team);
+        }
+
+        [HttpGet]
+        public IActionResult BuyBasicItem(int artifactId)
+        {
+            var student = _studentSqlDao.GetStudentById(_loggedStudent);
+            var artifact = _studentSqlDao.GetArtifactByArtifactId(artifactId);
+            var buyBasicItem = new BuyBasicArtifact(student, artifact);
+      
+            return View(buyBasicItem);
+        }
+
+        [HttpPost]
+        public IActionResult BuyBasicItem([FromForm] BuyBasicArtifact buyBasicArtifact)
+        {
+            var student = _studentSqlDao.GetStudentById(buyBasicArtifact.LoggedStudent.Id);
+            var artifact = _studentSqlDao.GetArtifactByArtifactId(buyBasicArtifact.BasicArtifact.Id);
+            _studentSqlDao.AddArtifact(artifact, buyBasicArtifact.LoggedStudent.Id);
+            _studentSqlDao.UpdateCoolcoins(buyBasicArtifact.LoggedStudent.Id, (student.Coolcoins - artifact.Price));
+            return RedirectToAction("Shop", "Student");
         }
     }
 }
