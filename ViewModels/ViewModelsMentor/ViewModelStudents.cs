@@ -4,15 +4,16 @@ using Queststore.Models;
 
 namespace Queststore.ViewModels.ViewModelsMentor
 {
-    public class ViewModelStudentsClasses
+    public class ViewModelStudents
     {
-        public int ClassId { get; set; }
+        public Student Student { get; set; }
         public List<Student> Students { get; set; }
         public List<Class> Classes { get; set; }
+        public int ClassId { get; set; }
 
-        public ViewModelStudentsClasses()
+        public ViewModelStudents()
         {
-            Students = new List<Student>();
+            Student = new Student();
             Classes = new List<Class>();
         }
     }

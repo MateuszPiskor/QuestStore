@@ -13,7 +13,7 @@ namespace Queststore.Controllers
 {
     public class MentorController : Controller
     {
-        private readonly IMentor _mentorOperationsFromDB;
+        private readonly IMentorDao _mentorOperationsFromDB;
         private ISessionManager _sessionManager;
         //private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
         //private string _loggedUserRole => Request.Cookies["UserRole"];
@@ -61,38 +61,38 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Students()
         {
-            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, 0);
-            return View(studentsAndClasses);
+            var viewModelStudents = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_sessionManager.LoggedUserId, 0);
+            IActionResult view = View(viewModelStudents);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
 
         }
         [HttpPost]
         public IActionResult Students(int classId)
         {
-            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             if (classId == 0)
             {
                 return RedirectToAction("Students");
             }
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, classId);
-            return View(studentsAndClasses);
+            var viewModelStudents = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_sessionManager.LoggedUserId, classId);
+            IActionResult view = View(viewModelStudents);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
         public IActionResult AddStudent()
         {
-            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
-            ViewModelStudentClasses studentAndClasses = new ViewModelStudentClasses();
-            studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
-            return View(studentAndClasses);
+            ViewModelStudents viewModelStudent = new ViewModelStudents();
+            viewModelStudent.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
+            IActionResult view = View(viewModelStudent);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
-        public IActionResult AddStudent(ViewModelStudentClasses studentAndClasses)
+        public IActionResult AddStudent(ViewModelStudents viewModelStudent)
         {
-            _mentorOperationsFromDB.AddStudent(studentAndClasses.Student, studentAndClasses.ClassId);
-            studentAndClasses.Student.Id = _mentorOperationsFromDB.GetMaxStudentId();
-            _mentorOperationsFromDB.AddUser(studentAndClasses.Student);
+            _mentorOperationsFromDB.AddStudent(viewModelStudent.Student, viewModelStudent.ClassId);
+            viewModelStudent.Student.Id = _mentorOperationsFromDB.GetMaxStudentId();
+            _mentorOperationsFromDB.AddUser(viewModelStudent.Student);
             return RedirectToAction("Index");
         }
 
@@ -209,7 +209,7 @@ namespace Queststore.Controllers
                 else
                 {
                     Quest selectedQuest = quests.FirstOrDefault(item => item.IsChecked == true);
-                    _mentorOperationsFromDB.MarkQuest(id, selectedQuest.Id);
+                    _mentorOperationsFromDB.MarkQuest(_mentorOperationsFromDB.GetStudentIdByUserId(id), selectedQuest.Id);
                     viewModelMarkQuest.Student.Coolcoins += selectedQuest.Value;
                     _mentorOperationsFromDB.UpdateStudentCoolcoins(viewModelMarkQuest.Student.Id, viewModelMarkQuest.Student.Coolcoins);
                     return RedirectToAction("Index"); //add date of quest mark to db and here
