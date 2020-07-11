@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var controller = ViewBag.ControllerName;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,16 +14,16 @@
 <body>
     <section class="sidemenu">
         <nav class="menu">
-            <a class="logo" href="">CodeCoolers</a>
+            <a class="logo" asp-controller=@controller asp-action="Index">CodeCoolers</a>
         </nav>
         <button class="button button--inverse sidemenu__button" onclick="toggleMenu();"><i class="sidemenu-icon fas fa-hamburger"></i></button>
     </section>
-    
+
 
     <section class="content">
         <header>
             <div class="header__user">
-                
+
             </div>
         </header>
         <main class="results">

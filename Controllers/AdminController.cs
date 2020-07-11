@@ -16,8 +16,8 @@ namespace Queststore.Controllers
 
         public AdminController()
         {
-            AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
-            //AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            //AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            AdminOperations = new AdminOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
         }
 
         [HttpGet]
@@ -122,7 +122,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult ClassProfileView(int id)
         {
-            //throw new Exception("Error in class profile view");
+            throw new Exception("Error in class profile view");
             ClassProfileViewModel classProfileViewModel = new ClassProfileViewModel();
             classProfileViewModel.Class = AdminOperations.getClassByClassId(id);
             classProfileViewModel.Mentors = AdminOperations.GetMentorsByClassId(id);
@@ -259,6 +259,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.ControllerName = "Admin";
             IndexViewModel indexViewModel=new IndexViewModel();
             indexViewModel.Class=AdminOperations.GetLastAddedClass();
             indexViewModel.Level = AdminOperations.GetLastAddedLevel();
