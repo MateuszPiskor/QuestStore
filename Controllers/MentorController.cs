@@ -99,21 +99,21 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddTeam()
         {
-            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
-            return View(viewModelAddTeam);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
+            IActionResult view = View(viewModelAddTeam);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
         public IActionResult AddTeam(int classId)
         {
-            int _loggedMentorId = Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
             viewModelAddTeam.ClassId = classId;
             viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
-            return View(viewModelAddTeam);
+            IActionResult view = View(viewModelAddTeam);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
@@ -122,7 +122,8 @@ namespace Queststore.Controllers
             ViewModelQuests questsAndSelectedQuest = new ViewModelQuests();
             questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
             questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType("");
-            return View(questsAndSelectedQuest);
+            IActionResult view = View(questsAndSelectedQuest);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -133,7 +134,8 @@ namespace Queststore.Controllers
             {
                 questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
                 questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questName);
-                return View(questsAndSelectedQuest);
+                IActionResult view = View(questsAndSelectedQuest);
+                return ConfirmUserRoleWithAccountAndDisplayView(view);
             }
             return RedirectToAction("Quests");
         }
@@ -141,7 +143,8 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddQuest()
         {
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -154,7 +157,8 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddArtifact()
         {
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -168,14 +172,16 @@ namespace Queststore.Controllers
         public IActionResult ViewStudentProfile(int id)
         {
             Student student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(student);
+            IActionResult view = View(student);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
         public IActionResult ViewStudentWallet(int id)
         {
             Student student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(student);
+            IActionResult view = View(student);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
@@ -184,7 +190,8 @@ namespace Queststore.Controllers
             ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
             viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
             viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(viewModelMarkQuest);
+            IActionResult view = View(viewModelMarkQuest);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -197,14 +204,16 @@ namespace Queststore.Controllers
             viewModelMarkQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questType);
             if (quests.All(item => item.IsChecked == false))
             {
-                return View(viewModelMarkQuest);
+                IActionResult view = View(viewModelMarkQuest);
+                return ConfirmUserRoleWithAccountAndDisplayView(view);
             }
             else
             {
                 int checkedItems = quests.Count(item => item.IsChecked == true);
                 if (checkedItems > 1)
                 {
-                    return View("Index"); //add Error message (to select only one quest)
+                    IActionResult view = View("Index");
+                    return ConfirmUserRoleWithAccountAndDisplayView(view); //add Error message (to select only one quest)
                 }
                 else
                 {
@@ -219,12 +228,12 @@ namespace Queststore.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult Error()
-        {
-            var message = TempData["Message"];
-            TempData.Remove("Message");
-            return View(message);
-        }
+        //[HttpGet]
+        //public IActionResult Error()
+        //{
+        //    var message = TempData["Message"];
+        //    TempData.Remove("Message");
+        //    return View(message);
+        //}
     }
 }
