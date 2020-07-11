@@ -122,6 +122,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult ClassProfileView(int id)
         {
+            //throw new Exception("Error in class profile view");
             ClassProfileViewModel classProfileViewModel = new ClassProfileViewModel();
             classProfileViewModel.Class = AdminOperations.getClassByClassId(id);
             classProfileViewModel.Mentors = AdminOperations.GetMentorsByClassId(id);
