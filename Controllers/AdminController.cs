@@ -11,7 +11,7 @@ namespace Queststore.Controllers
 {
     public class AdminController : Controller
     {
-        private IAdmin AdminOperations;
+        public IAdmin AdminOperations { get; set; }
         private int _loggedAdminId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
 
         public AdminController()
@@ -25,7 +25,6 @@ namespace Queststore.Controllers
         {
             AddClassFormViewModel addClassFormViewModel = new AddClassFormViewModel();
             addClassFormViewModel.Mentors = AdminOperations.GetMentors();
-            //addClassFormViewModel.Cities=AdminOperations.GetCities();
             return View(addClassFormViewModel);
         }
 
@@ -69,9 +68,13 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult AddLevelForm(ExpLevel expLevel)
         {
-            AdminOperations.AddLevelForm(expLevel);
-            TempData["Message"] = "You have addedd the level!";
-            return RedirectToAction("ExpLevelsList", "Admin");
+            if (ModelState.IsValid)
+            {
+                AdminOperations.AddLevelForm(expLevel);
+                return RedirectToAction("ExpLevelsList", "Admin");
+            }
+            return View();
+            //TempData["Message"] = "You have addedd the level!";
         }
 
         [HttpGet]
@@ -120,13 +123,17 @@ namespace Queststore.Controllers
         }
 
         [HttpGet]
-        public IActionResult ClassProfileView(int id)
+        public IActionResult ClassProfileView(int? id)
         {
-            throw new Exception("Error in class profile view");
-            ClassProfileViewModel classProfileViewModel = new ClassProfileViewModel();
-            classProfileViewModel.Class = AdminOperations.getClassByClassId(id);
-            classProfileViewModel.Mentors = AdminOperations.GetMentorsByClassId(id);
-            return View(classProfileViewModel);
+            //throw new Exception("Error in class profile view");
+            if (id != null)
+            {
+                ClassProfileViewModel classProfileViewModel = new ClassProfileViewModel();
+                classProfileViewModel.Class = AdminOperations.getClassByClassId(id.Value);
+                classProfileViewModel.Mentors = AdminOperations.GetMentorsByClassId(id.Value);
+                return View(classProfileViewModel);
+            }
+            return RedirectToAction("ClassesList");
         }
 
         [HttpGet]
@@ -231,7 +238,7 @@ namespace Queststore.Controllers
             AdminOperations.EditMentor(user);
             return RedirectToAction("Index", "Admin");
         }
-        
+
         [HttpGet]
         public IActionResult GoToFacebook()
         {
@@ -260,8 +267,8 @@ namespace Queststore.Controllers
         public IActionResult Index()
         {
             ViewBag.ControllerName = "Admin";
-            IndexViewModel indexViewModel=new IndexViewModel();
-            indexViewModel.Class=AdminOperations.GetLastAddedClass();
+            IndexViewModel indexViewModel = new IndexViewModel();
+            indexViewModel.Class = AdminOperations.GetLastAddedClass();
             indexViewModel.Level = AdminOperations.GetLastAddedLevel();
             indexViewModel.User = AdminOperations.GetLastUser();
             return View(indexViewModel);
