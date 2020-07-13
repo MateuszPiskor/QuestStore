@@ -15,8 +15,8 @@ namespace Queststore.Controllers
     {
         private readonly IMentorDao _mentorOperationsFromDB;
         private ISessionManager _sessionManager;
-        private string _expectedUserRole = "Mentor";
-        private string _loggedUserName;
+        private const string _expectedUserRole = "Mentor";
+        private readonly string _loggedUserName;
 
         public MentorController()
         {
@@ -214,8 +214,8 @@ namespace Queststore.Controllers
                 int checkedItems = quests.Count(item => item.IsChecked == true);
                 if (checkedItems > 1)
                 {
-                    IActionResult view = View("Index");
-                    return ConfirmUserRoleWithAccountAndDisplayView(view); //add Error message (to select only one quest)
+                    TempData["Message"] = "Select only one quest to be marked";
+                    return RedirectToAction("MarkQuest");
                 }
                 else
                 {
@@ -223,19 +223,12 @@ namespace Queststore.Controllers
                     _mentorOperationsFromDB.MarkQuest(_mentorOperationsFromDB.GetStudentIdByUserId(id), selectedQuest.Id);
                     viewModelMarkQuest.Student.Coolcoins += selectedQuest.Value;
                     _mentorOperationsFromDB.UpdateStudentCoolcoins(viewModelMarkQuest.Student.Id, viewModelMarkQuest.Student.Coolcoins);
+                    TempData["Message"] = $"Quest added!";
                     return RedirectToAction("Index"); //add date of quest mark to db and here
                 }
                 
             }
 
         }
-
-        //[HttpGet]
-        //public IActionResult Error()
-        //{
-        //    var message = TempData["Message"];
-        //    TempData.Remove("Message");
-        //    return View(message);
-        //}
     }
 }

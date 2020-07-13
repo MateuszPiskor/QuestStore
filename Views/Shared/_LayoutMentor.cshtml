@@ -14,7 +14,7 @@
 <body>
     <section class="sidemenu">
         <nav class="menu">
-            <a class="logo" href="">CodeCoolers</a>
+            <a class="logo" asp-controller="Mentor" asp-action="Index">CodeCoolers</a>
             <a class="menu__item" asp-controller="Mentor" asp-action="Students"><span>Students</span></a>
             <a class="menu__item" asp-controller="Mentor" asp-action="AddStudent"><span>Add student</span></a>
             <a class="menu__item" asp-controller="Mentor" asp-action="Teams"><span>Teams</span></a>
@@ -38,7 +38,7 @@
         <main class="results">
             @if (TempData["Message"] != null)
             {
-                <div class="allert alert-info">@TempData["Message"]</div>
+                <div class="error">@TempData["Message"]</div>
             }
             <div>@RenderBody()</div>
         </main>
