@@ -106,7 +106,7 @@ namespace Queststore.DAO
             }
         }
 
-        public void AddLevelForm(ExpLevel expLevel)
+        public void AddLevel(ExpLevel expLevel)
         {
             string command = $@"INSERT INTO exp_levels(name,min_points,create_date)
                        VALUES('{expLevel.Name}','{expLevel.MinPoints}',NOW())";

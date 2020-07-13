@@ -13,7 +13,7 @@ namespace Queststore.DAO
 
         void AddClassMentors(List<int> userId, int classId);
 
-        void AddLevelForm(ExpLevel expLevel);
+        void AddLevel(ExpLevel expLevel);
 
         void AddMentor(User mentor);
 

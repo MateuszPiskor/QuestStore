@@ -32,10 +32,37 @@ namespace Queststore.Controllers
         public IActionResult AddClassForm(AddClassFormViewModel
         addClassFormViewModel)
         {
-            TempData["Message"] = "Class has been added";
-            AdminOperations.AddClass(addClassFormViewModel.Class);
+            if (ModelState.IsValid)
+            {
+                AdminOperations.AddClass(addClassFormViewModel.Class);
+                //TempData["Message"] = "Class has been added";
+                if (getSelectedMentors(addClassFormViewModel.Mentors) > 0)
+                {
+                    AddClassMentors(addClassFormViewModel);
+                }
+                //AddClassMentors(addClassFormViewModel, selectedMentors);
+                return RedirectToAction("Index", "Admin");
+            }
+            return View();
+        }
+
+        private void AddClassMentors(AddClassFormViewModel addClassFormViewModel)
+        {
+            List<int> mentorsIds = new List<int>();
+            foreach (User mentor in addClassFormViewModel.Mentors)
+            {
+                if (mentor.IsChecked == true)
+                {
+                    mentorsIds.Add(mentor.Id);
+                }
+            }
+
             int classId = AdminOperations.GetMaxClassId();
-            List<User> mentors = addClassFormViewModel.Mentors;
+            AdminOperations.AddClassMentors(mentorsIds, classId);
+        }
+
+        private int getSelectedMentors(List<User> mentors)
+        {
             int selectedMentors = 0;
             foreach (User mentor in mentors)
             {
@@ -44,19 +71,7 @@ namespace Queststore.Controllers
                     selectedMentors += 1;
                 }
             }
-            if (selectedMentors > 0)
-            {
-                List<int> mentorsIds = new List<int>();
-                foreach (User mentor in mentors)
-                {
-                    if (mentor.IsChecked == true)
-                    {
-                        mentorsIds.Add(mentor.Id);
-                    }
-                }
-                AdminOperations.AddClassMentors(mentorsIds, classId);
-            }
-            return RedirectToAction("Index", "Admin");
+            return selectedMentors;
         }
 
         [HttpGet]
@@ -70,7 +85,7 @@ namespace Queststore.Controllers
         {
             if (ModelState.IsValid)
             {
-                AdminOperations.AddLevelForm(expLevel);
+                AdminOperations.AddLevel(expLevel);
                 return RedirectToAction("ExpLevelsList", "Admin");
             }
             return View();
