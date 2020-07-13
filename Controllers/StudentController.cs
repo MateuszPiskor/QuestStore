@@ -17,7 +17,7 @@ namespace Queststore.Controllers
     public class StudentController : Controller
     {
 
-        private readonly IMentor _mentorSqlDao;
+        private readonly IMentorDao _mentorSqlDao;
         private readonly IStudent _studentSqlDao;
         private int _loggedStudent => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
 
