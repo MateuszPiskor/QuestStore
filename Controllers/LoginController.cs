@@ -20,6 +20,7 @@ namespace Queststore.Controllers
         {
             _loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            //_loginOperationsFromDB = new LoginOperationsFromDB(new DataBaseConnection("localhost", "magdalenaopiola", "Lena1234", "queststore"));
             _dataStorage = new DataStorageOperationsFromJson("wwwroot/lib/data.json");
             _sessionManager = new SessionManager(new HttpContextAccessor());
         }
