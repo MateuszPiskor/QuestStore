@@ -1,0 +1,34 @@
+﻿@model Queststore.ViewModels.ViewModelsStudent.Wallet;
+
+@{
+    ViewData["Title"] = "Wallet view";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+ <section class="info-page">
+    <h1 class="page-title">Student's Wallet</h1>
+        <div class="info-page__item">Student: <span class="info-page__item--bold">@Model.StudentName</span></div>
+        <div class="info-page__item">Coolcoins: <span class="info-page__item--bold">@Model.Coolcoins</span></div>
+        <div class="info-page__item">Experience level: <span class="info-page__item--bold">@Model.ExperienceLevel.Name</span></div>
+        <div class="info-page__item">
+            <h3>Artifacts:</h3>
+            <table id="myTable">
+                <tr>
+                    <th data-sort="1">Artifact</th>
+                    <th data-sort="2">Type</th>
+                    <th data-sort="3">Description</th>
+                    <th data-sort="4">Price</th>
+                </tr>
+                @foreach (var artifact in Model.Artifacts)
+                {
+                <tr>
+                    <td>@artifact.Name</td>
+                    <td>@artifact.Type</td>
+                    <td>@artifact.Description</td>
+                    <td>@artifact.Price</td>
+                </tr>
+                }
+            </table>
+        </div>
+        <a class="button button--inverse form__button" href="/Student/Index">Back</a>
+    </section>
