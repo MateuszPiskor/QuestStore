@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var loggedUserName = ViewBag.LoggedUserName;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,8 +30,9 @@
     <section class="content">
         <header>
             <div class="header__user">
+                <div class="header__user-profile"><span style="font-weight: 400">Logged:</span> @loggedUserName</div>
                 <a href="#" class="header__user-profile button">View profile</a>
-                <a asp-controller="Login" asp-action="Logout" class="header__user-logout button button--alt" >Log out</a>
+                <a asp-controller="Login" asp-action="Logout" class="header__user-logout button button--alt">Log out</a>
             </div>
         </header>
         <main class="results">

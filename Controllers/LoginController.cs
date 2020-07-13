@@ -39,29 +39,51 @@ namespace Queststore.Controllers
                 {
                     User user = GetUser(email);
                     _sessionManager.LoggedUserId = user.Id;
-                    if (user.IsAdmin == true && user.IsMentor == false)
+                    _sessionManager.LoggedUserName = user.Name;
+                    if (IsUserAdmin(user))
                     {
                         Response.Cookies.Append("UserRole", "Admin");
                         return RedirectToAction("Index", "Admin");
                     }
-                    else if (user.IsMentor == true && user.IsAdmin == false)
+                    else if (IsUserMentor(user))
                     {
                         _sessionManager.LoggedUserRole = "Mentor";
                         return RedirectToAction("Index", "Mentor");
                     }
-                    else if (user.IsMentor == true && user.IsAdmin == true)
+                    else if (IsUserAdminAndMentor(user))
                     {
                         Response.Cookies.Append("UserRole", "AdminMentor");
                         return RedirectToAction("Index", "Admin");
                     }
-                    else if (user.IsStudent == true)
+                    else if (IsUserStudent(user))
                     {
                         Response.Cookies.Append("UserRole", "Student");
                         return RedirectToAction("Index", "Student");
                     }
                 }
             }
-            return View();
+            TempData["Message"] = "Login went wrong. Insert correct credentials.";
+            return RedirectToAction("Index");
+        }
+
+        private static bool IsUserStudent(User user)
+        {
+            return user.IsStudent == true;
+        }
+
+        private static bool IsUserAdminAndMentor(User user)
+        {
+            return user.IsMentor == true && user.IsAdmin == true;
+        }
+
+        private static bool IsUserMentor(User user)
+        {
+            return user.IsMentor == true && user.IsAdmin == false;
+        }
+
+        private static bool IsUserAdmin(User user)
+        {
+            return user.IsAdmin == true && user.IsMentor == false;
         }
 
         private User GetUser(string email)

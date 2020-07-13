@@ -19,6 +19,12 @@ namespace Queststore.Services
             set => SetLoggedUserRoleInCookie(value);
         }
 
+        public string LoggedUserName
+        {
+            get => (GetActiveUserNameFromCookies() != null) ? GetActiveUserNameFromCookies() : null;
+            set => SetLoggedUserNameInCookie(value);
+        }
+
         public SessionManager(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -32,6 +38,12 @@ namespace Queststore.Services
         private int GetActiveUserIdFromSession()
         {
             return Convert.ToInt32(_httpContextAccessor.HttpContext.Session.GetString("activeUserId"));
+        }
+
+        private string GetActiveUserNameFromCookies()
+        {
+            return _httpContextAccessor.HttpContext.Request.Cookies["UserName"];
+
         }
 
         public void ClearCookies()
@@ -53,6 +65,12 @@ namespace Queststore.Services
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Append("UserRole", userRole);
             
+        }
+
+        private void SetLoggedUserNameInCookie(string userName)
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("UserName", userName);
+
         }
     }
 }

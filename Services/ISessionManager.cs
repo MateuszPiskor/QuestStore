@@ -5,6 +5,7 @@ namespace Queststore.Services
     {
         public int LoggedUserId { get; set; }
         public string LoggedUserRole { get; set; }
+        public string LoggedUserName { get; set; }
 
         //void SetLoggedUserIdInSession(int userId);
         //void SetLoggedUserRoleInCookie(string userRole);

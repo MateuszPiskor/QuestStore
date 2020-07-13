@@ -15,15 +15,15 @@ namespace Queststore.Controllers
     {
         private readonly IMentorDao _mentorOperationsFromDB;
         private ISessionManager _sessionManager;
-        //private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
-        //private string _loggedUserRole => Request.Cookies["UserRole"];
         private string _expectedUserRole = "Mentor";
+        private string _loggedUserName;
 
         public MentorController()
         {
             _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
             //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
             _sessionManager = new SessionManager(new HttpContextAccessor());
+            _loggedUserName = _sessionManager.LoggedUserName;
         }
 
 
@@ -36,8 +36,10 @@ namespace Queststore.Controllers
 
         private IActionResult ConfirmUserRoleWithAccountAndDisplayView(IActionResult view)
         {
+
             if (IsLoggedUserExpectedUser() && IsAnyUserLogged())
             {
+                ViewBag.LoggedUserName = _loggedUserName;
                 return view;
             }
             else if (!IsLoggedUserExpectedUser() && IsAnyUserLogged())
