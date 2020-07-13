@@ -1,0 +1,29 @@
+﻿@model Queststore.ViewModels.ViewModelsStudent.BuyBasicArtifact;
+@{
+    ViewData["Title"] = "Buy Basic Item";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+<h1 class="page-title">Buy Basic Artifact</h1>
+<p>@Model.LoggedStudent.Name @Model.LoggedStudent.Surname You have @Model.LoggedStudent.Coolcoins cc.</p>
+@if (Model.LoggedStudent.Coolcoins >= Model.BasicArtifact.Price)
+{
+    <p>Are You sure You want to buy below artifact:</p>
+    <p>@Model.BasicArtifact.Name - @Model.BasicArtifact.Price cc.</p>
+    <div>
+        <form method="post" asp-controller="Student" asp-action="BuyBasicItem" class="form">
+            <input asp-for="LoggedStudent.Id" type="hidden" value="@Model.LoggedStudent.Id"/>
+            <input asp-for="BasicArtifact.Id" type="hidden" value="@Model.BasicArtifact.Id" />
+            <button class="button button--inverse form__button" type="submit"
+                    asp-route-studentId="@Model.LoggedStudent.Id"
+                    asp-route-artifactId="@Model.BasicArtifact.Id">Buy</button>
+
+        </form>
+    </div>
+}
+else
+{
+    <p>You don't have enought money to buy this artifact.</p>
+    <p>The artifact's price is @Model.BasicArtifact.Price cc.</p>
+}
+<div><a class="button button--inverse form__button" href="/Student/Shop">Back</a></div>
+

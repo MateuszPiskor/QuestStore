@@ -1,0 +1,32 @@
+﻿@model List<Queststore.Models.Student>;
+@{
+    ViewData["Title"] = "My Class View";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+    <section class="info-page">
+        <div class="info-page__item">Class name: <span class="info-page__item--bold">@Model[0].Class.Name</span></div>
+        <div class="info-page__item">
+            <h1 class="page-title">My class</h1>
+            <table id="MyClass">
+                <tr>
+                    <th data-sort="1">Name</th>
+                    <th data-sort="2">Language</th>
+                    <th data-sort="3">Team</th>
+                    <th data-sort="4">Experience Level</th>
+                </tr>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Name @student.Surname</td>
+                        <td>@student.Language</td>
+                        <td>@student.Team.Name </td>
+                        <td>@student.ExpLevel.Name</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div>
+            <a class="button button--inverse form__button" href="/Student/Index">Back</a>
+        </div>
+    </section>

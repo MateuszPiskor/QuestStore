@@ -1,0 +1,35 @@
+﻿@model Queststore.ViewModels.ViewModelsStudent.Shop;
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<h1 class="page-title">Basic items</h1>
+<div>
+    <ol class="list">
+       
+        @foreach(var artifact in Model.BasicArtifacts)
+        {
+        <li class="list__item list__item--hover">
+            <span class="item__name">@artifact.Name - @artifact.Price cc</span>
+            <a class="button button--hidden" asp-controller="Student" asp-action="BuyBasicItem"
+               asp-route-artifactId="@artifact.Id">Buy</a>
+        </li>
+        }
+    </ol>
+</div>
+
+ <h1 class="page-title">Magic items </h1>
+ <div>
+    <ol class="list">
+        @foreach(var artifact in Model.MagicArtifacts)
+        {
+            <li class="list__item list__item--hover">
+                <span class="item__name">@artifact.Name - @artifact.Price cc</span>
+                <a class="button button--hidden" href="../../student/buy-confirm-view.html">Buy with team</a>
+            </li>
+        }
+    </ol>
+</div>
+
+<div><a class="button button--inverse form__button" href="/Student/Index">Back</a></div>
