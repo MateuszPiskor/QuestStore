@@ -13,29 +13,59 @@ namespace Queststore.Controllers
 {
     public class MentorController : Controller
     {
-        private readonly IMentor _mentorOperationsFromDB;
-        private int _loggedMentorId => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
+        private readonly IMentorDao _mentorOperationsFromDB;
+        private ISessionManager _sessionManager;
+        private const string _expectedUserRole = "Mentor";
+        private readonly string _loggedUserName;
 
         public MentorController()
         {
-            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
-            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            _mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "agnieszkachruszczyksilva", "startthis", "queststore"));
+            //_mentorOperationsFromDB = new MentorOperationsFromDB(new DataBaseConnection("localhost", "postgres", "1234", "db4"));
+            _sessionManager = new SessionManager(new HttpContextAccessor());
+            _loggedUserName = _sessionManager.LoggedUserName;
         }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-           // _loggedMentor.Id = (int)TempData["loggedUserId"];
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
+        private IActionResult ConfirmUserRoleWithAccountAndDisplayView(IActionResult view)
+        {
+
+            if (IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                ViewBag.LoggedUserName = _loggedUserName;
+                return view;
+            }
+            else if (!IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                TempData["Message"] = $"You have no access to {_expectedUserRole} account.";
+                return RedirectToAction("Index", $"{_sessionManager.LoggedUserRole}");
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        private bool IsLoggedUserExpectedUser()
+        {
+            return _sessionManager.LoggedUserRole == _expectedUserRole;
+        }
+
+        private bool IsAnyUserLogged()
+        {
+            return _sessionManager.LoggedUserId != 0;
+        }
 
         [HttpGet]
         public IActionResult Students()
         {
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, 0);
-            return View(studentsAndClasses);
+            var viewModelStudents = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_sessionManager.LoggedUserId, 0);
+            IActionResult view = View(viewModelStudents);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
 
         }
         [HttpPost]
@@ -45,24 +75,26 @@ namespace Queststore.Controllers
             {
                 return RedirectToAction("Students");
             }
-            var studentsAndClasses = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_loggedMentorId, classId);
-            return View(studentsAndClasses);
+            var viewModelStudents = _mentorOperationsFromDB.GetStudentsByMentorAndClassId(_sessionManager.LoggedUserId, classId);
+            IActionResult view = View(viewModelStudents);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
         public IActionResult AddStudent()
         {
-            ViewModelStudentClasses studentAndClasses = new ViewModelStudentClasses();
-            studentAndClasses.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
-            return View(studentAndClasses);
+            ViewModelStudents viewModelStudent = new ViewModelStudents();
+            viewModelStudent.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
+            IActionResult view = View(viewModelStudent);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
-        public IActionResult AddStudent(ViewModelStudentClasses studentAndClasses)
+        public IActionResult AddStudent(ViewModelStudents viewModelStudent)
         {
-            _mentorOperationsFromDB.AddStudent(studentAndClasses.Student, studentAndClasses.ClassId);
-            studentAndClasses.Student.Id = _mentorOperationsFromDB.GetMaxStudentId();
-            _mentorOperationsFromDB.AddUser(studentAndClasses.Student);
+            _mentorOperationsFromDB.AddStudent(viewModelStudent.Student, viewModelStudent.ClassId);
+            viewModelStudent.Student.Id = _mentorOperationsFromDB.GetMaxStudentId();
+            _mentorOperationsFromDB.AddUser(viewModelStudent.Student);
             return RedirectToAction("Index");
         }
 
@@ -70,18 +102,20 @@ namespace Queststore.Controllers
         public IActionResult AddTeam()
         {
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
-            return View(viewModelAddTeam);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
+            IActionResult view = View(viewModelAddTeam);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
         public IActionResult AddTeam(int classId)
         {
             ViewModelAddTeam viewModelAddTeam = new ViewModelAddTeam();
-            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_loggedMentorId);
+            viewModelAddTeam.Classes = _mentorOperationsFromDB.GetClassesByMentorId(_sessionManager.LoggedUserId);
             viewModelAddTeam.ClassId = classId;
             viewModelAddTeam.Students = _mentorOperationsFromDB.GetStudentsByClassId(classId);
-            return View(viewModelAddTeam);
+            IActionResult view = View(viewModelAddTeam);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
@@ -90,7 +124,8 @@ namespace Queststore.Controllers
             ViewModelQuests questsAndSelectedQuest = new ViewModelQuests();
             questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
             questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType("");
-            return View(questsAndSelectedQuest);
+            IActionResult view = View(questsAndSelectedQuest);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -101,7 +136,8 @@ namespace Queststore.Controllers
             {
                 questsAndSelectedQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
                 questsAndSelectedQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questName);
-                return View(questsAndSelectedQuest);
+                IActionResult view = View(questsAndSelectedQuest);
+                return ConfirmUserRoleWithAccountAndDisplayView(view);
             }
             return RedirectToAction("Quests");
         }
@@ -109,7 +145,8 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddQuest()
         {
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -122,7 +159,8 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult AddArtifact()
         {
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -136,14 +174,16 @@ namespace Queststore.Controllers
         public IActionResult ViewStudentProfile(int id)
         {
             Student student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(student);
+            IActionResult view = View(student);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
         public IActionResult ViewStudentWallet(int id)
         {
             Student student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(student);
+            IActionResult view = View(student);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpGet]
@@ -152,7 +192,8 @@ namespace Queststore.Controllers
             ViewModelMarkQuest viewModelMarkQuest = new ViewModelMarkQuest();
             viewModelMarkQuest.QuestTypes = _mentorOperationsFromDB.GetQuestTypes();
             viewModelMarkQuest.Student = _mentorOperationsFromDB.GetStudentById(id);
-            return View(viewModelMarkQuest);
+            IActionResult view = View(viewModelMarkQuest);
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
         }
 
         [HttpPost]
@@ -165,21 +206,24 @@ namespace Queststore.Controllers
             viewModelMarkQuest.Quests = _mentorOperationsFromDB.GetQuestsByType(questType);
             if (quests.All(item => item.IsChecked == false))
             {
-                return View(viewModelMarkQuest);
+                IActionResult view = View(viewModelMarkQuest);
+                return ConfirmUserRoleWithAccountAndDisplayView(view);
             }
             else
             {
                 int checkedItems = quests.Count(item => item.IsChecked == true);
                 if (checkedItems > 1)
                 {
-                    return View("Index"); //add Error message (to select only one quest)
+                    TempData["Message"] = "Select only one quest to be marked";
+                    return RedirectToAction("MarkQuest");
                 }
                 else
                 {
                     Quest selectedQuest = quests.FirstOrDefault(item => item.IsChecked == true);
-                    _mentorOperationsFromDB.MarkQuest(id, selectedQuest.Id);
+                    _mentorOperationsFromDB.MarkQuest(_mentorOperationsFromDB.GetStudentIdByUserId(id), selectedQuest.Id);
                     viewModelMarkQuest.Student.Coolcoins += selectedQuest.Value;
                     _mentorOperationsFromDB.UpdateStudentCoolcoins(viewModelMarkQuest.Student.Id, viewModelMarkQuest.Student.Coolcoins);
+                    TempData["Message"] = $"Quest added!";
                     return RedirectToAction("Index"); //add date of quest mark to db and here
                 }
                 

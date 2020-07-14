@@ -5,11 +5,12 @@ using Queststore.ViewModels.ViewModelsMentor;
 
 namespace Queststore.DAO
 {
-    public interface IMentor
+    public interface IMentorDao
     {
         List<Student> GetStudentsByClassId(int classId);
+        int GetStudentIdByUserId(int userId);
         List<Class> GetClassesByMentorId(int mentorId);
-        ViewModelStudentsClasses GetStudentsByMentorAndClassId(int mentorId, int classId);
+        ViewModelStudents GetStudentsByMentorAndClassId(int mentorId, int classId);
         void AddQuest(Quest quest);
         void AddArtifact(Artifact artifact);
         void AddStudent(Student student, int classId);

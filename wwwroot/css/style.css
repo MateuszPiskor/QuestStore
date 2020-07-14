@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap");
-@import url("../node_modules/normalize.css/normalize.css");
-@import url("../node_modules/@fortawesome/fontawesome-free/css/all.css");
+
 html {
   box-sizing: border-box; }
 
@@ -180,7 +179,15 @@ header {
 .header__user {
   display: flex;
   flex-direction: row;
-  padding: 10px; }
+  padding: 10px;
+  align-items: center;
+}
+
+.header__user-profile {
+    padding: 5px 20px;
+    font-weight: 700;
+    
+}
 
 main {
   padding: 0 50px 50px; }
@@ -366,8 +373,11 @@ th {
     color: #485696; }
 
 .login-page .error {
-  padding: 5px;
-  height: 15px; }
+    font-size: 14px;
+    padding: 5px;
+    height: 15px;
+    color: #f96060b9;
+}
 
 .form__input {
   display: block;

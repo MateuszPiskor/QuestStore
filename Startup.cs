@@ -26,9 +26,9 @@ namespace Queststore
             services.AddControllersWithViews();
             services.AddSession(options =>
             {
-                options.Cookie.Name = ".User.Session";
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
             });
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +57,7 @@ namespace Queststore
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Admin}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }
