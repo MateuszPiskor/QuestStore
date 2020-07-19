@@ -17,7 +17,9 @@ namespace Queststore.Controllers
     public class StudentController : Controller
     {
         private readonly IStudent _studentSqlDao;
-        private int _loggedStudent => Convert.ToInt32(HttpContext.Session.GetString("activeUserId"));
+        private ISessionManager _sessionManager;
+        private const string _expectedUserRole = "Student";
+        private readonly string _loggedUserName;
 
         public StudentController()
         {
@@ -25,17 +27,46 @@ namespace Queststore.Controllers
                                                                                 "magdalenaopiola",
                                                                                 "Lena1234",
                                                                                 "queststore"));
+            _sessionManager = new SessionManager(new HttpContextAccessor());
+            _loggedUserName = _sessionManager.LoggedUserName;
         }
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            IActionResult view = View();
+            return ConfirmUserRoleWithAccountAndDisplayView(view);
+        }
+
+        private IActionResult ConfirmUserRoleWithAccountAndDisplayView(IActionResult view)
+        {
+
+            if (IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                ViewBag.LoggedUserName = _loggedUserName;
+                return view;
+            }
+            else if (!IsLoggedUserExpectedUser() && IsAnyUserLogged())
+            {
+                TempData["Message"] = $"You have no access to {_expectedUserRole} account.";
+                return RedirectToAction("Index", $"{_sessionManager.LoggedUserRole}");
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        private bool IsLoggedUserExpectedUser()
+        {
+            return _sessionManager.LoggedUserRole == _expectedUserRole;
+        }
+
+        private bool IsAnyUserLogged()
+        {
+            return _sessionManager.LoggedUserId != 0;
         }
 
         [HttpGet]
         public IActionResult Wallet()
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var student = _studentSqlDao.GetStudentById(studentId);
             var wallet = new Wallet()
             {
@@ -50,7 +81,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult Shop()
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var student = _studentSqlDao.GetStudentById(studentId);
             var basicArtifacts = _studentSqlDao.GetArtifactsByType("basic");
             var magicArtifacts = _studentSqlDao.GetArtifactsByType("magic");
@@ -66,14 +97,14 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult MyClass()
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var classStudents = _studentSqlDao.GetStudentClassMembers(studentId);
             return View(classStudents);
         }
 
         public IActionResult MyTeam()
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var team = _studentSqlDao.GetStudentTeamMembers(studentId);
             return View(team);
         }
@@ -81,7 +112,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult BuyBasicItem(int artifactId)
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var student = _studentSqlDao.GetStudentById(studentId);
             var artifact = _studentSqlDao.GetArtifactByArtifactId(artifactId);
             var buyBasicItem = new BuyBasicArtifact(student, artifact);
@@ -92,7 +123,7 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult BuyBasicItem(BuyBasicArtifact buyBasicArtifact)
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var student = _studentSqlDao.GetStudentById(studentId);
             var artifact = _studentSqlDao.GetArtifactByArtifactId(buyBasicArtifact.BasicArtifact.Id);
             _studentSqlDao.AddArtifact(artifact, buyBasicArtifact.LoggedStudent.Id);
@@ -103,7 +134,7 @@ namespace Queststore.Controllers
         [HttpGet]
         public IActionResult BuyMagicItem(int artifactId)
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var student = _studentSqlDao.GetStudentById(studentId);
             var artifact = _studentSqlDao.GetArtifactByArtifactId(artifactId);
             var team = _studentSqlDao.GetStudentTeamMembers(studentId);
@@ -134,7 +165,7 @@ namespace Queststore.Controllers
         [HttpPost]
         public IActionResult BuyMagicItem(BuyMagicArtifact buyMagicArtifact)
         {
-            var studentId = _studentSqlDao.GetStudentIdByUserId(_loggedStudent);
+            var studentId = _studentSqlDao.GetStudentIdByUserId(_sessionManager.LoggedUserId);
             var team = _studentSqlDao.GetStudentTeamMembers(studentId);
             var artifact = _studentSqlDao.GetArtifactByArtifactId(buyMagicArtifact.MagicArtifact.Id);
             foreach(var teamMember in team)
