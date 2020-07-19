@@ -6,27 +6,25 @@
 }
 
 <h1 class="page-title">Buy Magic Artifact</h1>
-<p>@Model.Team[0].Name @Model.Team[0].Surname You have @Model.Team[0].Coolcoins cc.</p>
-@if (Model.Team[0].Coolcoins >= Model.MagicArtifact.Price)
+@if(!Model.IsAssignedToTeam)
 {
-    <p>Are You sure You want to buy below artifact:</p>
-    <p>@Model.MagicArtifact.Name - @Model.MagicArtifact.Price cc.</p>
+    <p>You are not assigned to any team.</p>
+}
+else if (Model.OkToBuyArtifact)
+{
+    <p>Are You sure You want to buy magic artifact with team:</p>
+    <p>"@Model.MagicArtifact.Name" - @Model.MagicArtifact.Price cc.</p>
     <div>
-        <form method="post" asp-controller="Student" asp-action="BuyBasicItem" class="form">
-            <input asp-for="Team[0].Id" type="hidden" value="@Model.Team[0].Id" />
+        <form method="post" asp-controller="Student" asp-action="BuyMagicItem" class="form">
+            <input asp-for="Student.Id" type="hidden" value="@Model.Student.Id" />
             <input asp-for="MagicArtifact.Id" type="hidden" value="@Model.MagicArtifact.Id" />
-            <button class="button button--inverse form__button" type="submit"
-                    asp-route-studentId="@Model.Team[0].Id"
-                    asp-route-artifactId="@Model.MagicArtifact.Id">
-                Buy
-            </button>
-
+            <button class="button button--inverse form__button" type="submit">Buy</button>
         </form>
     </div>
 }
 else
 {
-    <p>You don't have enought money to buy this artifact.</p>
+    <p>Your team doesn't have enough money to buy this artifact.</p>
     <p>The artifact's price is @Model.MagicArtifact.Price cc.</p>
 }
 <div><a class="button button--inverse form__button" href="/Student/Shop">Back</a></div>

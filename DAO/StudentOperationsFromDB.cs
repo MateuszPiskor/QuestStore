@@ -252,47 +252,6 @@ namespace Queststore.DAO
             return student;
         }
 
-        private Class GetStudentClass(int studentId)
-        {
-            var studentClass = new Class();
-            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-            string sql = $@"SELECT students.class_id, class.name FROM students
-                            LEFT JOIN classes ON student.class_id = classes.id
-                            WHERE students.id = {studentId};";
-
-            con.Open();
-            using var cmd = new NpgsqlCommand(sql, con);
-            using NpgsqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                studentClass.Id = reader.GetInt32(0);
-                studentClass.Name = reader.GetString(1);
-            }
-            return studentClass;
-        }
-
-        private Team GetStudentTeam(int studentId)
-        {
-            var team = new Team();
-            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-            string sql = $@"SELECT students.team_id, team.name FROM students
-                            LEFT JOIN teams ON student.class_id = team.id
-                            WHERE students.id = {studentId};";
-
-            con.Open();
-            using var cmd = new NpgsqlCommand(sql, con);
-            using NpgsqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                team.Id = reader.GetInt32(0);
-                team.Name = reader.GetString(1);
-            }
-            return team;
-
-        }
-
         private int GetTeamId(int studentId)
         {
             int teamId = 0;
@@ -365,6 +324,17 @@ namespace Queststore.DAO
                 artifact.Type = reader.GetString(3);
             }
             return artifact;
+        }
+
+        public int GetStudentIdByUserId(int userId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = $@"SELECT student_id FROM users WHERE id = {userId};";
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+
+            return reader.Read() ? reader.GetInt32(0) : 0;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Queststore.DAO
     {
         List<Student> GetStudentClassMembers(int studentId);
         List<Student> GetStudentTeamMembers(int studentId);
+        int GetStudentIdByUserId(int userId);
         Student GetStudentById(int studentId);
         void AddArtifact(Artifact artifacts, int studentId);
         void AddQuest(Quest quests, int studentId);

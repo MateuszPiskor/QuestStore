@@ -26,7 +26,8 @@
         {
             <li class="list__item list__item--hover">
                 <span class="item__name">@artifact.Name - @artifact.Price cc</span>
-                <a class="button button--hidden" href="../../student/buy-confirm-view.html">Buy with team</a>
+                <a class="button button--hidden" asp-controller="Student" asp-action="BuyMagicItem"
+                   asp-route-artifactId="@artifact.Id">Buy with team</a>
             </li>
         }
     </ol>

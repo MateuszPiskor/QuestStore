@@ -8,15 +8,12 @@
 @if (Model.LoggedStudent.Coolcoins >= Model.BasicArtifact.Price)
 {
     <p>Are You sure You want to buy below artifact:</p>
-    <p>@Model.BasicArtifact.Name - @Model.BasicArtifact.Price cc.</p>
+    <p>"@Model.BasicArtifact.Name" - @Model.BasicArtifact.Price cc.</p>
     <div>
         <form method="post" asp-controller="Student" asp-action="BuyBasicItem" class="form">
             <input asp-for="LoggedStudent.Id" type="hidden" value="@Model.LoggedStudent.Id"/>
-            <input asp-for="BasicArtifact.Id" type="hidden" value="@Model.BasicArtifact.Id" />
-            <button class="button button--inverse form__button" type="submit"
-                    asp-route-studentId="@Model.LoggedStudent.Id"
-                    asp-route-artifactId="@Model.BasicArtifact.Id">Buy</button>
-
+            <input asp-for="BasicArtifact.Id" type="hidden" value="@Model.BasicArtifact.Id"/>
+            <button class="button button--inverse form__button" type="submit">Buy</button>
         </form>
     </div>
 }
