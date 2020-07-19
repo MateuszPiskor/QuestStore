@@ -8,7 +8,7 @@ using Queststore.ViewModels.ViewModelsMentor;
 
 namespace Queststore.DAO
 {
-    public class MentorOperationsFromDB : IMentor
+    public class MentorOperationsFromDB : IMentorDao
     {
         private readonly DataBaseConnectionService _dataBaseConnectionService;
 
@@ -57,6 +57,24 @@ namespace Queststore.DAO
                 student.Coolcoins = reader.GetInt32(8);
             }
             return student;
+        }
+
+        public int GetStudentIdByUserId(int userId)
+        {
+            using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
+            string sql = @$"SELECT users.student_id
+                            FROM users
+                            WHERE users.id = {userId};";
+
+            con.Open();
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader reader = cmd.ExecuteReader();
+            int studentId = 0;
+            while (reader.Read())
+            {
+                studentId = reader.GetInt32(0);
+            }
+            return studentId;
         }
 
         public List<Class> GetClassesByMentorId(int mentorId)
@@ -120,9 +138,9 @@ namespace Queststore.DAO
             return students;
         }
 
-        public ViewModelStudentsClasses GetStudentsByMentorAndClassId(int mentorId, int classId)
+        public ViewModelStudents GetStudentsByMentorAndClassId(int mentorId, int classId)
         {
-            ViewModelStudentsClasses viewModelStudentsClasses = new ViewModelStudentsClasses();
+            ViewModelStudents viewModelStudentsClasses = new ViewModelStudents();
             viewModelStudentsClasses.Classes = GetClassesByMentorId(mentorId);
             viewModelStudentsClasses.Students = GetStudentsByClassId(classId);
  
@@ -132,15 +150,15 @@ namespace Queststore.DAO
         public void AddStudent(Student newStudent, int classId)
         {
             using var con = _dataBaseConnectionService.GetDatabaseConnectionObject();
-            string sql_student = @"INSERT INTO students(class_id, coolcoins, language)
-                        VALUES (@classId, @coolcoins, @language);";
+            string sql_student = @"INSERT INTO students(class_id, coolcoins, exp_level_id, language)
+                        VALUES (@classId, @coolcoins, @expLevelId, @language);";
 
             con.Open();
             using var cmd = new NpgsqlCommand(sql_student, con);
 
             cmd.Parameters.AddWithValue("classId", classId);
             cmd.Parameters.AddWithValue("coolcoins", 0);
-            //cmd_student.Parameters.AddWithValue("exp_level_id", student.ExpLevel.Id);
+            cmd.Parameters.AddWithValue("expLevelId", 1);
             cmd.Parameters.AddWithValue("language", newStudent.Language);
 
             cmd.Prepare();

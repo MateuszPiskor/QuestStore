@@ -3,7 +3,7 @@ using Queststore.Models;
 
 namespace Queststore.DAO
 {
-    public interface ILogger
+    public interface ILogin
     {
         User GetUserByEmail(string email);
         int IsRegistered(string email);
